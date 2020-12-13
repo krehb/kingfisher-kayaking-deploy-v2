@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/kingfisher-kayaking-deploy/static/css/main.c258c03f.chunk.css",
+    "main.js": "/kingfisher-kayaking-deploy/static/js/main.74c8a057.chunk.js",
+    "main.js.map": "/kingfisher-kayaking-deploy/static/js/main.74c8a057.chunk.js.map",
+    "runtime-main.js": "/kingfisher-kayaking-deploy/static/js/runtime-main.a8a45555.js",
+    "runtime-main.js.map": "/kingfisher-kayaking-deploy/static/js/runtime-main.a8a45555.js.map",
+    "static/css/2.5352975d.chunk.css": "/kingfisher-kayaking-deploy/static/css/2.5352975d.chunk.css",
+    "static/js/2.f7db94b0.chunk.js": "/kingfisher-kayaking-deploy/static/js/2.f7db94b0.chunk.js",
+    "static/js/2.f7db94b0.chunk.js.map": "/kingfisher-kayaking-deploy/static/js/2.f7db94b0.chunk.js.map",
+    "index.html": "/kingfisher-kayaking-deploy/index.html",
+    "precache-manifest.8b07c1e9fcae3674e02c9988022fb029.js": "/kingfisher-kayaking-deploy/precache-manifest.8b07c1e9fcae3674e02c9988022fb029.js",
+    "service-worker.js": "/kingfisher-kayaking-deploy/service-worker.js",
+    "static/css/2.5352975d.chunk.css.map": "/kingfisher-kayaking-deploy/static/css/2.5352975d.chunk.css.map",
+    "static/css/main.c258c03f.chunk.css.map": "/kingfisher-kayaking-deploy/static/css/main.c258c03f.chunk.css.map",
+    "static/js/2.f7db94b0.chunk.js.LICENSE.txt": "/kingfisher-kayaking-deploy/static/js/2.f7db94b0.chunk.js.LICENSE.txt",
+    "static/media/salt-fork.jpg": "/kingfisher-kayaking-deploy/static/media/salt-fork.cd9e4a61.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a8a45555.js",
+    "static/css/2.5352975d.chunk.css",
+    "static/js/2.f7db94b0.chunk.js",
+    "static/css/main.c258c03f.chunk.css",
+    "static/js/main.74c8a057.chunk.js"
+  ]
+}

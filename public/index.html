@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- <link rel="icon" href="%PUBLIC_URL%/favicon.ico" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <!-- <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" /> -->
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link rel="shortcut icon" type="image/png" href="../assets/img/">
+    <title>KingFisher Kayaking</title>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyDsKwmI4xk_i_pGXQtM4tU2WmFCLFJaS8A",
+        authDomain: "test-48fc7.firebaseapp.com",
+        databaseURL: "https://test-48fc7.firebaseio.com",
+        projectId: "test-48fc7",
+        storageBucket: "test-48fc7.appspot.com",
+        messagingSenderId: "314970451102",
+        appId: "1:314970451102:web:4103c9723d883043799f8f"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+
+      var database = firebase.database();
+
+        var ref = database.ref('fruits');
+        ref.on('value', gotData, errData);
+
+
+        var fruits = database.ref('fruits');
+
+        var data = {
+            name: 'pear',
+            count: 7
+        }
+
+        function gotData (data) {
+            // console.log(data.val());
+            var fruits = data.val();
+            var keys = Object.keys(fruits);
+            console.log(fruits);
+
+            keys.forEach(key => {
+                console.log(fruits[key].name)
+            });
+
+        }
+        
+        function errData (err) {
+            console.log('Error!');
+            console.log(err);
+        }
+    </script>
+
+
+    <script src="https://unpkg.com/react/umd/react.production.min.js" crossorigin></script>
+
+    <script
+      src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"
+      crossorigin></script>
+    
+    <script
+      src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js"
+      crossorigin></script>
+    
+    <script>var Alert = ReactBootstrap.Alert;</script>
+
+  </body>
+</html>

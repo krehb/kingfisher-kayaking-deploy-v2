@@ -1,0 +1,46 @@
+
+
+.myRoutes {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.heading {
+    text-align: center;
+}
+
+
+h6 {
+    font-size: 12px;
+}
+
+.text {
+    background-color: rgb(49, 114, 60);
+    border-radius: 5px;
+    padding-top: 10px;
+    margin-bottom: 30px;
+    border-top:  2px solid #969696;
+    border-left: 2px solid #969696 ;
+    padding: 10px;
+    box-shadow: 3px 4px #110f0f;
+}
+.too-low {
+    background-color: rgb(236, 14, 14);
+    border-radius: 5px;
+    padding-top: 10px;
+    margin-bottom: 30px;
+    border-top:  2px solid #969696;
+    border-left: 2px solid #969696 ;
+    padding: 10px;
+    box-shadow: 3px 4px #221e1e;
+}
+
+.hover :hover {
+    border-radius: 100px 100px 100px 100px;
+    background-color: black;
+}
+
+.non-hover :hover {
+    border-radius: 0px 0px 0px 0px;
+}
+

@@ -1,0 +1,81 @@
+.date {
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+.red {
+    background-color: rgb(71, 128, 77);
+    font-weight: 900;
+    text-decoration: underline;
+    color: black;
+}
+
+.daybooked {
+    background-color: tomato;
+}
+
+.before {
+    background-color: rgb(219, 219, 219);
+}
+
+.today {
+    background-color: chartreuse;
+}
+
+.ref-header {
+    text-align: center;
+}
+
+.ref {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-top: solid 2px rgb(255, 252, 252);
+    border-bottom: solid 2px rgb(255, 255, 255);
+}
+
+
+
+.kayaks-0 {
+    background-color: rgb(243, 102, 92);
+    text-align: center;
+    color: white;
+}
+
+.kayaks-2 {
+    background-color: rgb(219, 161, 75);
+    text-align: center;
+    color: white;
+}
+
+.kayaks-4 {
+    background-color: rgb(218, 195, 97);
+    text-align: center;
+    color: white;
+}
+.kayaks-6 {
+    background-color: rgb(199, 236, 95);
+    text-align: center;
+    color: white;
+}
+.kayaks-8 {
+    background-color: rgb(113, 235, 129);
+    text-align: center;
+    color: white;
+}
+
+.guide-no {
+    display: none
+}
+.guide-yes {
+
+}
+
+
+.RoutesList {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-image: url('https://images.pexels.com/photos/917494/pexels-photo-917494.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+    background-position: center;
+}
