@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/kingfisher-kayaking-deploy-v2/precache-manifest.9e765ee3ab4dde7ed6b3b8511113cec3.js"
+  "/kingfisher-kayaking-deploy-v2/precache-manifest.ee8738bab778c5bec6c6f789b62afb67.js"
 );
 
 self.addEventListener('message', (event) => {
