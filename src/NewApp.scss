@@ -1,0 +1,196 @@
+$small: 500px;
+$font : 'Sofia', sans-serif;
+
+.full-calendar {
+    background-color: #F0F0F0;
+    padding: 10px;
+    margin: 40px 40px 100px 40px;
+    border-radius: 10px;
+    color: #0A4870;
+    flex-wrap: wrap;
+    @media screen and (max-width: $small) {
+        padding: 3px;
+        margin: 0px 20px 50px 20px;
+    }
+
+    .top-half-calendar{
+
+        display: flex;
+        margin-bottom: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        
+        .selection-footer{
+            flex-grow: 1; 
+            width: 200px;
+            justify-content: center;
+            text-align: center;
+
+            .info-text-header {
+                color: #0a4870;
+                margin-top: 30px;
+                font-weight: 500;
+                font-size: 30px;
+            }
+            .info-text-header-2 {
+                flex-direction: column;
+                font-size: 16px;
+            }
+
+            .parent {
+                display:flex;
+                justify-content: center;
+
+                .info-text-header-underline {
+                    background-color: #0a4870;
+                    height: 2px;
+                    width: 30px;
+                    font-size: 0px;
+                    margin-bottom: 10px;
+                    margin-top: 5px;
+                    
+                }
+            }
+
+            .info-text {
+                // text-transform: uppercase;
+                background-color: #ffffff;
+                font-weight: 900;
+                color:  #ec992c;
+                border-radius: 10px;
+                padding: 10px;
+                margin: 20px;
+                .cal-b-text {
+                    font-weight: 500;
+                    font-size: 16px;
+                }
+            }
+
+        }
+        .direction-buttons {
+            display: flex;
+            justify-content: center;
+            .arrow {
+                text-transform: uppercase;
+                padding: 10px;
+                margin: 10px;
+                border: solid 3px#0a4870;
+                border-radius: 5px;
+                &:hover {
+                    background-color: white;
+                    border: rgb(255, 255, 255) solid 3px;
+                    color: #2470a3;
+                    cursor: pointer;
+                }
+            }
+        }
+        .calendar {
+            flex-grow: 8;
+            width: 500px;
+        }
+    }
+    font-family: $font;
+}
+
+
+.form {
+    background-color: #F0F0F0;
+    padding: 20px;
+    margin-bottom: 50px;
+    margin-left: 70px;
+    margin-right: 70px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @media screen and (max-width: $small) {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .info-form {
+        color: #0a4870;
+        font-weight: 500;
+        font-size: 30px;
+    }
+    
+    .header-form {
+
+        margin-bottom: 10px;
+    }
+    .form-body-top {
+        display: flex;
+
+    }
+    .form-body-middle {
+        display: flex;
+
+    }
+    .form-body-bottom {
+        display: flex;
+
+    }
+}
+.nav-buttons {
+    display: flex;
+    .arrow {
+        text-transform: uppercase;
+        padding: 10px;
+        margin: 10px;
+        border: solid 3px#0a4870;
+        border-radius: 5px;
+        &:hover {
+            background-color: white;
+            border: rgb(255, 255, 255) solid 3px;
+            color: #2470a3;
+            cursor: pointer;
+        }
+    }
+}
+
+.pay {
+    background-color: #F0F0F0;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    margin: 5% 30% 10% 30% ;
+    padding: 10px;
+
+
+    .info-form {
+        color: #0a4870;
+        font-weight: 500;
+        font-size: 30px;
+    }
+    .header-form {
+        color: #0a4870;
+        margin-top: 16px;
+        font-weight: 500;
+        font-size: 30px;
+        text-align: center;
+    }
+    .pay-review {
+        justify-content: center;
+        text-align: center;
+        .email {
+            font-style: italic;
+            padding-left: 5px;
+        }
+    }
+    font-family: $font;
+}
+
+.success {
+
+    margin: 10% 30% 20% 30%;
+    @media screen and (max-width: $small) {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    background-color: #F0F0F0;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 20px;
+}

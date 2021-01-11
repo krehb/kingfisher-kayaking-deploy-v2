@@ -5,7 +5,7 @@ import './routes.css';
 import NewRoute from './newRouteCard';
 
 
-function Routes({showRoutes, setRoute, waterLevel}) {
+function Routes({showRoutes, setRoute, waterLevel, }) {
 
     //firebase requirements
     const database = firebase.database();

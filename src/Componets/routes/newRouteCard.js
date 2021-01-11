@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from "react-router-dom";
 import {  Card, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './newStyle.css';
 
-
+import {Link} from 'react-router-dom';
 
 
 const Route = ({title, waterLevel, duration, cost, learn, pic, setRoute, waterLevelSetting, subtitle}) => {
 
     const [waterLevelAPI, setWaterLevel] = useState(null);
-
+    //routing
+    const history = useHistory();
 
     //getting waterlevel data
     const url = `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=0${waterLevel}&parameterCd=00065&siteStatus=all`
@@ -38,7 +40,7 @@ const Route = ({title, waterLevel, duration, cost, learn, pic, setRoute, waterLe
         redAlert = 'content'
         console.log(pic)
         clickFunction = (
-            () => {setRoute(title)}
+            () => {history.push(`/booking/${title}`); setRoute(title)}
         )
     }   else {
         if(waterLevelSetting > waterLevelAPI) {
@@ -50,14 +52,15 @@ const Route = ({title, waterLevel, duration, cost, learn, pic, setRoute, waterLe
             boxClass = 'text'
             redAlert = 'content'
             clickFunction = (
-                () => {setRoute(title)}
+                () => {history.push(`/booking/${title}`); setRoute(title)}
             )
         }
         renderWaterLevel = waterLevelAPI
     }
 
 
-    
+
+
 
 
 
@@ -67,7 +70,9 @@ const Route = ({title, waterLevel, duration, cost, learn, pic, setRoute, waterLe
             <li onClick={clickFunction} className="booking-card" style={{backgroundImage: `url(${pic})`}} >
                 <div className="book-container">
                 <div className={redAlert}>
-                    <button onClick={clickFunction} className="btn">{buttonName}</button>
+                    <button  className="btn">
+                        {buttonName}
+                    </button>
                 </div>
                 </div>
                 <div className="informations-container">
@@ -83,7 +88,7 @@ const Route = ({title, waterLevel, duration, cost, learn, pic, setRoute, waterLe
                         <h5><FontAwesomeIcon icon="water"  size="1x" /> {waterLevelAPI} ft</h5>
                     </div>
                     </div>
-                    <p className="disclaimer">disclaimer</p>
+                    <p className="disclaimer">disclaimer: these photos weren't taken by us but are the same birds we see on the routes</p>
                     </div>
                 </div>
             </li>

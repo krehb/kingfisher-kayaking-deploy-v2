@@ -1,21 +1,24 @@
 import React,{useState} from 'react'
-import { Form, Col, Container, Row, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Form, Col, Container, Row, OverlayTrigger, Tooltip, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import firebase from 'firebase';
 import moment from 'moment';
 import './SelectionForm.css';
+import emailjs from 'emailjs-com';
+import Paypal from '../Paypal/Paypal';
 
 
-function SelectionFrom({showForm, kayaks, route, value, kayaksInStock , back, showStore, storePath }) {
+
+function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFormView, setFormData }) {
 
     const [tripName, SetTripName] = useState('no trip name');
     const [kayaksTaking, setKayaksTaking] = useState();
-    const [startTime, setTime] = useState('not selected');
-    const [location, setLocation] = useState('not selected');
+    const [startTime, setTime] = useState('8am');
+    const [location, setLocation] = useState('MarketPlace Mall (North East Corner)');
     const [otherLoaction, SetOtherLocation] = useState('not selected');
-    const [phoneNum, setPhone] = useState('not selected');
+    const [email, setEmail] = useState('not selected');
     const [ifChecked, setChecked] = useState();
-
+    const [alertCheck, setAlertCheck] = useState(false);
 
 
   // firebase requirements
@@ -31,7 +34,7 @@ function SelectionFrom({showForm, kayaks, route, value, kayaksInStock , back, sh
     pickUpLocation: location,
     other: otherLoaction,
     date: value.format("MM/DD/YY"),
-    phone: phoneNum,
+    email: email,
     timeBooked: moment().format('MMMM Do YYYY, h:mm:ss a')
   }
 
@@ -40,11 +43,33 @@ function SelectionFrom({showForm, kayaks, route, value, kayaksInStock , back, sh
     if(kayaksTaking > 0 && ifChecked){
       console.log('booking sent');
       ref.push(booking);
-    showStore()
     } else {
       console.log('erroror')
       console.log(ifChecked)
     }
+  }
+
+
+  //render error if form isn't fully filled
+  const continueButtonHandler = () => {
+      if(kayaksTaking === 0 || kayaksTaking === undefined || email === '' || email === 'not selected' || ifChecked === undefined || ifChecked === false || tripName === 'no trip name'){
+          setAlertCheck(true)
+      } else {
+          setFormView(false)
+          setAlertCheck(false)
+          setFormData(booking)
+      }
+  }
+
+  let ifAlert = null
+  if(alertCheck){
+    ifAlert = (
+        <Alert  variant='warning'>
+            You need to fill out the whole form and agree to continue
+        </Alert>
+      )
+  } else {
+      ifAlert = null
   }
 
 
@@ -96,36 +121,15 @@ function SelectionFrom({showForm, kayaks, route, value, kayaksInStock , back, sh
 
 
 
-
-
-
-
-
-
-
-    // rending the correct store path
-
-    let storeHref = null    
-
-    if (!(kayaksOptions === null)){
-
-        kayaksOptions.forEach(function callback(value, index)  {
-
-            // num of kayaks selected on the form 
-
-            if (kayaksTaking === `${index}`){
-
-                // matching the firebase storepath with the num of kayaks taking
-
-                storePath.forEach(element => {
-                    if (storePath[index] === element){
-                      storeHref = `${element}`
-                    }
-                });
-
-            }
-
-        });
+    function sendEmail(e) {
+        e.preventDefault();
+        console.log('was clicked')
+        emailjs.sendForm('service_n7gxrhi', 'template_eay3k5p', e.target, 'user_eKTDTnT6b5suYFim5twvR')
+          .then((result) => {
+              console.log(result.text);
+          }, (error) => {
+              console.log(error.text);
+          });
     }
 
 
@@ -133,122 +137,126 @@ function SelectionFrom({showForm, kayaks, route, value, kayaksInStock , back, sh
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    let selectionForm = null
-    if (showForm){ selectionForm = ( 
-        <Container fluid >
+    return (
+        <div>
+            <Container fluid >
             <Row className="justify-content-md-center">
-                <Col sm={8} >
-                    <Form  className='form shadow'>
-                        <Form.Row>
-                            <div className='header-form' >
-                                <FontAwesomeIcon icon="map-marker-alt"  size="1x" /> {route} on {value.format('D/MM/yy')}
-                            </div>
-                        </Form.Row>
+                <Form  className='form shadow' onSubmit={sendEmail}>
+                    <input type="hidden" value={route} name="route" />
+                    <input type="hidden" value={value.format('MM/DD/yy')} name="date" />
+                    <input type="hidden" name="user_name" value={tripName} />
+                    <input type="hidden" name="user_email" value={email} />
+                    <input type="hidden" name="kayaksTaking" value={kayaksTaking} />
+                    <input type="hidden" name="location" value={location} />
+                    <input type="hidden" name="otherLocation" value={otherLoaction} />
+                    <input type="hidden" name="startTime" value={startTime} />
 
-                        <Form.Row>
+                    <div>
+                        {ifAlert}
+                    </div>
+
+                    <div>
+                        <div className='info-form' >
+                            Fill Out Info
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className='header-form' >
+                            <FontAwesomeIcon icon="map-marker-alt"  size="1x" /> {route} on {value.format('MM/DD/yy')}
+                        </div>
+                    </div>
+
+                    <div className='form-body-top' >
+                        <div>
                             <Form.Group as={Col} controlId="formGridname">
-                            <Form.Control type="text" placeholder="Name" onChange={(e)=> {SetTripName(e.target.value)}} />
+                                <Form.Control type="text" placeholder="Ned Flanders" onChange={(e)=> {SetTripName(e.target.value)}} />
                             </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
+                        </div>
+                        <div>
+                            <Form.Group as={Col} controlId="formGridphone">
+                                <Form.Control type="email" placeholder="didlydo@yahoo.com" onChange={(e) => {setEmail(e.target.value)}} />
+                            </Form.Group>
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <div className='header-form' >
+                            <OverlayTrigger
+                                placement="top"
+                                overlay={<Tooltip id="tooltip">This is where we will pick you up for the start of the trip</Tooltip>}
+                            >
+                                {({ ref, ...triggerHandler }) => (
+                                <div variant="light"
+                                    {...triggerHandler}
+                                    className="d-inline-flex align-items-center" ref={ref} 
+                                >Pick Up Location</div>
+                                )}
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+
+                    <div className='form-body-middle' >
+                        <div>
+                            <Form.Control as="select" defaultValue="Choose..."  onChange={(e) => {setLocation(e.target.value)}}>
+                                <option>MarketPlace Mall (North East Corner)</option>
+                                <option>LincolnSquare Mall (South Side)</option>
+                                <option>Savoy Walmart (North East Corner)</option>
+                                <option>Other (enter address below)</option>
+                            </Form.Control>
+                        </div>
+
+                        <div>
+                            <Form.Group as={Col} controlId="formGridname">
+                                <Form.Control type="text" placeholder="if selected 'Other'" onChange={(e)=> {SetOtherLocation(e.target.value)}} />
+                            </Form.Group>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className='header-form' >
+                            <Form.Label className='form-text'>Start Time</Form.Label>
+                        </div>
+                    </div>
+
+                    <div  className='form-body-bottom'>
+                        <div >
+                            <Form.Control as="select" defaultValue="Choose..."  onChange={(e)=> {setTime(e.target.value)}}>
+                                <option>8:00 am</option>
+                                <option>9:30 am</option>
+                                <option>11:00 am</option>
+                            </Form.Control>
+                        </div>
+                        <div>
                             <Form.Group as={Col} controlId="formGridPassword">
                                 <Form.Control as="select" defaultValue="Choose..."  onChange={(e)=> {setKayaksTaking(e.target.value)}}>
-                                {kayaksOptions}
+                                    {kayaksOptions}
                                 </Form.Control>
                             </Form.Group>
-                        </Form.Row>
+                        </div>
+                    </div>
 
-                        <Form.Row>
-                            <Form.Group as={Col} controlId="formGridphone">
-                            <Form.Control type="phone" placeholder="###-###-#### (your phone number)" onChange={(e) => {setPhone(e.target.value)}} />
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                            <Form.Group as={Col} controlId="formGridPassword">
-                                <OverlayTrigger
-                                    placement="top"
-                                    overlay={<Tooltip id="tooltip">This is where we will pick you up for the start of the trip</Tooltip>}
-                                >
-                                    {({ ref, ...triggerHandler }) => (
-                                    <Form.Label variant="light"
-                                        {...triggerHandler}
-                                        className="d-inline-flex align-items-center" ref={ref} className='form-text'
-                                    >Pick Up Location</Form.Label>
-                                    )}
-                                </OverlayTrigger>
-                                <Form.Control as="select" defaultValue="Choose..."  onChange={(e) => {setLocation(e.target.value)}}>
-                                    <option>MarketPlace Mall (North East Corner)</option>
-                                    <option>LincolnSquare Mall (South Side)</option>
-                                    <option>Savoy Walmart (North East Corner)</option>
-                                    <option>Other (enter address below)</option>
-                                </Form.Control>
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                            <Form.Group as={Col} controlId="formGridname">
-                            <Form.Control type="text" placeholder="if selected 'Other'" onChange={(e)=> {SetOtherLocation(e.target.value)}} />
-                            </Form.Group>
-                        </Form.Row>
-                        <Form.Row>
-                        <Form.Group as={Col} controlId="formGridPassword">
-                                <Form.Label className='form-text'>Start Time</Form.Label>
-                                <Form.Control as="select" defaultValue="Choose..."  onChange={(e)=> {setTime(e.target.value)}}>
-                                    <option>8:00 am</option>
-                                    <option>9:30 am</option>
-                                    <option>11:00 am</option>
-                                </Form.Control>
-                            </Form.Group>
-                        </Form.Row>
-
-
+                    <div>
                         <Form.Group id="formGridCheckbox" >
                             <a target='blank' href={'https://media.makeameme.org/created/haha-got-you.jpg'} >
                                 <Form.Check onChange={(e) => {setChecked(e.target.checked)}}  type="checkbox" label="I agree to KingFisher Kayaking Terms of Service" />
                             </a>
                         </Form.Group>
 
-                        <Row>
-                            <Col className='button-hover'>
-                                <div className='form-button no-hover' onClick={back}>
-                                    <FontAwesomeIcon icon="arrow-left"  size="1x" /> <span> Back </span>
-                                </div>
-                            </Col>
-                            <Col className='button-hover'>
-                                <a  href={storeHref} >
-                                    <div className='form-button no-hover' onClick={submitHandler}>
-                                        <span > Continue </span><FontAwesomeIcon icon="arrow-right"  size="1x" />
-                                    </div> 
-                                </a>
-                            </Col>
-                        </Row>
-                    </Form>
-                </Col>
+                    </div>
+
+                    <div className='nav-buttons' >
+                        <div className='arrow' onClick={() => setViewing(true)}>
+                            <FontAwesomeIcon icon="arrow-left"  size="1x" /> <span> Back </span>
+                        </div>
+                        <div className='arrow' onClick={continueButtonHandler}>
+                            <FontAwesomeIcon icon="arrow-right"  size="1x" /> <span> Continue </span>
+                        </div>
+                    </div>
+                </Form>
             </Row>
         </Container>
-    );} else { selectionForm = (null)  };
-    
-
-
-
-
-
-    return (
-        <div>
-            {selectionForm}
         </div>
     )
 }

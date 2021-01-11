@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navbar, Nav } from 'react-bootstrap';
-
+import {Link} from 'react-router-dom';
 
 
 
@@ -10,7 +10,7 @@ function MyNavbar(props) {
     return (
         <div>
             <Navbar bg="light" expand="lg">
-                <a   href='/'>
+                <Link to='/' >
                     <Navbar.Brand onClick={props.showHome}>
                     <img
                         alt=""
@@ -20,11 +20,15 @@ function MyNavbar(props) {
                         className="d-inline-block align-top"
                     />{' '}
                     KingFisher Kayaking</Navbar.Brand>
-                </a>    
+                </Link>   
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                    <Nav.Link onClick={props.showRivers}>Rivers</Nav.Link>
+                    <Nav.Link>
+                        <Link to='/about' >
+                            Rivers
+                        </Link>
+                    </Nav.Link>
 
                     </Nav>
                 </Navbar.Collapse>

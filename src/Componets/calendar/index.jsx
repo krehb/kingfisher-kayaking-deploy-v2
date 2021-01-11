@@ -1,15 +1,19 @@
 import React, {useState, useEffect} from 'react';
+import {useHistory} from 'react-router-dom';
 import './calendar.css';
 import buildCalendar from './build';
 import renderKayaks from './renderKayaks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Container, Row, Col } from 'react-bootstrap';
+import Weather from '../weather/weather';
 
-export default function Calendar({value, onChange, back, booked, kayaksInStock , form}) {
+export default function Calendar({value, onChange, back, booked, kayaksInStock , routeSelected, setViewing}) {
     const [calendar , setCalendar] = useState([]);
     const [kayaksLeft, setKayaksLeft] = useState();
     const [guidedRoute, setGuideRoute] = useState('no guide');
 
+    //react routing 
+    const history = useHistory();
 
     useEffect(() => {
         setCalendar(buildCalendar(value));
@@ -224,68 +228,82 @@ export default function Calendar({value, onChange, back, booked, kayaksInStock ,
 
 
 
-
+    const backToHomeHandler = () => {
+        history.push('/')
+    }
 
 
 
 
     return ( 
-        <Container>
-            <div className='calendar'>
-                <div className='header'>
-                    <div className='previous' onClick={() => !thisMonth() && onChange(prevMonth())}>
-                    {!thisMonth() ? String.fromCharCode(171) : null}</div>
-                    <div className='current'>
-                        {currMonthName()} {currYear()}
+        <div className='full-calendar' >
+            <div className='top-half-calendar' >
+                <div className='selection-footer ' >
+                    <div className='info-text-header' >
+                        <h>Pick A Day</h>
                     </div>
-                    <div className='next' onClick={() => {onChange(nextMonth())}}>{String.fromCharCode(187)}</div>
-                </div>
-                <div className='body'>
-                    <div className="day-names">
-                        {
-                            ["s","m","t","w","t","f","s"].map(d => <div className='week'>{d}</div>)
-                        }
+                    <div className='parent' >
+                        <div className='info-text-header-underline' >o</div>
                     </div>
-                    {calendar.map((week) => (
+                    <div className='info-text-header-2' >
                         <div>
-                            {week.map((day) => (
-                                <div  className='day' id={day.format("D")} key={day} 
-                                onClick={() => { !beforeToday(day) && onChange(day)
-                                    // console.log('clicked', day)
-                                    }}>
-                                    <div className={dayStyles(day, value)}>
-                                        <span className={guideStyleForDay(day, value)} >{day.format('D').toString()}</span>
-                                        <FontAwesomeIcon icon="compass"  className={guideStyle(day, value)}  size="2x" />
-                                    </div>
-                                </div>
-                            ))}
+                            <h><FontAwesomeIcon icon="map-marker-alt"  size="1x" /> {routeSelected}</h>
                         </div>
-                    ))}
+                        <div>
+                            <h><FontAwesomeIcon icon="calendar-alt"  size="1x" /> Date: {value.format("MM/DD")}</h>
+                        </div>
+                    </div>
+                    <div className='info-text' >
+
+                        <h6 className='cal-b-text' >Avalible: {kayaksLeft} kayaks</h6>
+                        <h6 className='cal-b-text' ><FontAwesomeIcon icon="compass" size="1x" /> Guide: {guidedRoute}</h6>
+                    </div>
+                    <div className='direction-buttons' >
+                        <div className='arrow' onClick={backToHomeHandler}   >
+                                <FontAwesomeIcon icon="arrow-left" size="1x" /> Back
+                        </div>
+                        <div className='arrow' onClick={() => setViewing(false)}  >
+                                Continue <FontAwesomeIcon icon="arrow-right"  size="1x" />
+                        </div>
+                    </div>
+                </div>
+                <div className='calendar'>
+                    <div className='header'>
+                        <div className='previous' onClick={() => !thisMonth() && onChange(prevMonth())}>
+                        {!thisMonth() ? <FontAwesomeIcon icon="arrow-left" size="1x" /> : null}
+                        </div>
+                        <div className='current'>
+                            {currMonthName()} {currYear()}
+                        </div>
+                        <div className='next' onClick={() => {onChange(nextMonth())}}><FontAwesomeIcon icon="arrow-right"  size="1x" /></div>
+                    </div>
+                    <div className='body'>
+                        <div className="day-names">
+                            {
+                                ["s","m","t","w","t","f","s"].map(d => <div className='week'>{d}</div>)
+                            }
+                        </div>
+                        {calendar.map((week) => (
+                            <div>
+                                {week.map((day) => (
+                                    <div  className='day' id={day.format("D")} key={day} 
+                                    onClick={() => { !beforeToday(day) && onChange(day)
+                                        // console.log('clicked', day)
+                                        }}>
+                                        <div className={dayStyles(day, value)}>
+                                            <span className={guideStyleForDay(day, value)} >{day.format('D').toString()}</span>
+                                            <FontAwesomeIcon icon="compass"  className={guideStyle(day, value)}  size="2x" />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
-            <Container>
-                <Row>
-                    <Col sm={2} className='button-hover' >
-                        <div onClick={back}  className='selection-footer form-button no-hover' >
-                            <FontAwesomeIcon icon="arrow-left" size="1x" /> Back
-                        </div>
-                    </Col>
-                    <Col  sm={7}>
-                        <div className='selection-footer ' >
-                            <h6 className='cal-b-text' >Date Selected: {value.format("MM/DD")}</h6>
-                            <h6 className='cal-b-text' >Number of Kayaks Avalible: {kayaksLeft}</h6>
-                            <h6 className='cal-b-text' >Guide on: {guidedRoute}</h6>
-                        </div>
-                    </Col>
-                    <Col sm={1}></Col>
-                    <Col sm={2} className='button-hover' >
-                        <div onClick={form} className='selection-footer form-button no-hover' >
-                            Continue <FontAwesomeIcon icon="arrow-right"  size="1x" />
-                        </div>
-                    </Col>
-                    <Col></Col>
-                </Row>
-            </Container>
-        </Container>
+            <div className='bottom-half-calendar' >
+                <Weather value={value} />
+            </div>
+            </div>
     );
 }

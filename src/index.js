@@ -6,18 +6,20 @@ import firebase from 'firebase';
 
 
 var firebaseConfig = {
-  apiKey: "AIzaSyCSLuKYhwlGvvFupvllxQlRyj8jD1gEKKQ",
-  authDomain: "kingfisher-kayaking.firebaseapp.com",
-  databaseURL: "https://kingfisher-kayaking.firebaseio.com",
-  projectId: "kingfisher-kayaking",
-  storageBucket: "kingfisher-kayaking.appspot.com",
-  messagingSenderId: "416573307952",
-  appId: "1:416573307952:web:cd0ba568a7d63024a901f5",
-  measurementId: "G-9LHF6LJD8J"
+  apiKey: "AIzaSyAOr9eX5HHMMU6fX2yNqOCf6lcYeDaEmfA",
+  authDomain: "kingfisher-kayaking-website.firebaseapp.com",
+  databaseURL: "https://kingfisher-kayaking-website-default-rtdb.firebaseio.com/",
+  projectId: "kingfisher-kayaking-website",
+  storageBucket: "kingfisher-kayaking-website.appspot.com",
+  messagingSenderId: "810507287798",
+  appId: "1:810507287798:web:8a58000ac03b5145c8c0d7",
+  measurementId: "G-YNPVMKG7R1"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+
+
 
 
 ReactDOM.render(

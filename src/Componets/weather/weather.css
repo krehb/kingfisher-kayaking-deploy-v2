@@ -3,3 +3,6 @@
     color: #ffffff;
     text-align: center;
 }
+.weather-day-select {
+    background-color: hsl(192, 63%, 23%);
+}

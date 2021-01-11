@@ -9,7 +9,7 @@ const url7day = 'https://api.openweathermap.org/data/2.5/onecall?lat=40.1105556&
 const url = 'http://api.openweathermap.org/data/2.5/forecast?q=urbana&appid=4ccd9d42e589371f8ea88443f33536f9&units=imperial'
 
 
-const Chart = () => {
+export default function Chart  ({value})  {
     
   const [day1temp, setday1temp] = useState(40);
   const [day2temp, setday2temp] = useState(40);
@@ -71,11 +71,14 @@ const Chart = () => {
         setDay6Weather(data.daily[5].weather[0].main)
         setDay7Weather(data.daily[6].weather[0].main)
 
-
     }
     get();
 
+
+
   }, []);
+
+
 
 
 
@@ -84,11 +87,11 @@ const Chart = () => {
     <Container fluid>
         <Row>
             {weather.map(day =>{
-                return <Day temp={day.temp} weather={day.weather} day={day.date}  />
+                return <Day temp={day.temp} value={value} weather={day.weather} day={day.date}  />
             })}
         </Row>
     </Container>
   );
 };
 
-export default Chart;
+// export default Chart;

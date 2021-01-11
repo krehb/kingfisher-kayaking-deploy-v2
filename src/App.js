@@ -1,5 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
+import './NewApp.css';
+
+//testing router
+import About from './pages/about';
+import HomePage from './pages/home';
+import BookingPage from './pages/booking';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import SuccessPage from './pages/success'
 
 //lib
 import moment from 'moment';
@@ -11,7 +19,7 @@ import { Row, Col } from 'react-bootstrap';
 
 //Awesome Fonts
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCheckSquare, faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock, faDollarSign, faPlus, faMapMarkerAlt, faCompass } from '@fortawesome/free-solid-svg-icons'
+import { faCheckSquare, faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock, faDollarSign, faPlus, faMapMarkerAlt, faCompass, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 
 //components
 import MyNavbar from './Componets/small-componets/Navbar/navbar';
@@ -21,7 +29,7 @@ import ShowCalendar from './Componets/calendar/showCalendar'
 import SelectionFrom from './Componets/SelectionForm/SelectionForm';
 import Footer from './Componets/small-componets/footer/footer';
 import Video from './Componets/small-componets/video/video';
-import ShowStore from './Componets/Ecwids/showStore'
+
 
 import River from './Componets/rivers/rivers';
 
@@ -31,7 +39,7 @@ import River from './Componets/rivers/rivers';
 export default function App(){
 
   //Awesome Fonts function
-  library.add( faCheckSquare,faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock,faDollarSign, faPlus , faMapMarkerAlt, faCompass );
+  library.add( faCheckSquare,faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock,faDollarSign, faPlus , faMapMarkerAlt, faCompass, faCalendarAlt );
 
   // firebase requirements
   const database = firebase.database();
@@ -58,6 +66,9 @@ export default function App(){
   const [kayakStock, setkayakStock] = useState()
   const [waterLevelSetting, setWaterLevelSetting] = useState(1)
   const [storePath, setStorePath] = useState()
+
+
+  const [formData, setFormData] = useState();
 
   // booked dates state for calendar
   const booked = useState({bookings: []})
@@ -127,17 +138,15 @@ export default function App(){
 
   //whats rendered to the DOM
   return (
+      <Router>
       <div >
           <MyNavbar showHome={showHomeHandler} showRivers={showRiversHandler} />
-          <River show={showRiver[0].River} />
-          <Video showVideo={showVideo[0].video} />
-          <MyJumbotron showJumbo={showCompent[0].componets[0].jumbotron} />
-          <div className='RoutesList'>
-            <Routes
-              showRoutes={showCompent[0].componets[3].routes} 
-              setRoute={setRoute}
-              waterLevel={waterLevelSetting} />
-            <ShowCalendar
+
+          <Switch>
+          <Route path='/about' component={About} />
+          <Route path='/booking/:id' render={() => <BookingPage  
+              setRouteSelected={setRouteSelected}
+              routeSelected={routeSelected}
               showCalendar={showCompent[0].componets[1].calendar}
               form={showSelectionFormHandler}
               value={value}
@@ -145,21 +154,16 @@ export default function App(){
               back={showHomeHandler}
               booked={booked[0].bookings}
               kayaksInStock={kayakStock}
-            />
-              <SelectionFrom 
-              showForm={showCompent[0].componets[5].selectionForm} 
-              route={routeSelected}
-              value={value}
               kayaks={booked[0].bookings}
-              showHome={showHomeHandler}
-              kayaksInStock={kayakStock}
-              back={showCalendar}
-              showStore={showingStore}
-              storePath={storePath}
-            />
-            <ShowStore showStore={showStore} />
-          </div>
+              formData={formData}
+              setFormData={setFormData}
+              />}/>
+          <Route path='/success' exact render={() => <SuccessPage formData={formData} />} />
+          <Route path='/' exact render={() => <HomePage  setRouteSelected={setRouteSelected} />} />
+          </Switch>
+
           <Footer/>
       </div>
+      </Router>
   )
 }
