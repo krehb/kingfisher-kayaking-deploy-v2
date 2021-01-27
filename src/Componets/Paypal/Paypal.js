@@ -4,7 +4,7 @@ import {useHistory} from 'react-router-dom';
 import firebase from 'firebase';
 
 
-export default function Paypal( {formData, priceTotal} ) {
+export default function Paypal( {formData, routeCost} ) {
     
     const paypal = useRef()
     //going to success page after payment
@@ -21,7 +21,7 @@ export default function Paypal( {formData, priceTotal} ) {
 
 
 
-        let total = priceTotal
+        let total = formData.numOfKayaks*routeCost
 
 
 
@@ -35,7 +35,7 @@ export default function Paypal( {formData, priceTotal} ) {
                             description: "Cool and accurate kit",
                             amount: {
                                 currency_code: 'USD',
-                                value: 1
+                                value: total
                             }  
                         }
                     ]

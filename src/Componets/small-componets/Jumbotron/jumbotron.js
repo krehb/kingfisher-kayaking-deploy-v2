@@ -1,23 +1,43 @@
 import React from 'react'
-import { Jumbotron } from 'react-bootstrap';
 import './jumbotron.css';
+import kayaking from './kayaking.png'
+import kayak from './kayak.png'
+import bus from './bus.png'
+import bookIcon from './book.png'
 
-function MyJumbotron({showJumbo}) {
+function MyJumbotron() {
     
-    let jumbo = null
-    if (showJumbo) { jumbo = (
-        <Jumbotron className='my-jumbo'>
-            <h1>Eco Touring</h1>
-            <p>
-            To provide more affordable and accessible kayak rentals to the general public throughout the East Central Illinois rivers.  Additionally, it will create a more informed and engaged community that contributes to the health, science, and advocacy of East Central Illinois rivers through hands-on educational kayak tours and other conservation programs
-            </p>
-        </Jumbotron>
-    );} else { jumbo = (null) };
+
+
     
 
     return (
         <div>
-            {jumbo}
+        <div className='my-jumbo'>
+            <div className='jumbo-title' >Want to Kayak?</div>
+            <div className='instructions' >
+                <div className='step' >
+                    <img className='step-img' src={bookIcon} />
+                    Book Online, pick route, fill form, pay
+                </div>
+                <div className='step' >
+                    <img className='step-img' src={bus} />
+                    We'll pick you up at the location & date of choice
+                </div>
+                <div className='step' >
+                    <img className='step-img' src={kayak} />
+                    We drop you off at the beginning of the route
+                </div>
+                <div className='step' >
+                    <img className='step-img' src={kayaking} />
+                    You kayak until the end point
+                </div>
+                <div className='step' >
+                    <img className='step-img' src={bus} />
+                    We'll pick you up from the end point and drop you off
+                </div>
+            </div>
+        </div>
         </div>
     )
 }

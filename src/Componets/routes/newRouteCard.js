@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
-import {  Card, Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './newStyle.css';
 
-import {Link} from 'react-router-dom';
 
 
-const Route = ({title, waterLevel, duration, cost, learn, pic, setRoute, waterLevelSetting, subtitle}) => {
+
+const Route = ({title, waterLevel, duration, cost, pic, setRoute, waterLevelSetting, subtitle, setRouteCost}) => {
 
     const [waterLevelAPI, setWaterLevel] = useState(null);
     //routing
@@ -28,34 +27,26 @@ const Route = ({title, waterLevel, duration, cost, learn, pic, setRoute, waterLe
 
 
     //rendering waterlevel data and style
-    let renderWaterLevel = null
-    let boxClass = null
     let clickFunction = null
     let buttonName = 'Book'
     let redAlert = null
     if(waterLevelAPI === null) {
-        renderWaterLevel = (null)
-        boxClass = 'text'
         buttonName = 'Book'
         redAlert = 'content'
-        console.log(pic)
         clickFunction = (
-            () => {history.push(`/booking/${title}`); setRoute(title)}
+            () => {history.push(`/booking/${title}`); setRoute(title); setRouteCost(cost); console.log(cost)  }
         )
     }   else {
         if(waterLevelSetting > waterLevelAPI) {
-            boxClass = 'too-low'
             buttonName = 'Water is too low'
             redAlert = 'red content '
             clickFunction = (null)
         }else {
-            boxClass = 'text'
             redAlert = 'content'
             clickFunction = (
-                () => {history.push(`/booking/${title}`); setRoute(title)}
+                () => {history.push(`/booking/${title}`); setRoute(title); setRouteCost(cost); console.log(cost) }
             )
         }
-        renderWaterLevel = waterLevelAPI
     }
 
 
@@ -83,7 +74,7 @@ const Route = ({title, waterLevel, duration, cost, learn, pic, setRoute, waterLe
 
                     <div className="info-and-date-container">
                     <div className="box info">
-                        <h5><FontAwesomeIcon icon="dollar-sign"  size="1x" /> {cost}</h5>
+                        <h5>{' '}<FontAwesomeIcon icon="dollar-sign"  size="1x" /> {cost}</h5>
                         <h5><FontAwesomeIcon icon="clock"  size="1x" /> {duration} hrs</h5>
                         <h5><FontAwesomeIcon icon="water"  size="1x" /> {waterLevelAPI} ft</h5>
                     </div>

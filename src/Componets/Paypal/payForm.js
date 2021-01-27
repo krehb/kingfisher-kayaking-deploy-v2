@@ -1,52 +1,17 @@
-import React,{useState} from 'react'
-import { Form, Col, Container, Row, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import React from 'react'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import firebase from 'firebase';
-import moment from 'moment';
-import emailjs from 'emailjs-com';
+
 import Paypal from '../Paypal/Paypal';
 
 
 
-function PayFrom({  route, value,   setFormView, formData }) {
+function PayFrom({  route, value, formData, routeCost }) {
 
 
 
 
-//   // firebase requirements
-//   const database = firebase.database();
-//   const ref = database.ref('bookings');
-
-
-
-
-  //submitting form to firebase database
-//   const submitHandler = () => {
-//     if(kayaksTaking > 0 && ifChecked){
-//       console.log('booking sent');
-//       ref.push(formData);
-//     } else {
-//       console.log('erroror')
-//       console.log(ifChecked)
-//     }
-//   }
-
-
-
-
-
-    // function sendEmail(e) {
-    //     e.preventDefault();
-    //     console.log('was clicked')
-    //     emailjs.sendForm('service_n7gxrhi', 'template_eay3k5p', e.target, 'user_eKTDTnT6b5suYFim5twvR')
-    //       .then((result) => {
-    //           console.log(result.text);
-    //       }, (error) => {
-    //           console.log(error.text);
-    //       });
-    // }
-
-
+    console.log(routeCost)
 
 
 
@@ -78,21 +43,22 @@ function PayFrom({  route, value,   setFormView, formData }) {
                     <div className='pay-review' >
                         <p>{formData.name}<span className='email' > {formData.email}</span></p>
                         <p>{formData.numOfKayaks} kayak(s)</p>
+                        <p>${formData.numOfKayaks*routeCost}.00 price</p>
                         <p>At {formData.pickUpLocation} at {formData.time} on {value.format('MM/DD/yy')}</p>
                     </div>
 
 
 
                     <div>
-                        <Paypal formData={formData} />
+                        <Paypal formData={formData} routeCost={routeCost} />
                     </div>
                     
 
-                    <div className='nav-buttons' >
+                    {/* <div className='nav-buttons' >
                         <div className='arrow' onClick={() => setFormView(true)}>
                             <FontAwesomeIcon icon="arrow-left"  size="1x" /> <span> Back </span>
                         </div>
-                    </div>
+                    </div> */}
 
     </div>
     )

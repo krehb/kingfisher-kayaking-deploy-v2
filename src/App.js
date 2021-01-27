@@ -1,45 +1,38 @@
-import React, {useState, useEffect} from 'react';
-import './App.css';
+import React, {useState, useEffect, useRef} from 'react';
 import './NewApp.css';
 
-//testing router
+//pages
 import About from './pages/about';
 import HomePage from './pages/home';
 import BookingPage from './pages/booking';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import SuccessPage from './pages/success'
+import SuccessPage from './pages/success';
+import FormPage from './pages/formPage';
+import PaymentPage from './pages/paymentPage';
+import WaiverPage from './pages/signWaiverPage';
 
 //lib
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import moment from 'moment';
 import firebase from 'firebase';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'video-react/dist/video-react.css'; // import css
-import { Row, Col } from 'react-bootstrap';
 
 
 //Awesome Fonts
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCheckSquare, faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock, faDollarSign, faPlus, faMapMarkerAlt, faCompass, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
+import { faCheckSquare, faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock, faDollarSign, faPlus, faMapMarkerAlt, faCompass, faCalendarAlt, faExclamationCircle, faSnowflake } from '@fortawesome/free-solid-svg-icons'
 
 //components
 import MyNavbar from './Componets/small-componets/Navbar/navbar';
-import MyJumbotron from './Componets/small-componets/Jumbotron/jumbotron';
-import Routes from './Componets/routes/routes';
-import ShowCalendar from './Componets/calendar/showCalendar'
-import SelectionFrom from './Componets/SelectionForm/SelectionForm';
 import Footer from './Componets/small-componets/footer/footer';
-import Video from './Componets/small-componets/video/video';
 
 
-import River from './Componets/rivers/rivers';
-
-
-
+const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)   
 
 export default function App(){
 
   //Awesome Fonts function
-  library.add( faCheckSquare,faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock,faDollarSign, faPlus , faMapMarkerAlt, faCompass, faCalendarAlt );
+  library.add( faCheckSquare,faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock,faDollarSign, faPlus , faMapMarkerAlt, faCompass, faCalendarAlt, faExclamationCircle, faSnowflake );
 
   // firebase requirements
   const database = firebase.database();
@@ -47,62 +40,27 @@ export default function App(){
   const refSettings = database.ref('settings')
 
   // Use State AREA
-  const showCompent = useState({componets: [
-    {jumbotron: true},
-    {calendar: false},
-    {price: false},
-    {routes: true},
-    {pickup: false},
-    {selectionForm: false},
-    {showLoading: true},
-    {showWaiver: false}
-  ]});
   const [value , setValue] = useState(moment());
-  const AlertShow = useState({showAlert: null});
-  const showVideo = useState({video: true});
-  const showRiver = useState({River: false});
-  const [showStore, setShowStore] = useState(false)
   const [routeSelected, setRouteSelected] = useState('no route')
   const [kayakStock, setkayakStock] = useState()
-  const [waterLevelSetting, setWaterLevelSetting] = useState(1)
-  const [storePath, setStorePath] = useState()
-
-
   const [formData, setFormData] = useState();
-
+  const [waterLevelSetting, setWaterLevelSetting] = useState(1)
+  const [routesList, setRoutes] = useState([]);
+  const [routeCost, setRouteCost] = useState(0);
   // booked dates state for calendar
   const booked = useState({bookings: []})
-
-
-
-
-  //selecting what should show
-  const showCalendar = () => {showCompent[1]({componets: [{jumbotron: false}, {calendar: true}, {price: false}, {routes: false}, {pickup: false}, {selectionForm: false}, {showLoading: false}]});showVideo[1]({video:false});AlertShow[1]({showAlert: null}); setShowStore(false);};
-  const showHomeHandler = () => {showCompent[1]({componets: [{jumbotron: false}, {calendar: false}, {price: false}, {routes: true}, {pickup: false}, {selectionForm: false},{showLoading: false}, {showVideo: true}]});showVideo[1]({video:false});AlertShow[1]({showAlert: null});   showRiver[1]({River: false}) };
-  const showSelectionFormHandler = () => {showCompent[1]({componets: [{jumbotron: false}, {calendar: false}, {price: false}, {routes: false}, {pickup: false}, {selectionForm: true},{showLoading: false}]})};
-  
-  const showAlertHandler = () => {AlertShow[1]({showAlert: 2})}
-  const showRiversHandler = () => {showRiver[1]({River: true});showCompent[1]({componets: [{jumbotron: false}, {calendar: false}, {price: false}, {routes: false}, {pickup: false}, {selectionForm: false}, {showLoading: false}]});showVideo[1]({video:false});AlertShow[1]({showAlert: null})};
-
-  const showingStore = () => {
-    setShowStore(true)
-    showCompent[1]({componets: [{jumbotron: false}, {calendar: false}, {price: false}, {routes: false}, {pickup: false}, {selectionForm: false}, {showLoading: false}]})
-  }
-
-
-
-
-
-
-
 
   
   //rendering the data from the firebase for the calendar & rendering settings
   useEffect(() => {
     ref.on('value', gotDataHandler, errDataHandler);
     refSettings.on('value', gotSettingsHandler, errDataHandler)
-    console.log('render calendar & settings')
   },[])
+
+  useEffect(() => {
+    console.log(routeCost)
+  },[routeCost])
+
   const array = []
   const gotDataHandler = (data) => {
     const dataBookings = data.val();
@@ -114,25 +72,23 @@ export default function App(){
       array.push(bookingItem)
     }
     booked[1]({bookings: array})
-
-
   }
   const gotSettingsHandler = (data) => {
     const dataSettings = data.val()
-    setStorePath(dataSettings.storepath)
     setkayakStock(dataSettings.kayakStock)
     setWaterLevelSetting(dataSettings.waterLevelLimit)
   }
-
   const errDataHandler = (err) => {
     console.log('Error!')
     console.log(err)
   }
 
-  const setRoute = (routeTitle) => {
-    setRouteSelected(routeTitle)
-    showCalendar()
-  }
+
+
+  //nav scroll for booking 
+  const myRef = useRef(null)
+  const executeScroll = () => scrollToRef(myRef)
+
 
 
 
@@ -140,26 +96,41 @@ export default function App(){
   return (
       <Router>
       <div >
-          <MyNavbar showHome={showHomeHandler} showRivers={showRiversHandler} />
-
+          <MyNavbar executeScroll={executeScroll} />
           <Switch>
           <Route path='/about' component={About} />
-          <Route path='/booking/:id' render={() => <BookingPage  
-              setRouteSelected={setRouteSelected}
+          <Route path='/booking/:id/form/pay' render={() => <PaymentPage  
               routeSelected={routeSelected}
-              showCalendar={showCompent[0].componets[1].calendar}
-              form={showSelectionFormHandler}
               value={value}
-              setValue={setValue}
-              back={showHomeHandler}
-              booked={booked[0].bookings}
+              formData={formData}
+              routesList={routesList}
+              routeCost={routeCost}
+              />}/>
+          <Route path='/booking/:id/form' render={() => <FormPage  
+              routeSelected={routeSelected}
+              value={value}
               kayaksInStock={kayakStock}
               kayaks={booked[0].bookings}
               formData={formData}
               setFormData={setFormData}
               />}/>
+          <Route path='/booking/:id' render={() => <BookingPage  
+              routeSelected={routeSelected}
+              value={value}
+              setValue={setValue}
+              booked={booked[0].bookings}
+              kayaksInStock={kayakStock}
+              kayaks={booked[0].bookings}
+              />}/>
           <Route path='/success' exact render={() => <SuccessPage formData={formData} />} />
-          <Route path='/' exact render={() => <HomePage  setRouteSelected={setRouteSelected} />} />
+          <Route path='/waiver' exact render={() => <WaiverPage />} />
+          <Route path='/' exact render={() => <HomePage
+              myRef={myRef} 
+              setRouteSelected={setRouteSelected} 
+              waterLevelSetting={waterLevelSetting}
+              routesList={routesList}
+              setRoutes={setRoutes}
+              setRouteCost={setRouteCost} />} />
           </Switch>
 
           <Footer/>

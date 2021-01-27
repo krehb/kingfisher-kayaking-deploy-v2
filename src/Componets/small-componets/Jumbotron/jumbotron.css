@@ -3,4 +3,33 @@
     color: white;
     margin: 0;
     border-radius: 0px;
+    font-family: 'Sofia', sans-serif;
+}
+
+.instructions {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    justify-content: center;
+}
+
+.jumbo-title {
+    font-size: 30px;
+    padding-left: 60px;
+    padding-top: 20px;
+}
+
+.step {
+    width: 250px;
+    display: flex;
+}
+
+.step-img {
+    color: white;
+    width: 100px;
+    padding-right: 10px;
+    @media screen and (max-width: $small) {
+        width: 50px;
+    }
 }

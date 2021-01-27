@@ -1,12 +1,12 @@
 import React from 'react';
 import { Player, ControlBar } from 'video-react';
 
-function Video({showVideo}){
+function Video(){
 
-  let video =null
-  if(showVideo) {
-    video = (
-      <div>
+  
+  return (
+    <div>
+              <div>
         <Player
           autoPlay
           muted
@@ -16,14 +16,6 @@ function Video({showVideo}){
         <ControlBar disableCompletely={true}  className="my-class" />
         </Player>
       </div>
-    )
-  } else { video = null};
-
-
-  
-  return (
-    <div>
-        {video}
     </div>
   );
 };

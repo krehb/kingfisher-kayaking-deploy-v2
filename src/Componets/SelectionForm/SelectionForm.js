@@ -3,13 +3,12 @@ import { Form, Col, Container, Row, OverlayTrigger, Tooltip, Alert } from 'react
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import firebase from 'firebase';
 import moment from 'moment';
-import './SelectionForm.css';
 import emailjs from 'emailjs-com';
-import Paypal from '../Paypal/Paypal';
+import { useHistory } from "react-router-dom";
 
 
 
-function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFormView, setFormData }) {
+function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFormView, setFormData,  }) {
 
     const [tripName, SetTripName] = useState('no trip name');
     const [kayaksTaking, setKayaksTaking] = useState();
@@ -49,15 +48,20 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
     }
   }
 
+  //routing for the 'continue' button
+  let history = useHistory();
+  function handleClick() {
+    history.push(`/booking/${route}/form/pay`);
+  }
 
   //render error if form isn't fully filled
   const continueButtonHandler = () => {
       if(kayaksTaking === 0 || kayaksTaking === undefined || email === '' || email === 'not selected' || ifChecked === undefined || ifChecked === false || tripName === 'no trip name'){
           setAlertCheck(true)
       } else {
-          setFormView(false)
           setAlertCheck(false)
           setFormData(booking)
+          handleClick();
       }
   }
 
@@ -247,11 +251,11 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
                     </div>
 
                     <div className='nav-buttons' >
-                        <div className='arrow' onClick={() => setViewing(true)}>
+                        {/* <div className='arrow' onClick={() => setViewing(true)}>
                             <FontAwesomeIcon icon="arrow-left"  size="1x" /> <span> Back </span>
-                        </div>
+                        </div> */}
                         <div className='arrow' onClick={continueButtonHandler}>
-                            <FontAwesomeIcon icon="arrow-right"  size="1x" /> <span> Continue </span>
+                            <span> Book </span><FontAwesomeIcon icon="arrow-right"  size="1x" /> 
                         </div>
                     </div>
                 </Form>

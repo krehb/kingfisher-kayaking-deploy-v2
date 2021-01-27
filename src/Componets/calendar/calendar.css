@@ -61,7 +61,7 @@
   .calendar .day {
     position: relative;
     width: calc(100% / 7);
-    height: 44px;
+    height: 64px;
     display: inline-block;
     background-color:#21d176;
     color: white;
@@ -76,13 +76,22 @@
 
   
   .calendar .day div {
-    height: 44px;
+    height: 64px;
     position: relative;
     color: var(--black);
     z-index: 100;
-    line-height: 44px;
+    line-height: 64px;
   }
-  
+  @media screen and (max-width: 500px) {
+    .calendar .day {
+      height: 34px;
+    }
+    .calendar .day div {
+      height: 34px;
+      line-height: 34px;
+    }
+  }
+
   .calendar .day div.before {
     color: var(--grey);
   }

@@ -1,0 +1,27 @@
+.my-nav {
+    background-color: #F0F0F0 !important;
+    font-family: 'Sofia', sans-serif;
+}
+
+.link {
+    padding-left: 16px;
+    color: #0A4870;
+    font-weight: 600;
+}
+
+.link:hover{
+    text-decoration: none;
+    color:  #ec992c;
+    font-weight: 600;
+}
+
+.brand {
+    font-size: 20px;
+    color: #0A4870;
+    font-weight: 550;
+}
+.brand:hover{
+    text-decoration: none;
+    color:  #ec992c;
+    font-weight: 600;
+}

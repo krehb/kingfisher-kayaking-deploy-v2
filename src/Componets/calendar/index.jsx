@@ -4,8 +4,9 @@ import './calendar.css';
 import buildCalendar from './build';
 import renderKayaks from './renderKayaks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Container, Row, Col } from 'react-bootstrap';
 import Weather from '../weather/weather';
+import {Link} from 'react-router-dom';
+import moment from 'moment';
 
 export default function Calendar({value, onChange, back, booked, kayaksInStock , routeSelected, setViewing}) {
     const [calendar , setCalendar] = useState([]);
@@ -20,7 +21,7 @@ export default function Calendar({value, onChange, back, booked, kayaksInStock ,
         setKayaksLeft(renderKayaks(value, kayaksInStock, booked));
 
         // rendering 'Guide on: {guideRoute}'
-        setGuideRoute('no guide')
+        setGuideRoute('no guide on that day')
         booked.forEach(bookingData => {
             if ((bookingData.name === 'guide1706') && value.isSame(bookingData.date, 'day')){
                 setGuideRoute(bookingData.route)
@@ -87,7 +88,7 @@ export default function Calendar({value, onChange, back, booked, kayaksInStock ,
                 if (kayakCount.length > 0){
                     let kayaksBookedTotal = kayakCount.reduce(reducer)
                     
-                    if((kayaksBookedTotal === kayaksInStock) || ((kayaksBookedTotal + 1) === kayaksInStock)) {
+                    if((kayaksBookedTotal === kayaksInStock) || ((kayaksBookedTotal) === kayaksInStock)) {
                         classes = bookedData.date
                     }
                 }
@@ -169,7 +170,6 @@ export default function Calendar({value, onChange, back, booked, kayaksInStock ,
 
     function isGuided(day) {
         let classes = null
-        const reducer = (accumulator, currentValue) => accumulator + currentValue;
         let kayakCount = []
 
         booked.forEach(bookedData => {
@@ -179,7 +179,9 @@ export default function Calendar({value, onChange, back, booked, kayaksInStock ,
 
                 if (kayakCount.length > 0){
                     if (bookedData.name === 'guide1706'){
-                        classes = bookedData.date
+                        if (moment(bookedData.date).isAfter(new Date(), 'day')){
+                            classes = bookedData.date
+                        }
                     }
                 }
             }
@@ -200,10 +202,20 @@ export default function Calendar({value, onChange, back, booked, kayaksInStock ,
     }
 
 
-
+    //making the guide change colors for it to pop
+    const [guideClass,setGuideClass] = useState(true);
+    let renderedGuideClass = 'guide-yes'
+    if(guideClass){
+        setTimeout(function(){ setGuideClass(false) }, 2000);
+        renderedGuideClass = 'guide-yes'
+    } else {
+        renderedGuideClass = 'guide-yes color-change'
+        setTimeout(function(){ setGuideClass(true) }, 300);
+    }
 
     function guideStyle(day, value) {
-        if (isGuided(day)) return 'guide-yes'
+        if (isGuided(day)) return renderedGuideClass
+        if (beforeToday(day)) return 'guide-no'
         return 'guide-no'
     }
     function guideStyleForDay(day, value) {
@@ -214,17 +226,6 @@ export default function Calendar({value, onChange, back, booked, kayaksInStock ,
 
 
 
-    // const guideRouteHandler = (booked, value) => {
-    //     let select = 'no guide'
-
-    //     booked.forEach(bookingData => {
-    //         if ((bookingData.name === 'guide1706') && value.isSame(bookingData.date, 'day')){
-    //             select = bookingData.route
-    //         }
-    //     });
-
-    //     return select
-    // }
 
 
 
@@ -255,16 +256,30 @@ export default function Calendar({value, onChange, back, booked, kayaksInStock ,
                     </div>
                     <div className='info-text' >
 
-                        <h6 className='cal-b-text' >Avalible: {kayaksLeft} kayaks</h6>
-                        <h6 className='cal-b-text' ><FontAwesomeIcon icon="compass" size="1x" /> Guide: {guidedRoute}</h6>
+                        <h6 className='cal-b-text' >Avalible: <span className='num-of-kayaks-on-that-day' >{kayaksLeft}</span> kayaks</h6>
+                        <div className='legend' >
+                        <div className='avalible' >Avalible</div>
+                        <ul>
+                            <li className='kayaks-8 l-item' ></li>
+                            <li className='kayaks-6 l-item' ></li>
+                            <li className='kayaks-4 l-item' ></li>
+                            <li className='kayaks-2 l-item' ></li>
+                            <li className='kayaks-0 l-item' ></li>
+                        </ul>
+                        <div className='unavalible'>Not Avalible</div>
                     </div>
-                    <div className='direction-buttons' >
-                        <div className='arrow' onClick={backToHomeHandler}   >
-                                <FontAwesomeIcon icon="arrow-left" size="1x" /> Back
+                    </div>
+
+                    <div >
+                        <h6 className='cal-b-text guide' ><FontAwesomeIcon icon="compass" size="1x" /> Guided Trip: {guidedRoute} </h6>
+                        <Weather value={value} />
+                        <div className='direction-buttons' >
+                        <div className='arrow'  >
+                            <Link to={`/booking/${routeSelected}/form`} className=' no-hover' >
+                                Book <FontAwesomeIcon icon="arrow-right"  size="1x" />
+                            </Link>
                         </div>
-                        <div className='arrow' onClick={() => setViewing(false)}  >
-                                Continue <FontAwesomeIcon icon="arrow-right"  size="1x" />
-                        </div>
+                    </div>
                     </div>
                 </div>
                 <div className='calendar'>
@@ -300,9 +315,6 @@ export default function Calendar({value, onChange, back, booked, kayaksInStock ,
                         ))}
                     </div>
                 </div>
-            </div>
-            <div className='bottom-half-calendar' >
-                <Weather value={value} />
             </div>
             </div>
     );

@@ -1,17 +1,15 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react';
 import { Container, Row, Col} from 'react-bootstrap';
 import firebase from 'firebase';
-import './routes.css';
+
 import NewRoute from './newRouteCard';
 
 
-function Routes({showRoutes, setRoute, waterLevel, }) {
+function Routes({ setRoute, waterLevel, routesList, setRoutes, setRouteCost }) {
 
     //firebase requirements
     const database = firebase.database();
     const ref = database.ref('routes');
-
-    const [routesList, setRoutes] = useState([])
 
 
     //getting routes list data
@@ -36,31 +34,26 @@ function Routes({showRoutes, setRoute, waterLevel, }) {
     }
 
 
-    let routes = null
-    if (showRoutes){        
-        routes = (
-        <Container className='myRoutes'>
-                <Row >
-                    <Col>
-                        <h1 className='heading' >BOOK ROUTE</h1>
-                    </Col>
-                </Row>
-                <Row>
-                    <ul>
-                        {routesList.map(route =>{
-                            return <NewRoute  subtitle={route.subtitle}  waterLevelSetting={waterLevel} key={route.name} setRoute={setRoute} title={route.name} cost={route.cost} duration={route.duration} waterLevel={route.site} pic={route.img}  />
-                        })}
-                    </ul>
-                </Row>
-        </Container>)
-    } else { routes = null };
     
     
     
     
     return (
         <div>
-            {routes}
+        <Container className='myRoutes'>
+                <Row >
+                    <Col>
+                        <h1 className='heading' >BOOK ROUTE</h1>
+                    </Col>
+                </Row>
+                <Row className='route-list' >
+                    <ul>
+                        {routesList.map(route =>{
+                            return <NewRoute setRouteCost={setRouteCost} subtitle={route.subtitle}  waterLevelSetting={waterLevel} key={route.name} setRoute={setRoute} title={route.name} cost={route.cost} duration={route.duration} waterLevel={route.site} pic={route.img}  />
+                        })}
+                    </ul>
+                </Row>
+        </Container>
         </div>
     )
 }

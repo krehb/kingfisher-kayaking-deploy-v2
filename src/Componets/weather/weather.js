@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Day from './weatherCard';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import moment from 'moment';
 import './weather.css'
 
@@ -26,6 +26,7 @@ export default function Chart  ({value})  {
   const [day5Weather, setDay5Weather] = useState('clearz')
   const [day6Weather, setDay6Weather] = useState('clearz')
   const [day7Weather, setDay7Weather] = useState('clearz')
+
 
 
   const now = moment();
@@ -70,11 +71,8 @@ export default function Chart  ({value})  {
         setDay5Weather(data.daily[4].weather[0].main)
         setDay6Weather(data.daily[5].weather[0].main)
         setDay7Weather(data.daily[6].weather[0].main)
-
     }
     get();
-
-
 
   }, []);
 
@@ -86,12 +84,13 @@ export default function Chart  ({value})  {
   return (
     <Container fluid>
         <Row>
-            {weather.map(day =>{
+            {/* {weather.map(day =>{
                 return <Day temp={day.temp} value={value} weather={day.weather} day={day.date}  />
-            })}
+            })} */}
+
+            <Day  value={value} weather={weather}  />
+
         </Row>
     </Container>
   );
 };
-
-// export default Chart;

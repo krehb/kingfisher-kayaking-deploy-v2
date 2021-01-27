@@ -16,6 +16,11 @@
   }
 }
 
+.full-calendar .num-of-kayaks-on-that-day {
+  font-weight: 700;
+  color: #327eb1;
+}
+
 .full-calendar .top-half-calendar {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -115,6 +120,64 @@
       -ms-flex-positive: 8;
           flex-grow: 8;
   width: 500px;
+}
+
+.full-calendar .legend {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.full-calendar .legend .avalible {
+  color: #71eb81;
+}
+
+.full-calendar .legend .unavalible {
+  color: #f3665c;
+}
+
+.full-calendar .legend .l-item {
+  margin: 3px;
+  border-radius: 5px;
+  width: 15px;
+  height: 15px;
+}
+
+.full-calendar .guide {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.full-calendar .direction-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.full-calendar .direction-buttons .arrow {
+  text-transform: uppercase;
+  padding: 10px;
+  margin: 10px;
+  border: solid 3px #0a4870;
+  border-radius: 5px;
+}
+
+.full-calendar .direction-buttons .arrow:hover {
+  background-color: white;
+  border: white solid 3px;
+  color: #2470a3;
+  cursor: pointer;
 }
 
 .form {
@@ -247,5 +310,184 @@
     margin-left: 10px;
     margin-right: 10px;
   }
+}
+
+.waiver {
+  background-image: url("https://images.pexels.com/photos/917494/pexels-photo-917494.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background-position: center;
+  padding-top: 30px;
+  padding-bottom: 10%;
+}
+
+.waiver .waiver-container {
+  background-color: #F0F0F0;
+  padding: 20px;
+}
+
+.waiver .waiver-container .waiver-title {
+  text-align: center;
+}
+
+.waiver .waiver-container .waiver-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+}
+
+.waiver .waiver-container .waiver-form .input {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.waiver .waiver-container .waiver-form button {
+  margin-left: 10px;
+  background-color: #633333;
+  border: none;
+}
+
+.info-img {
+  height: 600px;
+}
+
+@media screen and (max-width: 500px) {
+  .info-img {
+    height: 200px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .carousel-caption {
+    display: none;
+  }
+}
+
+.river-title {
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.river-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.river-info .river-text {
+  width: 700px;
+  padding-left: 20px;
+}
+
+.river-info .river-text h5 {
+  color: #0a4870;
+  font-weight: 600;
+  padding-left: 20px;
+}
+
+.river-info .river-text h6 {
+  text-align: right;
+  padding-right: 40px;
+  font-style: italic;
+}
+
+@media screen and (max-width: 500px) {
+  .river-info .river-img {
+    width: 280px;
+  }
+}
+
+.date {
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+.red {
+  font-weight: 900;
+  text-decoration: underline;
+  background-color: #1890e0;
+}
+
+.daybooked {
+  background-color: tomato;
+}
+
+.before {
+  background-color: #dbdbdb;
+}
+
+.today {
+  background-color: chartreuse;
+}
+
+.ref-header {
+  text-align: center;
+}
+
+.ref {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border-top: solid 2px #fffcfc;
+  border-bottom: solid 2px white;
+}
+
+.kayaks-0 {
+  background-color: #f3665c;
+  text-align: center;
+  color: white;
+}
+
+.kayaks-2 {
+  background-color: #dba14b;
+  text-align: center;
+  color: white;
+}
+
+.kayaks-4 {
+  background-color: #dac361;
+  text-align: center;
+  color: white;
+}
+
+.kayaks-6 {
+  background-color: #c7ec5f;
+  text-align: center;
+  color: white;
+}
+
+.kayaks-8 {
+  background-color: #71eb81;
+  text-align: center;
+  color: white;
+}
+
+.guide-no {
+  display: none;
+}
+
+.color-change {
+  color: #ff9090;
+}
+
+.RoutesList {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-image: url("https://images.pexels.com/photos/917494/pexels-photo-917494.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background-position: center;
+}
+
+.no-hover {
+  text-decoration: none;
+}
+
+.no-hover:hover {
+  text-decoration: none;
 }
 /*# sourceMappingURL=NewApp.css.map */
