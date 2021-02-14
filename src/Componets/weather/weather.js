@@ -4,9 +4,9 @@ import { Container, Row } from 'react-bootstrap';
 import moment from 'moment';
 import './weather.css'
 
-const url7day = 'https://api.openweathermap.org/data/2.5/onecall?lat=40.1105556&lon=-88.2072222&units=imperial&appid=4ccd9d42e589371f8ea88443f33536f9'
+const url7day = `https://api.openweathermap.org/data/2.5/onecall?lat=40.1105556&lon=-88.2072222&units=imperial&appid=${process.env.REACT_APP_WEATHER_API_ID}`
 
-const url = 'http://api.openweathermap.org/data/2.5/forecast?q=urbana&appid=4ccd9d42e589371f8ea88443f33536f9&units=imperial'
+const url = `http://api.openweathermap.org/data/2.5/forecast?q=urbana&appid=${process.env.REACT_APP_WEATHER_API_ID}&units=imperial`
 
 
 export default function Chart  ({value})  {

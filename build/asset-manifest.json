@@ -1,26 +1,29 @@
 {
   "files": {
-    "main.css": "/kingfisher-kayaking-deploy-v2/static/css/main.0b68ff3e.chunk.css",
-    "main.js": "/kingfisher-kayaking-deploy-v2/static/js/main.80174a3e.chunk.js",
-    "main.js.map": "/kingfisher-kayaking-deploy-v2/static/js/main.80174a3e.chunk.js.map",
-    "runtime-main.js": "/kingfisher-kayaking-deploy-v2/static/js/runtime-main.101bd861.js",
-    "runtime-main.js.map": "/kingfisher-kayaking-deploy-v2/static/js/runtime-main.101bd861.js.map",
-    "static/css/2.5352975d.chunk.css": "/kingfisher-kayaking-deploy-v2/static/css/2.5352975d.chunk.css",
-    "static/js/2.afcc6d8f.chunk.js": "/kingfisher-kayaking-deploy-v2/static/js/2.afcc6d8f.chunk.js",
-    "static/js/2.afcc6d8f.chunk.js.map": "/kingfisher-kayaking-deploy-v2/static/js/2.afcc6d8f.chunk.js.map",
-    "index.html": "/kingfisher-kayaking-deploy-v2/index.html",
-    "precache-manifest.ee8738bab778c5bec6c6f789b62afb67.js": "/kingfisher-kayaking-deploy-v2/precache-manifest.ee8738bab778c5bec6c6f789b62afb67.js",
-    "service-worker.js": "/kingfisher-kayaking-deploy-v2/service-worker.js",
-    "static/css/2.5352975d.chunk.css.map": "/kingfisher-kayaking-deploy-v2/static/css/2.5352975d.chunk.css.map",
-    "static/css/main.0b68ff3e.chunk.css.map": "/kingfisher-kayaking-deploy-v2/static/css/main.0b68ff3e.chunk.css.map",
-    "static/js/2.afcc6d8f.chunk.js.LICENSE.txt": "/kingfisher-kayaking-deploy-v2/static/js/2.afcc6d8f.chunk.js.LICENSE.txt",
-    "static/media/salt-fork.jpg": "/kingfisher-kayaking-deploy-v2/static/media/salt-fork.cd9e4a61.jpg"
+    "main.css": "/static/css/main.9617f4a4.chunk.css",
+    "main.js": "/static/js/main.0e53882a.chunk.js",
+    "main.js.map": "/static/js/main.0e53882a.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.aad59a3d.js",
+    "runtime-main.js.map": "/static/js/runtime-main.aad59a3d.js.map",
+    "static/css/2.5352975d.chunk.css": "/static/css/2.5352975d.chunk.css",
+    "static/js/2.9936042b.chunk.js": "/static/js/2.9936042b.chunk.js",
+    "static/js/2.9936042b.chunk.js.map": "/static/js/2.9936042b.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.1214446ab3e07afe09218ebe9061c5b6.js": "/precache-manifest.1214446ab3e07afe09218ebe9061c5b6.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.5352975d.chunk.css.map": "/static/css/2.5352975d.chunk.css.map",
+    "static/css/main.9617f4a4.chunk.css.map": "/static/css/main.9617f4a4.chunk.css.map",
+    "static/js/2.9936042b.chunk.js.LICENSE.txt": "/static/js/2.9936042b.chunk.js.LICENSE.txt",
+    "static/media/book.png": "/static/media/book.86002377.png",
+    "static/media/bus.png": "/static/media/bus.33cf39f0.png",
+    "static/media/kayak.png": "/static/media/kayak.7e62f1a4.png",
+    "static/media/salt-fork.jpg": "/static/media/salt-fork.cd9e4a61.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.101bd861.js",
+    "static/js/runtime-main.aad59a3d.js",
     "static/css/2.5352975d.chunk.css",
-    "static/js/2.afcc6d8f.chunk.js",
-    "static/css/main.0b68ff3e.chunk.css",
-    "static/js/main.80174a3e.chunk.js"
+    "static/js/2.9936042b.chunk.js",
+    "static/css/main.9617f4a4.chunk.css",
+    "static/js/main.0e53882a.chunk.js"
   ]
 }

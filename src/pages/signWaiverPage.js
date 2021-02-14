@@ -22,7 +22,7 @@ function WaiverPage() {
             setAlert('error')
         } else {
             try {
-                const response = await fetch('https://v1.nocodeapi.com/kingfisher/google_sheets/RUGlrHmPQgzMJrkW?tabId=Sheet1', {
+                const response = await fetch(`https://v1.nocodeapi.com/kingfisher/google_sheets/${process.env.REACT_APP_WAIVER_SHEET_ID}?tabId=Sheet1`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

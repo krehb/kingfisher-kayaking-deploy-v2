@@ -21,10 +21,10 @@ export default function Calendar({value, onChange, back, booked, kayaksInStock ,
         setKayaksLeft(renderKayaks(value, kayaksInStock, booked));
 
         // rendering 'Guide on: {guideRoute}'
-        setGuideRoute('no guide on that day')
+        setGuideRoute('no guided trip')
         booked.forEach(bookingData => {
             if ((bookingData.name === 'guide1706') && value.isSame(bookingData.date, 'day')){
-                setGuideRoute(bookingData.route)
+                setGuideRoute(`${bookingData.route} guided`)
             }
         });
 
@@ -112,7 +112,7 @@ export default function Calendar({value, onChange, back, booked, kayaksInStock ,
                 if (kayakCount.length > 0){
                     let kayaksBookedTotal = kayakCount.reduce(reducer)
                     
-                    if(((kayaksBookedTotal + 2) === kayaksInStock) || ((kayaksBookedTotal + 3) === kayaksInStock)) {
+                    if(((kayaksBookedTotal + 2) === kayaksInStock) || ((kayaksBookedTotal + 3) === kayaksInStock) || ((kayaksBookedTotal + 1) === kayaksInStock)) {
                         classes = bookedData.date
                     }
                 }
@@ -198,7 +198,7 @@ export default function Calendar({value, onChange, back, booked, kayaksInStock ,
         if (isBooked2(day)) return 'kayaks-2'
         if (isBooked4(day)) return 'kayaks-4'
         if (isBooked6(day)) return 'kayaks-6'
-        return ''
+        // return ''
     }
 
 

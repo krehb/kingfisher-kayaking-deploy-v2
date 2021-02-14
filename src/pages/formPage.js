@@ -2,7 +2,7 @@ import React from 'react';
 import SelectionFrom from '../Componets/SelectionForm/SelectionForm'
 
 
-function FormPage({routeSelected, kayaks, route, value, kayaksInStock, setViewing, setFormView, setFormData }) {
+function FormPage({routeSelected, kayaks, route, value, kayaksInStock, setViewing, setFormView, setFormData, bookingId }) {
 
 
     
@@ -16,6 +16,7 @@ function FormPage({routeSelected, kayaks, route, value, kayaksInStock, setViewin
               setViewing={setViewing}
               routeSelected={routeSelected}
               route={routeSelected}
+              bookingId={bookingId}
               value={value}
               kayaks={kayaks}
               kayaksInStock={kayaksInStock}

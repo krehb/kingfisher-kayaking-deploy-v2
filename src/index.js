@@ -6,14 +6,14 @@ import firebase from 'firebase';
 
 
 var firebaseConfig = {
-  apiKey: "AIzaSyAOr9eX5HHMMU6fX2yNqOCf6lcYeDaEmfA",
-  authDomain: "kingfisher-kayaking-website.firebaseapp.com",
-  databaseURL: "https://kingfisher-kayaking-website-default-rtdb.firebaseio.com/",
-  projectId: "kingfisher-kayaking-website",
-  storageBucket: "kingfisher-kayaking-website.appspot.com",
-  messagingSenderId: "810507287798",
-  appId: "1:810507287798:web:8a58000ac03b5145c8c0d7",
-  measurementId: "G-YNPVMKG7R1"
+  apiKey: `${process.env.REACT_APP_FIREBASE_API_KEY}`,
+  authDomain: `${process.env.REACT_APP_FIREBASE_AUTHDOMAIN}`,
+  databaseURL: `${process.env.REACT_APP_FIREBASE_DATABASEURL}`,
+  projectId: `${process.env.REACT_APP_FIREBASE_PROJECTID}`,
+  storageBucket: `${process.env.REACT_APP_FIREBASE_STORAGEBUCKET}`,
+  messagingSenderId: `${process.env.REACT_APP_FIREBASE_MESSAGESENDID}`,
+  appId: `${process.env.REACT_APP_FIREBASE_API_ID}`,
+  measurementId: `${process.env.REACT_APP_FIREBASE_MEASUREMENT_ID}`
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

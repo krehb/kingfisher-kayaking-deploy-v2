@@ -12,7 +12,7 @@ export default function SuccessPage({formData}){
   return (
       <div className='RoutesList' >
         <div className='success' >
-          Your Booking was Successful and an email was sent to your email!
+          Success, an email was sent to your email!
         </div>
       </div>
   )

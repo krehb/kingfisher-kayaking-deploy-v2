@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 
 
 
-function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFormView, setFormData,  }) {
+function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFormView, setFormData, bookingId  }) {
 
     const [tripName, SetTripName] = useState('no trip name');
     const [kayaksTaking, setKayaksTaking] = useState();
@@ -24,29 +24,11 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
   const database = firebase.database();
   const ref = database.ref('bookings');
 
+  let random = Math.floor(Math.random() * Math.floor(10000000))
 
-  const booking = {
-    route: route,
-    name: tripName,
-    numOfKayaks: kayaksTaking,
-    time: startTime,
-    pickUpLocation: location,
-    other: otherLoaction,
-    date: value.format("MM/DD/YY"),
-    email: email,
-    timeBooked: moment().format('MMMM Do YYYY, h:mm:ss a')
-  }
 
-  //submitting form to firebase database
-  const submitHandler = () => {
-    if(kayaksTaking > 0 && ifChecked){
-      console.log('booking sent');
-      ref.push(booking);
-    } else {
-      console.log('erroror')
-      console.log(ifChecked)
-    }
-  }
+
+
 
   //routing for the 'continue' button
   let history = useHistory();
@@ -60,7 +42,37 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
           setAlertCheck(true)
       } else {
           setAlertCheck(false)
-          setFormData(booking)
+
+          if (location === 'Other (only within city limits)'){
+            let booking = {
+                route: route,
+                name: tripName,
+                numOfKayaks: kayaksTaking,
+                time: startTime,
+                pickUpLocation: otherLoaction,
+                date: value.format("MM/DD/YY"),
+                email: email,
+                timeBooked: moment().format('MMMM Do YYYY, h:mm:ss a'),
+                bookingid: random,
+            }
+            setFormData(booking)
+            console.log(booking)
+          } else {
+            let booking = {
+                route: route,
+                name: tripName,
+                numOfKayaks: kayaksTaking,
+                time: startTime,
+                pickUpLocation: location,
+                date: value.format("MM/DD/YY"),
+                email: email,
+                timeBooked: moment().format('MMMM Do YYYY, h:mm:ss a'),
+                bookingid: random,
+            }
+            setFormData(booking)
+            console.log(booking)
+          }
+
           handleClick();
       }
   }
@@ -207,7 +219,7 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
                                 <option>MarketPlace Mall (North East Corner)</option>
                                 <option>LincolnSquare Mall (South Side)</option>
                                 <option>Savoy Walmart (North East Corner)</option>
-                                <option>Other (enter address below)</option>
+                                <option>Other (only within city limits)</option>
                             </Form.Control>
                         </div>
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Col, Row, ListGroup} from 'react-bootstrap';
+import {Link } from 'react-router-dom';
 import './footer.css';
 
 function Footer() {
@@ -27,8 +28,8 @@ function Footer() {
                         />
                         </a>
                 </div>
-                <div className='item'><span className="text-muted"> Our Mission Statement </span></div>     
-                <div className='item'><span className="text-muted statement"> To provide more affordable and accessible kayak rentals to the general public throughout the East Central Illinois rivers.  Additionally, it will create a more informed and engaged community that contributes to the health, science, and advocacy of East Central Illinois rivers through hands-on educational kayak tours and other conservation programs </span></div>     
+                <div className='item'><span className="text-muted">Contact us @ kingfisherkayaking@gmail.com or 217-993-9394</span></div>
+                <div className='item'><span className="text-muted">CHANGE TRIP DATE or TRIP CANCELATION -<Link className='link new-footer-link' to='/cancel-trip' >click here</Link></span></div>     
                 <div className='item'><span className="text-muted">Copyright&#169; 2021 KingFisher Kayaking & Developed By <span><a className='input-llc' href='https://www.inputllc.net/' target='blank' >Input LLC</a></span></span></div>                     
             </div>
         </footer>

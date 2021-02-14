@@ -6,7 +6,7 @@ import Paypal from '../Paypal/Paypal';
 
 
 
-function PayFrom({  route, value, formData, routeCost }) {
+function PayFrom({  route, value, formData, routeCost,bookingId }) {
 
 
 
@@ -50,15 +50,10 @@ function PayFrom({  route, value, formData, routeCost }) {
 
 
                     <div>
-                        <Paypal formData={formData} routeCost={routeCost} />
+                        <Paypal formData={formData} routeCost={routeCost} bookingId={bookingId} />
                     </div>
                     
 
-                    {/* <div className='nav-buttons' >
-                        <div className='arrow' onClick={() => setFormView(true)}>
-                            <FontAwesomeIcon icon="arrow-left"  size="1x" /> <span> Back </span>
-                        </div>
-                    </div> */}
 
     </div>
     )

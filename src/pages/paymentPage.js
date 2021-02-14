@@ -2,7 +2,7 @@ import React from 'react';
 import PayForm from '../Componets/Paypal/payForm';
 
 
-function PaymentPage({ kayaks, routeSelected, value, kayaksInStock, setViewing, setFormView, formData, routeCost }) {
+function PaymentPage({ kayaks, routeSelected, value, kayaksInStock, setViewing, setFormView, formData, routeCost,bookingId }) {
 
 
     
@@ -20,6 +20,7 @@ function PaymentPage({ kayaks, routeSelected, value, kayaksInStock, setViewing, 
             kayaksInStock={kayaksInStock}
             formData={formData}
             routeCost={routeCost}
+            bookingId={bookingId}
         />
         </div>
     )

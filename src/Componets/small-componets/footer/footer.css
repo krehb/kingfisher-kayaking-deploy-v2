@@ -10,6 +10,11 @@ footer {
     margin-bottom: -50px;
 }
 
+.new-footer-link {
+    color: white;
+    opacity: .5;
+}
+
 .footer-items {
     display: flex;
     justify-content: center;

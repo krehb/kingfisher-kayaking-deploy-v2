@@ -5,6 +5,25 @@
     border-radius: 0px;
     font-family: 'Sofia', sans-serif;
 }
+.my-jumbo2 {
+    background-color: rgb(112, 110, 110);
+    color: white;
+    margin: 0;
+    border-radius: 0px;
+    font-family: 'Sofia', sans-serif;
+    display: flex;
+    text-align: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.logo-big {
+    width: 200px;
+    margin-top: 40px;
+}
+.mission {
+   width: 800px;
+}
 
 .instructions {
     display: flex;
@@ -28,8 +47,12 @@
 .step-img {
     color: white;
     width: 100px;
+    height: 80px;
     padding-right: 10px;
-    @media screen and (max-width: $small) {
+}
+@media screen and (max-width: $small) {
+    .step-img {
         width: 50px;
+        height: 40px;
     }
 }
