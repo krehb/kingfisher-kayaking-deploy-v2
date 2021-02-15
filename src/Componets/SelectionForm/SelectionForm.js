@@ -1,7 +1,6 @@
 import React,{useState} from 'react'
 import { Form, Col, Container, Row, OverlayTrigger, Tooltip, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import firebase from 'firebase';
 import moment from 'moment';
 import emailjs from 'emailjs-com';
 import { useHistory } from "react-router-dom";
@@ -20,9 +19,7 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
     const [alertCheck, setAlertCheck] = useState(false);
 
 
-  // firebase requirements
-  const database = firebase.database();
-  const ref = database.ref('bookings');
+
 
   let random = Math.floor(Math.random() * Math.floor(10000000))
 
@@ -255,7 +252,7 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
 
                     <div>
                         <Form.Group id="formGridCheckbox" >
-                            <a target='blank' href={'https://media.makeameme.org/created/haha-got-you.jpg'} >
+                            <a target='blank' href='https://kingfisherkayaking.org/waiver' >
                                 <Form.Check onChange={(e) => {setChecked(e.target.checked)}}  type="checkbox" label="I agree to KingFisher Kayaking Terms of Service" />
                             </a>
                         </Form.Group>

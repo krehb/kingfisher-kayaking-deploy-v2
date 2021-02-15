@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { Container, Row, Col} from 'react-bootstrap';
-import firebase from 'firebase';
 
 import NewRoute from './newRouteCard';
 

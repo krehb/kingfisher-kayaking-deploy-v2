@@ -2,7 +2,7 @@ import React from 'react'
 import { Navbar, Nav } from 'react-bootstrap';
 import {Link, useLocation, useHistory} from 'react-router-dom';
 import './navbar.css'
-
+import newLogo from '../../../logo.png';
 
 function MyNavbar(props) {
     
@@ -30,8 +30,8 @@ function MyNavbar(props) {
                     <Navbar.Brand className='brand' >
                     <img
                         alt=""
-                        src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.stourvalleytrail.org.uk%2Fwp-content%2Fuploads%2F2016%2F11%2FKingfisher_logo_512_icon.png&f=1&nofb=1"
-                        width="40"
+                        src={newLogo}
+                        width="50"
                         height="30"
                         className="d-inline-block align-top"
                     />{' '}

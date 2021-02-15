@@ -2,7 +2,7 @@ import React, {useRef, useEffect, useState} from 'react';
 import emailjs from 'emailjs-com';
 import {useHistory} from 'react-router-dom';
 import firebase from 'firebase';
-
+import { Button } from 'react-bootstrap';
 
 export default function Paypal( {formData, routeCost, bookingId} ) {
     
@@ -23,7 +23,7 @@ export default function Paypal( {formData, routeCost, bookingId} ) {
     const [updatingBookingId, setBookingId] = useState();
     const [updatingBookingCount, setUpdatingBookingCount] = useState(0);
 
-
+    const [showButton, setShowButton] = useState(false);
 
     useEffect(() => {
         setBookingId(formData.bookingid);
@@ -44,7 +44,7 @@ export default function Paypal( {formData, routeCost, bookingId} ) {
                     intent: 'CAPTURE',
                     purchase_units: [
                         {
-                            description: "Cool and accurate kit",
+                            description: `${formData.numOfKayaks} kayak(s) on a route on ${formData.route}`,
                             amount: {
                                 currency_code: 'USD',
                                 value: total
@@ -56,6 +56,7 @@ export default function Paypal( {formData, routeCost, bookingId} ) {
             onApprove: async (data, actions) => {
                 const order = await actions.order.capture()
                 console.log(order)
+                setShowButton(true)
             },
             onError: (err) => {
                 console.log(err)
@@ -69,25 +70,19 @@ export default function Paypal( {formData, routeCost, bookingId} ) {
 
       //submitting form to firebase database
     const submitHandler = () => {
-
-
-
         refSettings.set({
             // bookingId: formData.bookingId,
             bookingCount: updatingBookingCount + 1,
             kayakStock: bookingId.kayakStock,
             waterLevelLimit: bookingId.waterLevelLimit
         })
-
         console.log('booking sent to database');
-        console.log(formData);
         // pushing data to database
         ref.push(formData);
     }
 
     function sendEmail(e) {
         e.preventDefault();
-        console.log('was clicked')
         submitHandler();
 
         emailjs.sendForm(`${process.env.REACT_APP_EMAIL_SERVICE_ID}`, `${process.env.REACT_APP_EMAIL_TEMPLATE_ID}`, e.target, `${process.env.REACT_APP_EMAIL_USER_ID}`)
@@ -101,12 +96,12 @@ export default function Paypal( {formData, routeCost, bookingId} ) {
         history.push('/success');
     }
     
-    
-    return (
-        <div>
-            <div ref={paypal} ></div>
+    let renderFinishButton = null
+
+    if (showButton){
+        renderFinishButton = (
             <div>
-                <form onSubmit={sendEmail}>
+                <form style={{display: 'flex', justifyContent: 'center'}} onSubmit={sendEmail}>
                     <input type="hidden" value={formData.route} name="route" />
                     <input type="hidden" value={formData.date} name="date" />
                     <input type="hidden" name="user_name" value={formData.name} />
@@ -116,9 +111,19 @@ export default function Paypal( {formData, routeCost, bookingId} ) {
                     <input type="hidden" name="location" value={formData.pickUpLocation} />
                     <input type="hidden" name="price" value={priceTotal} />
                     <input type="hidden" name="startTime" value={formData.time} />
-                    <button type="submit" value="send" >Fake Pay</button>
+                    <Button style={{backgroundColor: '#0A4870'}} type="submit" value="send" >Finish</Button>
                 </form>
             </div>
+        )
+    } else {
+        renderFinishButton = (
+            <div ref={paypal} ></div>
+        )
+    }
+    
+    return (
+        <div>
+            {renderFinishButton}
         </div>
     )
 }

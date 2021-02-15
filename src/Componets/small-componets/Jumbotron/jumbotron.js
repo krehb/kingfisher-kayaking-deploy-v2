@@ -5,6 +5,7 @@ import kayak from './kayak.png'
 import bus from './bus.png'
 import bookIcon from './book.png'
 import carIcon from './car.png'
+import newLogo from '../../../logo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function MyJumbotron() {
@@ -57,11 +58,11 @@ function MyJumbotron() {
             </div>
         </div>
         <div className='my-jumbo2' >
-            <div className="logo-big">
+            <div style={{marginRight: '100px'}} className="logo-big">
                 <img
                     alt=""
-                    src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.stourvalleytrail.org.uk%2Fwp-content%2Fuploads%2F2016%2F11%2FKingfisher_logo_512_icon.png&f=1&nofb=1"
-                    width="200"
+                    src={newLogo}
+                    width="300"
                     height="200"
                 />
             </div>
