@@ -270,6 +270,13 @@
   font-family: "Sofia", sans-serif;
 }
 
+@media screen and (max-width: 500px) {
+  .pay {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
 .pay .info-form {
   color: #0a4870;
   font-weight: 500;
@@ -313,7 +320,7 @@
 }
 
 .waiver {
-  background-image: url("https://images.pexels.com/photos/917494/pexels-photo-917494.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background-image: url("./background.jpg");
   background-position: center;
   padding-top: 30px;
   padding-bottom: 10%;

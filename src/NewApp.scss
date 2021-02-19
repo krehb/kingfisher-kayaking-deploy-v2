@@ -207,7 +207,10 @@ $font : 'Sofia', sans-serif;
     flex-direction: column;
     margin: 5% 30% 10% 30% ;
     padding: 10px;
-
+    @media screen and (max-width: $small) {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
 
     .info-form {
         color: #0a4870;

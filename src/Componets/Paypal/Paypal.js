@@ -13,6 +13,9 @@ export default function Paypal( {formData, routeCost, bookingId} ) {
     function handleClick() {
       history.push("/success");
     }
+    function handleErrorPage() {
+        history.push("/error");
+    }
 
     // firebase requirements
     const database = firebase.database();

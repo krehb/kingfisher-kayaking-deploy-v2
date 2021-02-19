@@ -10,6 +10,7 @@ import FormPage from './pages/formPage';
 import PaymentPage from './pages/paymentPage';
 import WaiverPage from './pages/signWaiverPage';
 import CancelIndex from './pages/cancel/index';
+import ErrorPage from './pages/errorPage';
 
 //lib
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -138,6 +139,7 @@ export default function App(){
               />}/>
           <Route path='/success' exact render={() => <SuccessPage formData={formData} />} />
           <Route path='/cancel-trip' exact render={() => <CancelIndex booked={booked[0].bookings} />} />
+          <Route path='/error' exact render={() => <ErrorPage  />} />
           <Route path='/waiver' exact render={() => <WaiverPage />} />
           <Route path='/' exact render={() => <HomePage
               myRef={myRef} 

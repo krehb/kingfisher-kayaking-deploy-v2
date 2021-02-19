@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React, {useEffect} from 'react'
+import {useHistory} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Paypal from '../Paypal/Paypal';
@@ -9,15 +9,28 @@ import Paypal from '../Paypal/Paypal';
 function PayFrom({  route, value, formData, routeCost,bookingId }) {
 
 
-
-
-    console.log(routeCost)
-
+    let history = useHistory();
 
 
 
+    function handleErrorPage() {
+        history.push("/error");
+    }
 
 
+    useEffect(()=> {
+
+        if(formData === undefined){
+        
+            handleErrorPage();
+        } 
+
+    },[])
+
+    if(formData === undefined){
+        
+        handleErrorPage();
+    } 
 
     return (
         <div className='pay' >

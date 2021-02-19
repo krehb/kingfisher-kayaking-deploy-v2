@@ -114,7 +114,8 @@ export default function Change({booked}) {
             <br></br>
             {renderError}
             <h5 style={{color: '#0A4870', fontWeight: 700}} >Fill form below and you will get your money back in a couple days time or less.</h5>
-            <p>This will delate your booking from the calendar and send us an email about your request. It may take some time to return the money, and when we are done, we will send you an email when it is completed. </p>
+            <p>This will delete your booking from the calendar and send us an email about your request. It may take some time to return the money, and when we are done, we will send you an email when it is completed. </p>
+            <p>Note: book cancelation has to be made prior to the booking date</p>
             <div className='waiver-form' >
                 <form onSubmit={submitChangeHandler} >
                     <label style={{paddingRight: '10px', color: '#0A4870', fontWeight: 700}} for="cars">Reason for cancelation or change of dates</label>
