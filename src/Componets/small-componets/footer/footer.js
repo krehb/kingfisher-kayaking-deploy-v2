@@ -9,7 +9,7 @@ function Footer() {
             <div className='footer-items' >
                 <div  className='item-social' ><span className="text-muted">Follow Us</span></div>
                 <div className='item-social'>
-                        <a href='https://www.facebook.com/groups/1800422893432792' target='blank' >
+                        <a href='https://www.facebook.com/kingfisherkayaking' target='blank' >
                         <img
                             alt=""
                             src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Ficons.iconarchive.com%2Ficons%2Fpaomedia%2Fsmall-n-flat%2F1024%2Fsocial-facebook-icon.png&f=1&nofb=1"
