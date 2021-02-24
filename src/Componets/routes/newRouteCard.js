@@ -34,7 +34,7 @@ const Route = ({title, waterLevel, duration, cost, pic, setRoute, waterLevelSett
         buttonName = 'Book'
         redAlert = 'content'
         clickFunction = (
-            () => {history.push(`/booking/${title}`); setRoute(title); setRouteCost(cost); console.log(cost)  }
+            () => {history.push(`/booking/${title}`); setRoute(title); setRouteCost(cost);   }
         )
     }   else {
         if(waterLevelSetting > waterLevelAPI) {
@@ -44,7 +44,7 @@ const Route = ({title, waterLevel, duration, cost, pic, setRoute, waterLevelSett
         }else {
             redAlert = 'content'
             clickFunction = (
-                () => {history.push(`/booking/${title}`); setRoute(title); setRouteCost(cost); console.log(cost) }
+                () => {history.push(`/booking/${title}`); setRoute(title); setRouteCost(cost);  }
             )
         }
     }
@@ -58,28 +58,30 @@ const Route = ({title, waterLevel, duration, cost, pic, setRoute, waterLevelSett
 
   return (
     <div>
-            <li onClick={clickFunction} className="booking-card" style={{backgroundImage: `url(${pic})`}} >
-                <div className="book-container">
+            <li  className="booking-card" style={{backgroundImage: `url(${pic})`}} >
+                <div onClick={clickFunction} className="book-container">
                 <div className={redAlert}>
                     <button  className="btn">
                         {buttonName}
                     </button>
                 </div>
                 </div>
-                <div className="informations-container">
-                <h2 className="title"><FontAwesomeIcon icon="map-marker-alt"  size="1x" /> {title}</h2>
+                <div className="informations-container" onClick={clickFunction}>
+                <h2 className="title"><FontAwesomeIcon icon="map-marker-alt" onClick={clickFunction}  size="1x" /> {title}</h2>
                 <p className="sub-title">{subtitle}</p>
                 <div className="more-information">
 
 
                     <div className="info-and-date-container">
-                    <div className="box info">
+                    <div onClick={clickFunction} className="box info">
                         <h5>{' '}<FontAwesomeIcon icon="dollar-sign"  size="1x" /> {cost}</h5>
                         <h5><FontAwesomeIcon icon="clock"  size="1x" /> {duration} hrs</h5>
                         <h5><FontAwesomeIcon icon="water"  size="1x" /> {waterLevelAPI} ft</h5>
                     </div>
                     </div>
-                    <p className="disclaimer">disclaimer: these photos weren't taken by us but are the same birds we see on the routes</p>
+                    <div onClick={() => history.push('/about')} style={{height: '50px', cursor: 'pointer'}} >
+                    <p onClick={() => history.push('/about')} className="disclaimer">More Info or Trip Details</p>
+                    </div>
                     </div>
                 </div>
             </li>

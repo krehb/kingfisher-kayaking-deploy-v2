@@ -41,6 +41,9 @@ export default function Paypal( {formData, routeCost, bookingId} ) {
         // setUpdatingBookingId(formData)
         setUpdatingBookingCount(bookingId.bookingCount)
         //sending payment through paypal
+
+    
+
         window.paypal.Buttons({
             createOrder: (data, actions, err) => {
                 return actions.order.create({
@@ -77,7 +80,8 @@ export default function Paypal( {formData, routeCost, bookingId} ) {
             // bookingId: formData.bookingId,
             bookingCount: updatingBookingCount + 1,
             kayakStock: bookingId.kayakStock,
-            waterLevelLimit: bookingId.waterLevelLimit
+            waterLevelLimit: bookingId.waterLevelLimit,
+            blockBooking: false,
         })
         console.log('booking sent to database');
         // pushing data to database

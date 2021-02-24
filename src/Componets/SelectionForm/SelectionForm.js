@@ -213,10 +213,11 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
                     <div className='form-body-middle' >
                         <div>
                             <Form.Control as="select" defaultValue="Choose..."  onChange={(e) => {setLocation(e.target.value)}}>
-                                <option>MarketPlace Mall (North East Corner)</option>
-                                <option>LincolnSquare Mall (South Side)</option>
-                                <option>Savoy Walmart (North East Corner)</option>
-                                <option>Other (only within city limits)</option>
+                                <option style={{backgroundColor: '#C9EE8C'}} >MarketPlace Mall (North East Corner)</option>
+                                <option style={{backgroundColor: '#C9EE8C'}} >LincolnSquare Mall (South Side)</option>
+                                <option style={{backgroundColor: '#C9EE8C'}} >Savoy Walmart (North East Corner)</option>
+                                <option style={{backgroundColor: '#CAE6C3'}} >I'll drive to the starting spot</option>
+                                <option style={{backgroundColor: '#8CE7EE'}} >Other (only within city limits)</option>
                             </Form.Control>
                         </div>
 

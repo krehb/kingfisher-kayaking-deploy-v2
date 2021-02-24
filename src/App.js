@@ -11,6 +11,7 @@ import PaymentPage from './pages/paymentPage';
 import WaiverPage from './pages/signWaiverPage';
 import CancelIndex from './pages/cancel/index';
 import ErrorPage from './pages/errorPage';
+import BlockBookingPage from './pages/blockBookingPage';
 
 //lib
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -22,7 +23,7 @@ import 'video-react/dist/video-react.css'; // import css
 
 //Awesome Fonts
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCheckSquare, faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock, faDollarSign, faPlus, faMapMarkerAlt, faCompass, faCalendarAlt, faExclamationCircle, faSnowflake, faCarSide } from '@fortawesome/free-solid-svg-icons'
+import { faCheckSquare, faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock, faDollarSign, faPlus, faMapMarkerAlt, faCompass, faCalendarAlt, faExclamationCircle, faSnowflake, faCarSide , faSeedling, faFish, faAppleAlt, faDrumstickBite, faBug } from '@fortawesome/free-solid-svg-icons'
 
 //components
 import MyNavbar from './Componets/small-componets/Navbar/navbar';
@@ -34,7 +35,7 @@ const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 export default function App(){
 
   //Awesome Fonts function
-  library.add( faCheckSquare,faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock,faDollarSign, faPlus , faMapMarkerAlt, faCompass, faCalendarAlt, faExclamationCircle, faSnowflake, faCarSide );
+  library.add( faCheckSquare,faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock,faDollarSign, faPlus , faMapMarkerAlt, faCompass, faCalendarAlt, faExclamationCircle, faSnowflake, faCarSide , faSeedling, faFish, faAppleAlt, faDrumstickBite, faBug );
 
   // firebase requirements
   const database = firebase.database();
@@ -51,6 +52,7 @@ export default function App(){
   const [routesList, setRoutes] = useState([]);
   const [routeCost, setRouteCost] = useState(0);
   const [bookingId, setBookingId] = useState(0);
+  const [blockBooking, setBlockBooking] = useState(false)
   // booked dates state for calendar
   const booked = useState({bookings: []})
 
@@ -90,6 +92,7 @@ export default function App(){
     setkayakStock(dataSettings.kayakStock)
     setWaterLevelSetting(dataSettings.waterLevelLimit)
     setBookingId(dataSettings)
+    setBlockBooking(dataSettings.blockBooking)
   }
   const errDataHandler = (err) => {
     console.log('Error!')
@@ -102,7 +105,22 @@ export default function App(){
   const myRef = useRef(null)
   const executeScroll = () => scrollToRef(myRef)
 
-
+  let renderBooking = null
+  if (blockBooking) {
+    renderBooking = <BlockBookingPage/>
+  } else {
+    renderBooking = (
+      <FormPage  
+                    routeSelected={routeSelected}
+                    value={value}
+                    kayaksInStock={kayakStock}
+                    kayaks={booked[0].bookings}
+                    formData={formData}
+                    setFormData={setFormData}
+                    bookingId={bookingId}
+                    />
+    )
+  }
 
 
   //whats rendered to the DOM
@@ -120,15 +138,7 @@ export default function App(){
               routeCost={routeCost}
               bookingId={bookingId}
               />}/>
-          <Route path='/booking/:id/form' render={() => <FormPage  
-              routeSelected={routeSelected}
-              value={value}
-              kayaksInStock={kayakStock}
-              kayaks={booked[0].bookings}
-              formData={formData}
-              setFormData={setFormData}
-              bookingId={bookingId}
-              />}/>
+          <Route path='/booking/:id/form' render={() => renderBooking}/>
           <Route path='/booking/:id' render={() => <BookingPage  
               routeSelected={routeSelected}
               value={value}

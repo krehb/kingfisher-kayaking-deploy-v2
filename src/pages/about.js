@@ -1,24 +1,47 @@
 import React from 'react';
 import '../App.css';
-import { Col, Container, Row, Image, Carousel } from 'react-bootstrap';
+import { Col, Container, Row, Image, Carousel, Card } from 'react-bootstrap';
 import SaltForkMap from './salt-fork.jpg'
 
+import SalineMap from './info-imgs/salinemap.png'
+import SaltForkRiverMap from './info-imgs/saltforkmap.png'
+import SangamonMap from './info-imgs/sangamon.png'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 export default function About(){
 
 
+  const Animals = [
+    {name: 'White-Tailed Deer',
+    latin: 'Odocoileus virginianus',
+    diet: '',
+    fact: 'Their special stomachs allow them to eat some things humans cannot, such as mushrooms and poison ivy.',
+    weight: 200,
+
+  }
+  ]
 
 
 
   //whats rendered to the DOM
   return (
       <div className='waiver' >
+      
         <Container className='waiver-container' >
           <Row>
+            <Container>
             <Col>
-              <Carousel>
+              <h1>River Wildlife</h1>
+              <p>The Central Illinois rivers are typically lined with oak, hickory, and sycamore trees. You will see many different bird species from bald eagles to goldfinches, with some of the more common bird species being the great blue heron and the belted kingfisher. Mammals of the rivers include semiaquatic species including  beavers, otters, muskrat and mink, in addition to the deer, raccoons, foxes, and coyotes that you might spot along the banks. For more info, check out <a target='blank' href='https://www.wildlifeillinois.org/gallery/' >Wildlife Illinois</a> </p>
+            </Col>
+            </Container>
+          </Row>
+
+          <Row>
+            <Col>
+            <Carousel>
                 <Carousel.Item>
                   <img
                     className="d-block w-100 info-img"
@@ -59,22 +82,81 @@ export default function About(){
                   </Carousel.Caption>
                 </Carousel.Item>
               </Carousel>
-              <h2 className='river-title' >About the Rivers</h2>
-              <p>Central Illinois is not often thought of being a destination for nature lovers, but tucked away between the endless acres of corn and soybean is a world largely unknown and unexplored, a world of bald eagles and great horned owls silently perched above the water waiting for bass or catfish, of beavers, otters, and mink scurrying along a muddy river bank, of water snakes and giant snapping turtles sunning themselves on logs, of great blue herons flying overhead, of belted kingfishers darting over the water, of giant jumping asian carp lurking just beneath the surface of the muddy water, and the occasional group of kayakers, slowly drifting along, taking in all of the natural wonders of the often forgotten biodiversity hotspots which are our local rivers.</p>
             </Col>
+            
           </Row>
-          <div>
-            <div className='river-info' >
-              <div>
-                <img src={SaltForkMap} className='river-img' rounded />
-              </div>
-              <div className='river-text' >
-                <h5>Salt Fork</h5>
-                <p>On a rainy day in Urbana if you were to hop inside a raindrop that landed in the street, you would soon find yourself headed down a storm drain and through a series of underground tunnels made of concrete. Not long after you would find yourself in the Boneyard Creek, winding your way through the UIUC campus, and then downtown Urbana, and once you were north of downtown you would find yourself joining a larger stream known as the Saline Branch. Following this east all the way to St. Joe would lead you to the Salt Fork River. This 68 mile long river drains an area extending from Urbana to Rantoul, all the way to Oakwood.</p>
-                <span>more info coming soon...</span><h6>- Joe</h6>
-              </div>
-            </div>
-          </div>
+          <br></br><br></br>
+          <Row>
+
+          <Col sm>
+          <Card style={{backgroundColor: '#CDC7D6', color: 'black'}} >
+              <Card.Img variant="top"   src={SaltForkRiverMap} />
+              <Card.Body>
+                <Card.Title style={{textAlign: 'left', paddingLeft: '10px', fontSize: '30px'}} >Salt Fork</Card.Title>
+                <Card.Text>
+                The Salt Fork River is a 68 mile long tributary of the Vermilion River. Starting just north of St. Joseph, the Salt Fork heads southeast meandering it’s way through Homer Lake Forest Preserve before eventually merging with the Middle Fork River to form the Vermilion River just west of Danville.
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+
+          <Col sm>
+          <Card style={{backgroundColor: '#CDC7D6', color: 'black'}} >
+              <Card.Img variant="top"   src={SangamonMap} />
+              <Card.Body>
+                <Card.Title style={{textAlign: 'left', paddingLeft: '10px', fontSize: '30px'}} >Sangamon River</Card.Title>
+                <Card.Text>
+                The Sangamon River is a 246 mile long tributary of the Illinois River. Beginning southeast of Bloomington, it makes its way south to Mahomet before curling west where it will eventually pass through Decatur and Springfield before merging with the Illinois River near Beardstown. 
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+
+          </Row>
+            <br></br>
+            {/* <Row>
+              <Col>
+                <h1>Recently Seen Animals</h1>
+                <FontAwesomeIcon icon="seedling"  size="3x" />
+                <FontAwesomeIcon icon="fish"  size="3x" />
+                <FontAwesomeIcon icon="apple-alt"  size="3x" />
+                <FontAwesomeIcon icon="drumstick-bite"  size="3x" />
+                <FontAwesomeIcon icon="bug"  size="3x" />
+
+              </Col>
+            </Row> */}
+
+
+          {/* <Row>
+            <Col sm>
+              <Card className="bg-dark text-white">
+                <Card.Img src="https://scontent.fpia1-1.fna.fbcdn.net/v/t1.0-9/116010461_10163714710565648_4749864515233144120_o.jpg?_nc_cat=104&ccb=2&_nc_sid=b9115d&_nc_ohc=SkOglKYaB_AAX_zmyTn&_nc_ht=scontent.fpia1-1.fna&oh=ff3fe08a2c700d7837d0bf30ed45efc0&oe=6035BFDB" alt="Card image" />
+                <Card.ImgOverlay>
+                  <Card.Title  >White-Tailed Deer</Card.Title>
+                  <Card.Text>
+                    This is a wider card with supporting text below as a natural lead-in to
+                    additional content. This content is a little bit longer.
+                  </Card.Text>
+                </Card.ImgOverlay>
+              </Card>
+            </Col>  
+            <Col sm>
+              <Card className="bg-dark text-white">
+                <Card.Img src="https://scontent.fpia1-1.fna.fbcdn.net/v/t1.0-9/117253385_10163778848705648_2581571581454819758_o.jpg?_nc_cat=100 info-img&ccb=2&_nc_sid=b9115d&_nc_ohc=JClF6SZK93IAX8vLedH&_nc_ht=scontent.fpia1-1.fna&oh=b42dbc400c908c54aa366f7200f41bd3&oe=60372ED9" alt="Card image" />
+                <Card.ImgOverlay>
+                  <Card.Title>Belted Kingfisher</Card.Title>
+                  <Card.Text>
+                    This is a wider card with supporting text below as a natural lead-in to
+                    additional content. This content is a little bit longer.
+                  </Card.Text>
+                </Card.ImgOverlay>
+              </Card>
+            </Col>  
+
+
+
+          </Row> */}
+
         </Container>
       </div>
   )
