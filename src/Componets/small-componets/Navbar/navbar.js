@@ -27,7 +27,7 @@ function MyNavbar(props) {
         <div>
             <div style={{textAlign: 'center ', backgroundColor: 'red', color: 'white', padding: '20px'}} >
                 <h2 style={{color: 'white'}} >Coming Spring 2021!</h2>
-                Follow us and we'll be accepting bookings as soon as the weather and the rivers are good!
+                We are not accepting bookings due to winter weather and low water levels. Please follow us on social media for important updates.
             </div>
             <Navbar className='my-nav' bg="light" expand="lg">
                 <Link to='/' >
