@@ -12,6 +12,8 @@ import WaiverPage from './pages/signWaiverPage';
 import CancelIndex from './pages/cancel/index';
 import ErrorPage from './pages/errorPage';
 import BlockBookingPage from './pages/blockBookingPage';
+import Involved from  './pages/involved';
+import Donate from './pages/donate';
 
 //lib
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -129,7 +131,10 @@ export default function App(){
       <div >
           <MyNavbar executeScroll={executeScroll} />
           <Switch>
-          <Route path='/about' component={About} />
+          <Route path='/about' render={()=> <About
+            bookingId={bookingId}
+
+          />} />
           <Route path='/booking/:id/form/pay' render={() => <PaymentPage  
               routeSelected={routeSelected}
               value={value}
@@ -151,6 +156,8 @@ export default function App(){
           <Route path='/cancel-trip' exact render={() => <CancelIndex booked={booked[0].bookings} />} />
           <Route path='/error' exact render={() => <ErrorPage  />} />
           <Route path='/waiver' exact render={() => <WaiverPage />} />
+          <Route path='/involved' exact render={() => <Involved />} />
+          <Route path='/donate' exact render={() => <Donate />} />
           <Route path='/' exact render={() => <HomePage
               myRef={myRef} 
               setRouteSelected={setRouteSelected} 

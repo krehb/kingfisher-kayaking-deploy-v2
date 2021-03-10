@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import '../App.css';
 import { Col, Container, Row, Image, Carousel, Card } from 'react-bootstrap';
 import SaltForkMap from './salt-fork.jpg'
@@ -10,8 +10,46 @@ import SangamonMap from './info-imgs/sangamon.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
-export default function About(){
+export default function About({bookingId}){
 
+
+
+  const [line1 , setLine1] = useState('')
+  const [line2, setLine2] = useState('loading...');
+  const [line3, setLine3] = useState('')
+  const [date, setDate] = useState('')
+  const [author, setAuthor] = useState('')
+
+  useEffect(() => {
+
+    
+    console.log(bookingId.haiku)
+    try{
+      setLine1(bookingId.haiku.line1);
+      setLine2(bookingId.haiku.line2);
+      setLine3(bookingId.haiku.line3);
+      setDate(bookingId.haiku.date);
+      setAuthor(bookingId.haiku.author);
+      console.log(bookingId.haiku)
+    }catch(e){
+        console.log("YO",e)
+    }
+  },[])
+
+  setTimeout(function(){ 
+
+    try{
+      setLine1(bookingId.haiku.line1);
+      setLine2(bookingId.haiku.line2);
+      setLine3(bookingId.haiku.line3);
+      setDate(bookingId.haiku.date);
+      setAuthor(`-${bookingId.haiku.author}`);
+      console.log(bookingId.haiku)
+    }catch(e){
+        console.log("YO",e)
+    }
+
+   }, 500);
 
   const Animals = [
     {name: 'White-Tailed Deer',
@@ -23,13 +61,14 @@ export default function About(){
   }
   ]
 
+  
 
 
   //whats rendered to the DOM
   return (
       <div className='waiver' >
       
-        <Container className='waiver-container' >
+        <Container className='waiver-container-rivers' >
           <Row>
             <Container>
             <Col>
@@ -45,7 +84,7 @@ export default function About(){
                 <Carousel.Item>
                   <img
                     className="d-block w-100 info-img"
-                    src="https://scontent.fpia1-1.fna.fbcdn.net/v/t1.0-9/121157956_10164041958980648_8592341739752383201_o.jpg?_nc_cat=104&ccb=2&_nc_sid=b9115d&_nc_ohc=PHNjPno-b4IAX8cUcOj&_nc_ht=scontent.fpia1-1.fna&oh=6091543014ef1dfa5ae1de5c7ba67e42&oe=60372754"
+                    src="https://storage.googleapis.com/www.inputllc.net/kayaking-img/eagle.jpg"
                     alt="First slide"
                   />
                   <Carousel.Caption>
@@ -58,7 +97,7 @@ export default function About(){
                     height='200px'
                     width='auto'
                     className="d-block w-100 info-img"
-                    src="https://scontent.fpia1-1.fna.fbcdn.net/v/t1.0-9/117253385_10163778848705648_2581571581454819758_o.jpg?_nc_cat=100 info-img&ccb=2&_nc_sid=b9115d&_nc_ohc=JClF6SZK93IAX8vLedH&_nc_ht=scontent.fpia1-1.fna&oh=b42dbc400c908c54aa366f7200f41bd3&oe=60372ED9"
+                    src="https://storage.googleapis.com/www.inputllc.net/kayaking-img/kingfisher.jpg"
                     alt="Third slide"
                   />
 
@@ -72,7 +111,7 @@ export default function About(){
                     height='200px'
                     width='auto'
                     className="d-block w-100 info-img"
-                    src="https://scontent.fpia1-1.fna.fbcdn.net/v/t1.0-9/116010461_10163714710565648_4749864515233144120_o.jpg?_nc_cat=104&ccb=2&_nc_sid=b9115d&_nc_ohc=SkOglKYaB_AAX_zmyTn&_nc_ht=scontent.fpia1-1.fna&oh=ff3fe08a2c700d7837d0bf30ed45efc0&oe=6035BFDB"
+                    src="https://storage.googleapis.com/www.inputllc.net/kayaking-img/deer.jpg"
                     alt="Third slide"
                   />
 
@@ -84,6 +123,15 @@ export default function About(){
               </Carousel>
             </Col>
             
+          </Row>
+          <br></br><br></br>
+          <Row>
+            <Col style={{textAlign: 'center'}} >
+              <p>{line1}</p>
+              <p>{line2}</p>
+              <p>{line3}</p>
+              <span>{author}</span><span style={{paddingLeft: '20px'}} >{date}</span>
+            </Col>
           </Row>
           <br></br><br></br>
           <Row>

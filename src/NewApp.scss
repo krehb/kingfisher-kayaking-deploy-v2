@@ -255,13 +255,24 @@ $font : 'Sofia', sans-serif;
     background-image: url('./background.jpg');
     background-position: center;
     padding-top: 30px;
-    padding-bottom: 10%;
+    padding-bottom: 10px;
+
+    .waiver-container-rivers {
+        background-color: #F0F0F0;
+        padding: 20px;
+    }
+
+    ul {
+        display: block;
+        list-style-type: disc;
+        padding-left: 30px;
+    }
+    
     .waiver-container {
         background-color: #F0F0F0;
         padding: 20px;
-
-
-
+        height: 600px;
+        overflow: scroll;
 
         .waiver-title {
             text-align: center;

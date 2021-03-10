@@ -25,9 +25,9 @@ function MyNavbar(props) {
     
     return (
         <div>
-            <div style={{textAlign: 'center ', backgroundColor: 'red', color: 'white', padding: '20px'}} >
-                <h2 style={{color: 'white'}} >Coming Spring 2021!</h2>
-                We are not accepting bookings due to winter weather and low water levels. Please follow us on social media for important updates.
+            <div style={{textAlign: 'center ', backgroundColor: '#20ad00', color: 'white', padding: '20px'}} >
+                <h2 style={{color: 'white'}} >Spring 2021</h2>
+                We are now accepting bookings starting April 1st. Please follow us on social media for important updates.
             </div>
             <Navbar className='my-nav' bg="light" expand="lg">
                 <Link to='/' >
@@ -52,6 +52,9 @@ function MyNavbar(props) {
                         </Link>
                         <Link className='link' to='/waiver' >
                             Waiver
+                        </Link>
+                        <Link className='link' to='/involved' >
+                            Get Involved
                         </Link>
                     </Nav>
                 </Navbar.Collapse>

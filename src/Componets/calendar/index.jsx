@@ -256,9 +256,9 @@ export default function Calendar({value, onChange, back, booked, kayaksInStock ,
                     </div>
                     <div className='info-text' >
 
-                        <h6 className='cal-b-text' >Avalible: <span className='num-of-kayaks-on-that-day' >{kayaksLeft}</span> kayaks</h6>
+                        <h6 className='cal-b-text' >Available: <span className='num-of-kayaks-on-that-day' >{kayaksLeft}</span> kayaks</h6>
                         <div className='legend' >
-                        <div className='avalible' >Avalible</div>
+                        <div className='avalible' >Available</div>
                         <ul>
                             <li className='kayaks-8 l-item' ></li>
                             <li className='kayaks-6 l-item' ></li>
@@ -266,7 +266,7 @@ export default function Calendar({value, onChange, back, booked, kayaksInStock ,
                             <li className='kayaks-2 l-item' ></li>
                             <li className='kayaks-0 l-item' ></li>
                         </ul>
-                        <div className='unavalible'>Not Avalible</div>
+                        <div className='unavalible'>Not Available</div>
                     </div>
                     </div>
 

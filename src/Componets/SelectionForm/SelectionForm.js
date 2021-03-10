@@ -35,7 +35,7 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
 
   //render error if form isn't fully filled
   const continueButtonHandler = () => {
-      if(kayaksTaking === 0 || kayaksTaking === undefined || email === '' || email === 'not selected' || ifChecked === undefined || ifChecked === false || tripName === 'no trip name'){
+      if(kayaksTaking === 0 || kayaksTaking === undefined || email === '' || email === 'not selected'  || tripName === 'no trip name'){
           setAlertCheck(true)
       } else {
           setAlertCheck(false)
@@ -147,7 +147,21 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
 
 
 
-
+    //rendering time list for buffering for different routes
+    let renderTimeList = null
+    if (route === 'Sangamon'){
+        renderTimeList = (
+            <>
+                <option>12:00 am</option>
+            </>
+        )
+    } else {
+        renderTimeList = (
+            <>
+                <option>8:30 am</option>
+            </>
+        )
+    }
 
 
     return (
@@ -183,12 +197,12 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
                     <div className='form-body-top' >
                         <div>
                             <Form.Group as={Col} controlId="formGridname">
-                                <Form.Control type="text" placeholder="Ned Flanders" onChange={(e)=> {SetTripName(e.target.value)}} />
+                                <Form.Control type="text" placeholder="Name" onChange={(e)=> {SetTripName(e.target.value)}} />
                             </Form.Group>
                         </div>
                         <div>
                             <Form.Group as={Col} controlId="formGridphone">
-                                <Form.Control type="email" placeholder="didlydo@yahoo.com" onChange={(e) => {setEmail(e.target.value)}} />
+                                <Form.Control type="email" placeholder="Email" onChange={(e) => {setEmail(e.target.value)}} />
                             </Form.Group>
                         </div>
 
@@ -237,9 +251,7 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
                     <div  className='form-body-bottom'>
                         <div >
                             <Form.Control as="select" defaultValue="Choose..."  onChange={(e)=> {setTime(e.target.value)}}>
-                                <option>8:00 am</option>
-                                <option>9:30 am</option>
-                                <option>11:00 am</option>
+                                {renderTimeList}
                             </Form.Control>
                         </div>
                         <div>
@@ -251,14 +263,14 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
                         </div>
                     </div>
 
-                    <div>
+                    {/* <div>
                         <Form.Group id="formGridCheckbox" >
                             <a target='blank' href='https://kingfisherkayaking.org/waiver' >
                                 <Form.Check onChange={(e) => {setChecked(e.target.checked)}}  type="checkbox" label="I agree to KingFisher Kayaking Terms of Service" />
                             </a>
                         </Form.Group>
 
-                    </div>
+                    </div> */}
 
                     <div className='nav-buttons' >
                         {/* <div className='arrow' onClick={() => setViewing(true)}>
