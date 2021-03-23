@@ -22,7 +22,7 @@ function Routes({ setRoute, waterLevel, routesList, setRouteCost }) {
                 <Row className='route-list' >
                     <ul>
                         {routesList.map(route =>{
-                            return <NewRoute setRouteCost={setRouteCost} subtitle={route.subtitle}  waterLevelSetting={waterLevel} key={route.name} setRoute={setRoute} title={route.name} cost={route.cost} duration={route.duration} waterLevel={route.site} pic={route.img}  />
+                            return <NewRoute setRouteCost={setRouteCost} subtitle={route.subtitle}  waterLevelSetting={waterLevel} key={route.name} setRoute={setRoute} title={route.name} cost={route.cost} duration={route.duration} waterLevel={route.site} pic={route.img} route={route} />
                         })}
                     </ul>
                 </Row>

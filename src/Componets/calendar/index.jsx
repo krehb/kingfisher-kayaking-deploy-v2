@@ -8,7 +8,7 @@ import Weather from '../weather/weather';
 import {Link} from 'react-router-dom';
 import moment from 'moment';
 
-export default function Calendar({value, onChange, back, booked, kayaksInStock , routeSelected, setViewing}) {
+export default function Calendar({value, onChange, booked2, booked, kayaksInStock , routeSelected, setViewing}) {
     const [calendar , setCalendar] = useState([]);
     const [kayaksLeft, setKayaksLeft] = useState();
     const [guidedRoute, setGuideRoute] = useState('no guide');

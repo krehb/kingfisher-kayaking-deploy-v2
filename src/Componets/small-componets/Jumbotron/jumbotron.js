@@ -39,7 +39,7 @@ function MyJumbotron() {
     return (
         <div>
         <div className='my-jumbo'>
-            <div className='jumbo-title' style={{textAlign: 'center'}} >Want to Kayak?</div>
+            <div className='jumbo-title' style={{textAlign: 'center'}} >How it Works</div>
             <div className='instructions' >
                 <div className='step' >
                     <img className='step-img' src={bookIcon} />
@@ -59,28 +59,12 @@ function MyJumbotron() {
                    5. We'll pick you up from the end point and drop you off
                 </div>
             </div>
+            <div style={{textAlign: 'center', paddingBottom: '20px', paddingLeft: '10px', paddingRight: '10px'}} >
+                Guides<FontAwesomeIcon style={{marginLeft: '5px'}} icon="compass"  size="1x" /> are on specific days. Check the calendar when booking to see what days are guided.
+            </div>
         </div>
         <div  >
-            <div className='jumbo-title' style={{textAlign: 'center', backgroundColor: 'rgb(112, 110, 110)', color: 'white'}} >Our Mission</div>
-            <div className='my-jumbo2' style={{paddingBottom: '30px'}} >
-                <div style={{marginRight: '100px', marginTop: '00px'}} className="logo-big">
-                    <img
-                        alt=""
-                        src={newLogo}
-                        width="300"
-                        height="200"
-                    />
-                </div>
-                <div className='mission'  >
-                    {/* <div className='jumbo-title' >Our Mission</div> */}
-                    <div className='instructions' >
-                    To provide more affordable and accessible kayak rentals to the general public throughout the East Central Illinois rivers. Additionally, it will create a more informed and engaged community that contributes to the health, science, and advocacy of East Central Illinois rivers through hands-on educational kayak tours and other conservation programs
-                    </div>
-                    <div style={{marginBottom: '20px'}} >
-                        Guides<FontAwesomeIcon style={{marginLeft: '5px'}} icon="compass"  size="1x" /> are on specific days. Check the calendar when booking to see what days are guided.
-                    </div>
-                </div>
-            </div>
+
         </div>
         </div>
     )

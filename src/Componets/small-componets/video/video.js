@@ -6,7 +6,7 @@ function Video(){
   
   return (
     <div>
-              <div>
+      <div>
         <Player
           autoPlay
           muted
@@ -15,6 +15,11 @@ function Video(){
         >
         <ControlBar disableCompletely={true}  className="my-class" />
         </Player>
+      </div>
+      <div className='videoTextContainer' >
+        <div className='videoText'>
+            Join us for a more peaceful paddling experience that will strengthen your connection to the river and its natural wonders. 
+        </div>
       </div>
     </div>
   );

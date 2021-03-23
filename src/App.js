@@ -42,6 +42,7 @@ export default function App(){
   // firebase requirements
   const database = firebase.database();
   const ref = database.ref('bookings');
+  const refSaltFork = database.ref('bookings-salt-fork');
   const refSettings = database.ref('settings')
   const refRoutes = database.ref('routes');
 
@@ -57,11 +58,13 @@ export default function App(){
   const [blockBooking, setBlockBooking] = useState(false)
   // booked dates state for calendar
   const booked = useState({bookings: []})
+  const booked2 = useState({bookings2: []})
 
   
   //rendering the data from the firebase for the calendar & rendering settings
   useEffect(() => {
     ref.on('value', gotDataHandler, errDataHandler);
+    refSaltFork.on('value', gotDataHandler2, errDataHandler);
     refSettings.on('value', gotSettingsHandler, errDataHandler)
     refRoutes.on('value', gotRouteDataHandler, errDataHandler);
   },[])
@@ -78,6 +81,18 @@ export default function App(){
       array.push(bookingItem)
     }
     booked[1]({bookings: array})
+  }
+  const array2 = []
+  const gotDataHandler2 = (data) => {
+    const dataBookings = data.val();
+    const keys = Object.keys(dataBookings);
+    for (let i = 0; i < keys.length; i ++){
+      let k = keys[i]
+      const list = dataBookings[k]
+      const bookingItem = {date: list.date, numOfKayaks: list.numOfKayaks, name: list.name, route: list.route, bookingid: list.bookingid, key: k, timeBooked: list.timeBooked}
+      array2.push(bookingItem)
+    }
+    booked2[1]({bookings2: array2})
   }
   //calling routes list + details
   const gotRouteDataHandler = (data) => {
@@ -149,6 +164,7 @@ export default function App(){
               value={value}
               setValue={setValue}
               booked={booked[0].bookings}
+              booked2={booked2[0].bookings2}
               kayaksInStock={kayakStock}
               kayaks={booked[0].bookings}
               />}/>

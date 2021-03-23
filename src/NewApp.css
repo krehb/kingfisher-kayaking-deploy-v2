@@ -1,3 +1,38 @@
+.videoTextContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #424242;
+}
+
+.videoText {
+  position: absolute;
+  top: 360px;
+  text-align: center;
+  width: 800px;
+  font-weight: 600;
+  font-size: 24px;
+  color: #f8f8f8;
+  background-color: #948989;
+  opacity: .85;
+  border-radius: 15px;
+  margin: 50px;
+}
+
+@media screen and (max-width: 500px) {
+  .videoText {
+    padding: 3px;
+    margin: 0px 20px 50px 20px;
+    width: 300px;
+    position: relative;
+    top: 20px;
+    font-size: 20px;
+  }
+}
+
 .full-calendar {
   background-color: #F0F0F0;
   padding: 10px;

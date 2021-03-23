@@ -32,6 +32,10 @@ function Footer() {
                 <div className='item'><span className="text-muted">CHANGE TRIP DATE or TRIP CANCELATION -<Link className='link new-footer-link' to='/cancel-trip' >click here</Link></span></div>     
                 <div className='item'><span className="text-muted">Copyright&#169; 2021 KingFisher Kayaking & Developed By <span><a className='input-llc' href='https://www.inputllc.net/' target='blank' >Input LLC</a></span></span></div>                     
             </div>
+            <div className='footer-items'>
+                <div  className='item-social' ><span className="text-muted">Our Mission</span></div>
+                <div className='item' style={{width: '280px'}} ><span className="text-muted">To provide more affordable and accessible kayak rentals to the general public throughout the East Central Illinois rivers. Additionally, it will create a more informed and engaged community that contributes to the health, science, and advocacy of East Central Illinois rivers through hands-on educational kayak tours and other conservation programs</span></div>
+            </div>
         </footer>
     )
 }

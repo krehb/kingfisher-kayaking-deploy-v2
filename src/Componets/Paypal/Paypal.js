@@ -20,6 +20,7 @@ export default function Paypal( {formData, routeCost, bookingId} ) {
     // firebase requirements
     const database = firebase.database();
     const ref = database.ref('bookings');
+    const refSaltFork = database.ref('bookings-salt-fork');
     const refSettings = database.ref('settings');
     
     const [priceTotal, setPriceTotal] = useState(0);
@@ -85,7 +86,12 @@ export default function Paypal( {formData, routeCost, bookingId} ) {
         })
         console.log('booking sent to database');
         // pushing data to database
-        ref.push(formData);
+        console.log(formData)
+        if(formData.route === 'Salt Fork'){
+            refSaltFork.push(formData)
+        } else {
+            ref.push(formData);
+        }
     }
 
     function sendEmail(e) {

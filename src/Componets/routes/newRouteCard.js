@@ -6,7 +6,7 @@ import './newStyle.css';
 
 
 
-const Route = ({title, waterLevel, duration, cost, pic, setRoute, waterLevelSetting, subtitle, setRouteCost}) => {
+const Route = ({title, waterLevel, duration, cost, pic, setRoute, waterLevelSetting, subtitle, setRouteCost, route}) => {
 
     const [waterLevelAPI, setWaterLevel] = useState(null);
     //routing
@@ -23,6 +23,7 @@ const Route = ({title, waterLevel, duration, cost, pic, setRoute, waterLevelSett
             setWaterLevel(waterLevelStat)
         }
         getData();
+        console.log(route)
     },[])
 
 
@@ -74,9 +75,21 @@ const Route = ({title, waterLevel, duration, cost, pic, setRoute, waterLevelSett
 
                     <div className="info-and-date-container">
                     <div onClick={clickFunction} className="box info">
-                        <h5>{' '}<FontAwesomeIcon icon="dollar-sign"  size="1x" /> {cost}</h5>
-                        <h5><FontAwesomeIcon icon="clock"  size="1x" /> {duration} hrs</h5>
-                        <h5><FontAwesomeIcon icon="water"  size="1x" /> {waterLevelAPI} ft</h5>
+                        <h5>{route.difficulty}</h5>
+                        <h5>{route.distance} miles | <FontAwesomeIcon icon="clock"  size="1x" /> {duration} hrs</h5>
+                        {/* <h5>{' '}<FontAwesomeIcon icon="dollar-sign"  size="1x" /> {cost} = <span style={{fontSize: '14px'}} > 1 kayak for route + transportation</span></h5> */}
+                        <div style={{display: 'flex', justifyContent: 'center'}}>
+                            <div style={{width: '22px', height: '2px', backgroundColor: '#ec992c', marginBottom: '8px'}} ></div>
+                        </div>
+                        <div style={{display: 'flex'}}>
+                            <div style={{width: '100px', marginTop: '15px'}}>
+                                <h5>{' '}<FontAwesomeIcon icon="dollar-sign"  size="1x" /> {cost} = </h5>
+                            </div>
+                            <div >
+                                <h5 style={{ borderRadius: '10px'}} >1 kayak for route + transportation</h5>
+                            </div>
+                        </div>
+                        {/* <h5><FontAwesomeIcon icon="water"  size="1x" /> {waterLevelAPI} ft </h5> */}
                     </div>
                     </div>
                     <div onClick={() => history.push('/about')} style={{height: '50px', cursor: 'pointer'}} >

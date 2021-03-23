@@ -1,10 +1,20 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../App.css';
 import Calendar from '../Componets/calendar/index';
 
-export default function BookingPage({ routeSelected, value, setValue, back, booked, kayaksInStock,  form}){
+export default function BookingPage({ routeSelected, value, setValue, back, booked, kayaksInStock, booked2, form}){
+
+    const [calendarData, setCalendarData] = useState(booked)
 
 
+    useEffect(() => {
+      if(routeSelected === 'Salt Fork'){
+        setCalendarData(booked2)
+      }
+    });
+    useEffect(() => {
+      window.scroll(0,100)
+    },[]);
 
   //whats rendered to the DOM
   return (
@@ -14,7 +24,7 @@ export default function BookingPage({ routeSelected, value, setValue, back, book
           onChange={setValue} 
           routeSelected={routeSelected}
           back={back} 
-          booked={booked} 
+          booked={calendarData}
           kayaksInStock={kayaksInStock} 
           form={form} />
       </div>

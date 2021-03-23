@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import SelectionFrom from '../Componets/SelectionForm/SelectionForm'
 
 
@@ -6,7 +6,9 @@ function FormPage({routeSelected, kayaks, route, value, kayaksInStock, setViewin
 
 
     
-    
+    useEffect(() => {
+        window.scroll(0,100)
+    },[]);
     
     
     return (

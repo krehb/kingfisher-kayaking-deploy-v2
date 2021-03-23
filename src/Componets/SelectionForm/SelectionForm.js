@@ -152,7 +152,7 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
     if (route === 'Sangamon'){
         renderTimeList = (
             <>
-                <option>12:00 am</option>
+                <option>12:00 pm</option>
             </>
         )
     } else {
