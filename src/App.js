@@ -25,7 +25,7 @@ import 'video-react/dist/video-react.css'; // import css
 
 //Awesome Fonts
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCheckSquare, faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock, faDollarSign, faPlus, faMapMarkerAlt, faCompass, faCalendarAlt, faExclamationCircle, faSnowflake, faCarSide , faSeedling, faFish, faAppleAlt, faDrumstickBite, faBug } from '@fortawesome/free-solid-svg-icons'
+import { faCheckSquare, faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock, faDollarSign, faPlus, faMapMarkerAlt, faCompass, faCalendarAlt, faExclamationCircle, faSnowflake, faCarSide , faSeedling, faFish, faAppleAlt, faDrumstickBite, faBug, faViruses } from '@fortawesome/free-solid-svg-icons'
 
 //components
 import MyNavbar from './Componets/small-componets/Navbar/navbar';
@@ -37,7 +37,7 @@ const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 export default function App(){
 
   //Awesome Fonts function
-  library.add( faCheckSquare,faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock,faDollarSign, faPlus , faMapMarkerAlt, faCompass, faCalendarAlt, faExclamationCircle, faSnowflake, faCarSide , faSeedling, faFish, faAppleAlt, faDrumstickBite, faBug );
+  library.add( faCheckSquare,faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock,faDollarSign, faPlus , faMapMarkerAlt, faCompass, faCalendarAlt, faExclamationCircle, faSnowflake, faCarSide , faSeedling, faFish, faAppleAlt, faDrumstickBite, faBug, faViruses );
 
   // firebase requirements
   const database = firebase.database();
@@ -54,6 +54,7 @@ export default function App(){
   const [waterLevelSetting, setWaterLevelSetting] = useState(1)
   const [routesList, setRoutes] = useState([]);
   const [routeCost, setRouteCost] = useState(0);
+  const [canoeCost, setCanoeCost] = useState(0);
   const [bookingId, setBookingId] = useState(0);
   const [blockBooking, setBlockBooking] = useState(false)
   // booked dates state for calendar
@@ -77,7 +78,7 @@ export default function App(){
     for (let i = 0; i < keys.length; i ++){
       let k = keys[i]
       const list = dataBookings[k]
-      const bookingItem = {date: list.date, numOfKayaks: list.numOfKayaks, name: list.name, route: list.route, bookingid: list.bookingid, key: k, timeBooked: list.timeBooked}
+      const bookingItem = {date: list.date,numOfCanoe: list.numOfCanoe, numOfKayaks: list.numOfKayaks, name: list.name, route: list.route, bookingid: list.bookingid, key: k, timeBooked: list.timeBooked}
       array.push(bookingItem)
     }
     booked[1]({bookings: array})
@@ -89,7 +90,7 @@ export default function App(){
     for (let i = 0; i < keys.length; i ++){
       let k = keys[i]
       const list = dataBookings[k]
-      const bookingItem = {date: list.date, numOfKayaks: list.numOfKayaks, name: list.name, route: list.route, bookingid: list.bookingid, key: k, timeBooked: list.timeBooked}
+      const bookingItem = {date: list.date,numOfCanoe: list.numOfCanoe, numOfKayaks: list.numOfKayaks, name: list.name, route: list.route, bookingid: list.bookingid, key: k, timeBooked: list.timeBooked}
       array2.push(bookingItem)
     }
     booked2[1]({bookings2: array2})
@@ -130,6 +131,7 @@ export default function App(){
       <FormPage  
                     routeSelected={routeSelected}
                     value={value}
+                    routesList={routesList}
                     kayaksInStock={kayakStock}
                     kayaks={booked[0].bookings}
                     formData={formData}
@@ -156,6 +158,7 @@ export default function App(){
               formData={formData}
               routesList={routesList}
               routeCost={routeCost}
+              canoeCost={canoeCost}
               bookingId={bookingId}
               />}/>
           <Route path='/booking/:id/form' render={() => renderBooking}/>
@@ -179,7 +182,9 @@ export default function App(){
               setRouteSelected={setRouteSelected} 
               waterLevelSetting={waterLevelSetting}
               routesList={routesList}
-              setRouteCost={setRouteCost} />} />
+              setRouteCost={setRouteCost}
+              setCanoeCost={setCanoeCost}
+               />} />
           </Switch>
 
           <Footer/>

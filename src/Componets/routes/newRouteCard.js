@@ -6,7 +6,7 @@ import './newStyle.css';
 
 
 
-const Route = ({title, waterLevel, duration, cost, pic, setRoute, waterLevelSetting, subtitle, setRouteCost, route}) => {
+const Route = ({title, waterLevel, duration, cost, pic, setRoute, waterLevelSetting, subtitle, setRouteCost, route, setCanoeCost}) => {
 
     const [waterLevelAPI, setWaterLevel] = useState(null);
     //routing
@@ -23,7 +23,6 @@ const Route = ({title, waterLevel, duration, cost, pic, setRoute, waterLevelSett
             setWaterLevel(waterLevelStat)
         }
         getData();
-        console.log(route)
     },[])
 
 
@@ -35,21 +34,24 @@ const Route = ({title, waterLevel, duration, cost, pic, setRoute, waterLevelSett
         buttonName = 'Book'
         redAlert = 'content'
         clickFunction = (
-            () => {history.push(`/booking/${title}`); setRoute(title); setRouteCost(cost);   }
+            () => {history.push(`/booking/${title}`); setRoute(title); setRouteCost(cost); setCanoeCost(route.costCanoe);  }
         )
     }   else {
         if(waterLevelSetting > waterLevelAPI) {
             buttonName = 'Water is too low'
             redAlert = 'red content '
             clickFunction = (null)
-        }else {
+        } else if (waterLevelAPI > route.riverLevelRoof){
+            buttonName = 'Water is too high'
+            redAlert = 'red content '
+            clickFunction = (null)
+        } else {
             redAlert = 'content'
             clickFunction = (
-                () => {history.push(`/booking/${title}`); setRoute(title); setRouteCost(cost);  }
+                () => {history.push(`/booking/${title}`); setRoute(title); setRouteCost(cost);setCanoeCost(route.costCanoe);   }
             )
         }
     }
-
 
 
 
@@ -79,21 +81,26 @@ const Route = ({title, waterLevel, duration, cost, pic, setRoute, waterLevelSett
                         <h5>{route.distance} miles | <FontAwesomeIcon icon="clock"  size="1x" /> {duration} hrs</h5>
                         {/* <h5>{' '}<FontAwesomeIcon icon="dollar-sign"  size="1x" /> {cost} = <span style={{fontSize: '14px'}} > 1 kayak for route + transportation</span></h5> */}
                         <div style={{display: 'flex', justifyContent: 'center'}}>
-                            <div style={{width: '22px', height: '2px', backgroundColor: '#ec992c', marginBottom: '8px'}} ></div>
+                            <div style={{width: '225px', height: '2px', backgroundColor: '#ec992c', marginBottom: '8px'}} ></div>
                         </div>
                         <div style={{display: 'flex'}}>
                             <div style={{width: '100px', marginTop: '15px'}}>
                                 <h5>{' '}<FontAwesomeIcon icon="dollar-sign"  size="1x" /> {cost} = </h5>
                             </div>
                             <div >
-                                <h5 style={{ borderRadius: '10px'}} >1 kayak for route + transportation</h5>
+                                <h5 style={{ borderRadius: '10px'}} >1 kayak&#42; for route + transportation</h5>
                             </div>
                         </div>
+                        <div style={{display: 'flex', justifyContent: 'center'}}>
+                            <div style={{width: '225px', height: '2px', backgroundColor: '#ec992c', marginBottom: '8px'}} ></div>
+                        </div>
+                        <h5>Start Time: &#42;&#42;{route.time}</h5>
                         {/* <h5><FontAwesomeIcon icon="water"  size="1x" /> {waterLevelAPI} ft </h5> */}
                     </div>
                     </div>
                     <div onClick={() => history.push('/about')} style={{height: '50px', cursor: 'pointer'}} >
-                    <p onClick={() => history.push('/about')} className="disclaimer">More Info or Trip Details</p>
+                    <p onClick={() => history.push('/about')} className="disclaimer">&#42; we have 1 canoe, which is available for ${route.costCanoe} per route</p>
+                    <p onClick={() => history.push('/about')} className="disclaimer">&#42;&#42; if you are the only one on that day, start time is flexible and you may email/call us and inform us when you want to go</p>
                     </div>
                     </div>
                 </div>

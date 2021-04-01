@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import { Form, Col, Container, Row, OverlayTrigger, Tooltip, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment';
@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 
 
-function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFormView, setFormData, bookingId  }) {
+function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFormView, setFormData, bookingId, routesList  }) {
 
     const [tripName, SetTripName] = useState('no trip name');
     const [kayaksTaking, setKayaksTaking] = useState();
@@ -17,13 +17,46 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
     const [email, setEmail] = useState('not selected');
     const [ifChecked, setChecked] = useState();
     const [alertCheck, setAlertCheck] = useState(false);
-
-
-
+    const [canoe, setCanoe] = useState(true)
+    const [sendingCanoeData, setSendingCanoeData] = useState(0);
+    const [formStartTime, setFormStartTime] = useState('9:30 AM')
 
   let random = Math.floor(Math.random() * Math.floor(10000000))
 
+  useEffect(() => {
+    //rendering dynmaic start time
+    routesList.forEach(routeData => {
+        if(routeData.name === route){
+            setFormStartTime(routeData.time)
+        }
+    });
 
+    //rendering dynamic Canoe if the 1 canoe is availible - part 1
+    kayaks.forEach(booking => {
+        if (value.isSame(booking.date, 'day') && booking.numOfCanoe >= 0 ) {
+            setCanoe(false)
+        }
+    });
+  },[]);
+
+
+  //rendering dynamic Canoe if the 1 canoe is availible - part 2
+
+    let renderCanoe = null
+    if(canoe){
+        renderCanoe = (
+            <>
+                <option value={0} >0 canoe</option>
+                <option value={1} >1 canoe ($50)</option>
+            </>
+        )
+    } else {
+        renderCanoe = (
+            <>
+                <option value={0} >0 canoe</option>
+            </>   
+        )
+    }
 
 
 
@@ -35,7 +68,7 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
 
   //render error if form isn't fully filled
   const continueButtonHandler = () => {
-      if(kayaksTaking === 0 || kayaksTaking === undefined || email === '' || email === 'not selected'  || tripName === 'no trip name'){
+      if( email === '' || email === 'not selected'  || tripName === 'no trip name'){
           setAlertCheck(true)
       } else {
           setAlertCheck(false)
@@ -45,29 +78,29 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
                 route: route,
                 name: tripName,
                 numOfKayaks: kayaksTaking,
-                time: startTime,
+                time: formStartTime,
                 pickUpLocation: otherLoaction,
                 date: value.format("MM/DD/YY"),
                 email: email,
                 timeBooked: moment().format('MMMM Do YYYY, h:mm:ss a'),
                 bookingid: random,
+                numOfCanoe: sendingCanoeData
             }
             setFormData(booking)
-            console.log(booking)
           } else {
             let booking = {
                 route: route,
                 name: tripName,
                 numOfKayaks: kayaksTaking,
-                time: startTime,
+                time: formStartTime,
                 pickUpLocation: location,
                 date: value.format("MM/DD/YY"),
                 email: email,
                 timeBooked: moment().format('MMMM Do YYYY, h:mm:ss a'),
                 bookingid: random,
+                numOfCanoe: sendingCanoeData
             }
             setFormData(booking)
-            console.log(booking)
           }
 
           handleClick();
@@ -78,7 +111,7 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
   if(alertCheck){
     ifAlert = (
         <Alert  variant='warning'>
-            You need to fill out the whole form and agree to continue
+            You need to fill out the whole form
         </Alert>
       )
   } else {
@@ -134,41 +167,11 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
 
 
 
-    function sendEmail(e) {
-        e.preventDefault();
-        console.log('was clicked')
-        emailjs.sendForm('service_n7gxrhi', 'template_eay3k5p', e.target, 'user_eKTDTnT6b5suYFim5twvR')
-          .then((result) => {
-              console.log(result.text);
-          }, (error) => {
-              console.log(error.text);
-          });
-    }
-
-
-
-    //rendering time list for buffering for different routes
-    let renderTimeList = null
-    if (route === 'Sangamon'){
-        renderTimeList = (
-            <>
-                <option>12:00 pm</option>
-            </>
-        )
-    } else {
-        renderTimeList = (
-            <>
-                <option>8:30 am</option>
-            </>
-        )
-    }
-
-
     return (
         <div>
             <Container fluid >
             <Row className="justify-content-md-center">
-                <Form  className='form shadow' onSubmit={sendEmail}>
+                <Form  className='form shadow' >
                     <input type="hidden" value={route} name="route" />
                     <input type="hidden" value={value.format('MM/DD/yy')} name="date" />
                     <input type="hidden" name="user_name" value={tripName} />
@@ -251,13 +254,20 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
                     <div  className='form-body-bottom'>
                         <div >
                             <Form.Control as="select" defaultValue="Choose..."  onChange={(e)=> {setTime(e.target.value)}}>
-                                {renderTimeList}
+                                <option>{formStartTime}</option>
                             </Form.Control>
                         </div>
                         <div>
                             <Form.Group as={Col} controlId="formGridPassword">
                                 <Form.Control as="select" defaultValue="Choose..."  onChange={(e)=> {setKayaksTaking(e.target.value)}}>
                                     {kayaksOptions}
+                                </Form.Control>
+                            </Form.Group>
+                        </div>
+                        <div>
+                            <Form.Group as={Col} controlId="formGridPassword">
+                                <Form.Control as="select" defaultValue="Choose..."  onChange={(e)=> {setSendingCanoeData(e.target.value)}}>
+                                    {renderCanoe}
                                 </Form.Control>
                             </Form.Group>
                         </div>
@@ -273,9 +283,6 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
                     </div> */}
 
                     <div className='nav-buttons' >
-                        {/* <div className='arrow' onClick={() => setViewing(true)}>
-                            <FontAwesomeIcon icon="arrow-left"  size="1x" /> <span> Back </span>
-                        </div> */}
                         <div className='arrow' onClick={continueButtonHandler}>
                             <span> Book </span><FontAwesomeIcon icon="arrow-right"  size="1x" /> 
                         </div>

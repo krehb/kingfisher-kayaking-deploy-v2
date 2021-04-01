@@ -63,7 +63,7 @@ ul .booking-card::before {
 }
 
 ul .booking-card .book-container {
-  height: 200px;
+  height: 180px;
 }
 
 ul .booking-card .book-container .content {
@@ -110,6 +110,7 @@ ul .booking-card .informations-container {
       -ms-flex: 1 0 auto;
           flex: 1 0 auto;
   padding: 20px;
+  height: 330px;
   background: #f0f0f0;
   -webkit-transform: translateY(206px);
           transform: translateY(206px);
@@ -197,6 +198,10 @@ ul .booking-card:hover::before {
   background: rgba(10, 72, 112, 0.6);
 }
 
+ul .booking-card:hover .book-container {
+  margin-bottom: 0px;
+}
+
 ul .booking-card:hover .book-container .content {
   opacity: 1;
   -webkit-transform: translateY(0px);
@@ -206,6 +211,7 @@ ul .booking-card:hover .book-container .content {
 ul .booking-card:hover .informations-container {
   -webkit-transform: translateY(0px);
           transform: translateY(0px);
+  height: 450px;
 }
 
 ul .booking-card:hover .informations-container .more-information {
@@ -221,6 +227,9 @@ ul .booking-card:hover .red {
   ul .booking-card::before {
     background: rgba(10, 72, 112, 0.6);
   }
+  ul .booking-card .book-container {
+    margin-bottom: 0px;
+  }
   ul .booking-card .book-container .content {
     opacity: 1;
     -webkit-transform: translateY(0px);
@@ -229,6 +238,7 @@ ul .booking-card:hover .red {
   ul .booking-card .informations-container {
     -webkit-transform: translateY(0px);
             transform: translateY(0px);
+    height: 450px;
   }
   ul .booking-card .informations-container .more-information {
     opacity: 1;
@@ -260,5 +270,9 @@ h1 {
 
 h5 {
   font-size: 18px;
+}
+
+.sub-title {
+  margin-bottom: 0px;
 }
 /*# sourceMappingURL=newStyle.css.map */

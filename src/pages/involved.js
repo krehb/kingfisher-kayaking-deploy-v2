@@ -46,7 +46,7 @@ export default function Involved(){
                       <a href='mailto:kingfisherkayaking@gmail.com' >Click to email us</a>
                   </ul>
                   <h3>Let us know what you think</h3>
-                  <p>Take a minute survay to make us better for everyone <a href='https://docs.google.com/forms/d/e/1FAIpQLSfEtyVsKXZNpgWOM5etn76OPtW0DZST0QKsN8a9Z1PnICueaw/viewform?usp=sf_link' target='blank' >click here</a></p>
+                  <p>Take a minute survey to make us better for everyone <a href='https://docs.google.com/forms/d/e/1FAIpQLSfEtyVsKXZNpgWOM5etn76OPtW0DZST0QKsN8a9Z1PnICueaw/viewform?usp=sf_link' target='blank' >click here</a></p>
                   </div>
                   <div>
                     <img src="https://storage.googleapis.com/www.inputllc.net/kayaking-img/122121610_10164071809120648_6916017970032625040_o.jpg"  width='400px' />

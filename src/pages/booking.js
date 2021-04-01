@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import '../App.css';
 import Calendar from '../Componets/calendar/index';
 
-export default function BookingPage({ routeSelected, value, setValue, back, booked, kayaksInStock, booked2, form}){
+export default function BookingPage({ routeSelected, value, setValue, back, booked, kayaksInStock, booked2, form, routesList}){
 
     const [calendarData, setCalendarData] = useState(booked)
 

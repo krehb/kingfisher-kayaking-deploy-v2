@@ -15,7 +15,7 @@ import Video from '../Componets/small-componets/video/video';
 
 
 
-export default function HomePage({ setRouteSelected , waterLevelSetting, myRef, setRouteCost, routesList}){
+export default function HomePage({ setRouteSelected , waterLevelSetting, myRef, setRouteCost, routesList, setCanoeCost}){
 
 
 
@@ -32,6 +32,7 @@ export default function HomePage({ setRouteSelected , waterLevelSetting, myRef, 
               waterLevel={waterLevelSetting}
               setRouteSelected={setRouteSelected}
               routesList={routesList}
+              setCanoeCost={setCanoeCost}
               setRouteCost={setRouteCost} />
           </div>
       </div>

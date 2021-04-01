@@ -4,7 +4,7 @@ import {useHistory} from 'react-router-dom';
 import firebase from 'firebase';
 import { Button } from 'react-bootstrap';
 
-export default function Paypal( {formData, routeCost, bookingId} ) {
+export default function Paypal( {formData, routeCost, bookingId, renderTotalPrice, canoeCost} ) {
     
     const paypal = useRef()
     //going to success page after payment
@@ -31,14 +31,25 @@ export default function Paypal( {formData, routeCost, bookingId} ) {
 
     useEffect(() => {
         setBookingId(formData.bookingid);
-        console.log(updatingBookingId);
+
     });
+
+
 
 
     useEffect(()=> {
 
-        let total = formData.numOfKayaks*routeCost
-        setPriceTotal(total)
+        let total = null
+
+        if(formData.numOfKayaks > 0 || formData.numOfCanoe > 0){
+            if(formData.numOfKayaks === undefined){
+                total = canoeCost
+            } else {
+                total = (formData.numOfKayaks*routeCost)+(formData.numOfCanoe * canoeCost)
+            }
+        } 
+
+        setPriceTotal(renderTotalPrice)
         // setUpdatingBookingId(formData)
         setUpdatingBookingCount(bookingId.bookingCount)
         //sending payment through paypal

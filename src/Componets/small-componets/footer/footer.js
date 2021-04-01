@@ -2,10 +2,20 @@ import React from 'react';
 import { Container, Col, Row, ListGroup} from 'react-bootstrap';
 import {Link } from 'react-router-dom';
 import './footer.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Footer() {
     return (
         <footer className="footer mt-auto py-3">
+            <div  style={{textAlign: 'center', paddingBottom: '20px', paddingLeft: '10px', paddingRight: '10px', paddingTop: '18px', width: '300px', marginRight:'20px'}}>
+                <div  className='item-social' style={{marginLeft: '30px'}} ><span className="text-muted">Covid-19 <FontAwesomeIcon  icon="viruses"  size="1x" /></span></div>
+                <div className='item' style={{width: '280px'}} >
+                <p><span className="text-muted" style={{fontWeight: 700}} >Kingfisher Kayaking is committed to the safety of our guests.</span></p>
+                <p><span style={{opacity: .6}} className="text-muted">Kingfisher Kayaking is abiding by COVID-19 CDC guidelines</span></p>
+                <p><span style={{opacity: .6}} className="text-muted">We require all guests to wear a mask in the shuttle van to and from the drop off location.</span></p>
+                <p><span style={{opacity: .6}} className="text-muted">We respectfully ask that you maintain a safe distance from other paddlers.</span></p>
+                </div>
+            </div>
             <div className='footer-items' >
                 <div  className='item-social' ><span className="text-muted">Follow Us</span></div>
                 <div className='item-social'>

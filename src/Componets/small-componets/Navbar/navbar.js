@@ -25,10 +25,6 @@ function MyNavbar(props) {
     
     return (
         <div>
-            <div style={{textAlign: 'center ', backgroundColor: '#20ad00', color: 'white', padding: '20px'}} >
-                <h2 style={{color: 'white'}} >Spring 2021</h2>
-                We are now accepting bookings starting April 1st. Please follow us on social media for important updates.
-            </div>
             <Navbar className='my-nav' bg="light" expand="lg">
                 <Link to='/' >
                     <Navbar.Brand className='brand' >
