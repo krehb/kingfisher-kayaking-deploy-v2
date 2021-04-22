@@ -14,6 +14,7 @@ import ErrorPage from './pages/errorPage';
 import BlockBookingPage from './pages/blockBookingPage';
 import Involved from  './pages/involved';
 import Donate from './pages/donate';
+import Admin from './pages/admin/admin';
 
 //lib
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -25,7 +26,7 @@ import 'video-react/dist/video-react.css'; // import css
 
 //Awesome Fonts
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCheckSquare, faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock, faDollarSign, faPlus, faMapMarkerAlt, faCompass, faCalendarAlt, faExclamationCircle, faSnowflake, faCarSide , faSeedling, faFish, faAppleAlt, faDrumstickBite, faBug, faViruses } from '@fortawesome/free-solid-svg-icons'
+import { faCheckSquare, faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock, faDollarSign, faPlus, faMapMarkerAlt, faCompass, faCalendarAlt, faExclamationCircle, faSnowflake, faCarSide , faSeedling, faFish, faAppleAlt, faDrumstickBite, faBug, faViruses, faUserLock } from '@fortawesome/free-solid-svg-icons'
 
 //components
 import MyNavbar from './Componets/small-componets/Navbar/navbar';
@@ -37,7 +38,7 @@ const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
 export default function App(){
 
   //Awesome Fonts function
-  library.add( faCheckSquare,faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock,faDollarSign, faPlus , faMapMarkerAlt, faCompass, faCalendarAlt, faExclamationCircle, faSnowflake, faCarSide , faSeedling, faFish, faAppleAlt, faDrumstickBite, faBug, faViruses );
+  library.add( faCheckSquare,faArrowLeft, faArrowRight, faCloudRain, faCloud, faSun, faMeh, faSmile, faWater, faClock,faDollarSign, faPlus , faMapMarkerAlt, faCompass, faCalendarAlt, faExclamationCircle, faSnowflake, faCarSide , faSeedling, faFish, faAppleAlt, faDrumstickBite, faBug, faViruses, faUserLock );
 
   // firebase requirements
   const database = firebase.database();
@@ -60,7 +61,7 @@ export default function App(){
   // booked dates state for calendar
   const booked = useState({bookings: []})
   const booked2 = useState({bookings2: []})
-
+  const [kayaksLeft, setKayaksLeft] = useState();
   
   //rendering the data from the firebase for the calendar & rendering settings
   useEffect(() => {
@@ -137,6 +138,7 @@ export default function App(){
                     formData={formData}
                     setFormData={setFormData}
                     bookingId={bookingId}
+                    kayaksLeft={kayaksLeft}
                     />
     )
   }
@@ -164,6 +166,8 @@ export default function App(){
           <Route path='/booking/:id/form' render={() => renderBooking}/>
           <Route path='/booking/:id' render={() => <BookingPage  
               routeSelected={routeSelected}
+              kayaksLeft={kayaksLeft}
+              setKayaksLeft={setKayaksLeft}
               value={value}
               setValue={setValue}
               booked={booked[0].bookings}
@@ -177,6 +181,11 @@ export default function App(){
           <Route path='/waiver' exact render={() => <WaiverPage />} />
           <Route path='/involved' exact render={() => <Involved />} />
           <Route path='/donate' exact render={() => <Donate />} />
+          <Route path='/admin' exact render={() => <Admin
+            booked={booked[0].bookings}
+            booked2={booked2[0].bookings2}
+            bookingId={bookingId}
+           />} />
           <Route path='/' exact render={() => <HomePage
               myRef={myRef} 
               setRouteSelected={setRouteSelected} 

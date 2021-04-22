@@ -27,7 +27,6 @@ export default function Paypal( {formData, routeCost, bookingId, renderTotalPric
     const [updatingBookingId, setBookingId] = useState();
     const [updatingBookingCount, setUpdatingBookingCount] = useState(0);
 
-    const [showButton, setShowButton] = useState(false);
 
     useEffect(() => {
         setBookingId(formData.bookingid);
@@ -40,12 +39,17 @@ export default function Paypal( {formData, routeCost, bookingId, renderTotalPric
     useEffect(()=> {
 
         let total = null
+        let descr = null
 
         if(formData.numOfKayaks > 0 || formData.numOfCanoe > 0){
             if(formData.numOfKayaks === undefined){
                 total = canoeCost
+                setPriceTotal(total)
+                descr = `${formData.numOfCanoe} canoe on a route on ${formData.route}`
             } else {
                 total = (formData.numOfKayaks*routeCost)+(formData.numOfCanoe * canoeCost)
+                setPriceTotal(total)
+                descr = `${formData.numOfKayaks} kayak(s) and ${formData.numOfCanoe} canoe on a route on ${formData.route}`
             }
         } 
 
@@ -62,7 +66,7 @@ export default function Paypal( {formData, routeCost, bookingId, renderTotalPric
                     intent: 'CAPTURE',
                     purchase_units: [
                         {
-                            description: `${formData.numOfKayaks} kayak(s) on a route on ${formData.route}`,
+                            description: `${descr}`,
                             amount: {
                                 currency_code: 'USD',
                                 value: total
@@ -74,7 +78,9 @@ export default function Paypal( {formData, routeCost, bookingId, renderTotalPric
             onApprove: async (data, actions) => {
                 const order = await actions.order.capture()
                 console.log(order)
-                setShowButton(true)
+                sendToDatabase()
+                submitAgreementHandler()
+                sendEmail();
             },
             onError: (err) => {
                 console.log(err)
@@ -86,8 +92,53 @@ export default function Paypal( {formData, routeCost, bookingId, renderTotalPric
 
 
 
-      //submitting form to firebase database
-    const submitHandler = () => {
+
+
+
+    //send 'Agreed to Waiver to Google Drive'
+    const submitAgreementHandler = async (e) => {
+        try {
+            const response = await fetch(`https://v1.nocodeapi.com/kingfisher/google_sheets/${process.env.REACT_APP_WAIVER_SHEET_ID}?tabId=Sheet1`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify([[true, formData.name, new Date().toLocaleString()]])
+            });
+            await response.json()
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    //sending email
+    function sendEmail() {
+        var templateParams = {
+            date: formData.date,
+            route: formData.route,
+            user_name: formData.name,
+            user_email: formData.email,
+            bookingid: updatingBookingId,
+            kayaksTaking: formData.numOfKayaks,
+            canoeTaking: formData.numOfCanoe,
+            location: formData.pickUpLocation,
+            price: renderTotalPrice,
+            startTime: formData.time
+        };
+        emailjs.send(`${process.env.REACT_APP_EMAIL_SERVICE_ID}`, `${process.env.REACT_APP_EMAIL_TEMPLATE_ID}`, templateParams, `${process.env.REACT_APP_EMAIL_USER_ID}`)
+            .then((result) => {
+                console.log(result.text);
+                console.log('was emailed')
+            }, (error) => {
+                console.log(error.text);
+            });
+        history.push('/success');
+    }
+
+
+
+    //submitting form to firebase database
+    const sendToDatabase = () => {
         refSettings.set({
             // bookingId: formData.bookingId,
             bookingCount: updatingBookingCount + 1,
@@ -98,56 +149,16 @@ export default function Paypal( {formData, routeCost, bookingId, renderTotalPric
         console.log('booking sent to database');
         // pushing data to database
         console.log(formData)
-        if(formData.route === 'Salt Fork'){
+        if(formData.route === "Sangamon (Half Route)"){
             refSaltFork.push(formData)
         } else {
             ref.push(formData);
         }
+
+
     }
 
-    function sendEmail(e) {
-        e.preventDefault();
-        submitHandler();
-
-        emailjs.sendForm(`${process.env.REACT_APP_EMAIL_SERVICE_ID}`, `${process.env.REACT_APP_EMAIL_TEMPLATE_ID}`, e.target, `${process.env.REACT_APP_EMAIL_USER_ID}`)
-            .then((result) => {
-                console.log(result.text);
-                console.log('was emailed')
-            }, (error) => {
-                console.log(error.text);
-            });
-
-        history.push('/success');
-    }
-    
-    let renderFinishButton = null
-
-    if (showButton){
-        renderFinishButton = (
-            <div>
-                <form style={{display: 'flex', justifyContent: 'center'}} onSubmit={sendEmail}>
-                    <input type="hidden" value={formData.route} name="route" />
-                    <input type="hidden" value={formData.date} name="date" />
-                    <input type="hidden" name="user_name" value={formData.name} />
-                    <input type="hidden" name="bookingid" value={updatingBookingId} />
-                    <input type="hidden" name="user_email" value={formData.email} />
-                    <input type="hidden" name="kayaksTaking" value={formData.numOfKayaks} />
-                    <input type="hidden" name="location" value={formData.pickUpLocation} />
-                    <input type="hidden" name="price" value={priceTotal} />
-                    <input type="hidden" name="startTime" value={formData.time} />
-                    <Button style={{backgroundColor: '#0A4870'}} type="submit" value="send" >Finish</Button>
-                </form>
-            </div>
-        )
-    } else {
-        renderFinishButton = (
-            <div ref={paypal} ></div>
-        )
-    }
-    
     return (
-        <div>
-            {renderFinishButton}
-        </div>
+        <div  ref={paypal} ></div>
     )
 }

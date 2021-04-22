@@ -38,9 +38,10 @@ function Footer() {
                         />
                         </a>
                 </div>
-                <div className='item'><span className="text-muted">Contact us @ kingfisherkayaking@gmail.com or 217-993-9394</span></div>
+                <div className='item'><span className="text-muted">Contact us @ kingfisherkayaking@gmail.com</span></div>
                 <div className='item'><span className="text-muted">CHANGE TRIP DATE or TRIP CANCELATION -<Link className='link new-footer-link' to='/cancel-trip' >click here</Link></span></div>     
                 <div className='item'><span className="text-muted">Copyright&#169; 2021 KingFisher Kayaking & Developed By <span><a className='input-llc' href='https://www.inputllc.net/' target='blank' >Input LLC</a></span></span></div>                     
+                <div><Link to='/admin' className='link new-footer-link' ><FontAwesomeIcon  icon="user-lock"  size="1x" /></Link></div>
             </div>
             <div className='footer-items'>
                 <div  className='item-social' ><span className="text-muted">Our Mission</span></div>

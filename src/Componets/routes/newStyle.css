@@ -211,7 +211,7 @@ ul .booking-card:hover .book-container .content {
 ul .booking-card:hover .informations-container {
   -webkit-transform: translateY(0px);
           transform: translateY(0px);
-  height: 450px;
+  height: 460px;
 }
 
 ul .booking-card:hover .informations-container .more-information {
@@ -238,7 +238,7 @@ ul .booking-card:hover .red {
   ul .booking-card .informations-container {
     -webkit-transform: translateY(0px);
             transform: translateY(0px);
-    height: 450px;
+    height: 460px;
   }
   ul .booking-card .informations-container .more-information {
     opacity: 1;

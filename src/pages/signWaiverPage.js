@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Container, Button, Alert, Spinner } from 'react-bootstrap';
+import { Container, Button, Alert, Spinner, Form } from 'react-bootstrap';
 import { useHistory} from 'react-router-dom';
 import moment from 'moment';
 
@@ -20,14 +20,15 @@ function WaiverPage() {
     const [waiverAge, setWaiverAge] = useState(0);
     const [signature, setSignature] = useState('')
     const [date, setDate] = useState('')
-    
+    const [checked, setChecked] = useState(false)
 
     const [alert, setAlert] = useState('');
 
     const submitHandler = async (e) => {
         e.preventDefault()
+        setAlert('loading')
 
-        if(waiver1 === '' || waiver2 === '' || waiverFirstName === '' || waiverLastName === '' || signature === '' || waiverAge === 0){
+        if( signature === '' || checked === false){
             setAlert('error')
             console.log('eererroor')
         } else {
@@ -38,14 +39,10 @@ function WaiverPage() {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify([[waiverFirstName, waiverLastName,waiverAge, signature, waiver1, waiver2, new Date().toLocaleString()]])
+                    body: JSON.stringify([[checked, signature, new Date().toLocaleString()]])
                 });
                 await response.json()
-                setwaiver1('')
-                setwaiver2('')
-                setWaiverFirstName('')
-                setWaiverLastName('')
-                setWaiverAge(0)
+                setChecked(false)
                 setSignature('')
 
                 handleClick()
@@ -64,49 +61,61 @@ function WaiverPage() {
                 Submitted Waiver!
             </Alert>
         )
-        renderSpinner = (
-            <Spinner animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-            </Spinner>
-        )
-        setTimeout(function(){setAlert('')}, 4000);
+        // renderSpinner = (
+        //     <Spinner animation="border" role="status">
+        //         <span className="sr-only">Loading...</span>
+        //     </Spinner>
+        // )
+        setTimeout(function(){setAlert('')}, 2000);
     } else if (alert === 'error'){
         renderAlert = (
             <Alert variant='warning' >
                 Enter Your Full Name
             </Alert>
         )
+        // renderSpinner = (
+        //     <Spinner animation="border" role="status">
+        //         <span className="sr-only">Loading...</span>
+        //     </Spinner>
+        // )
+        setTimeout(function(){setAlert('')}, 2000);
+    } else if (alert === 'loading'){
         renderSpinner = (
             <Spinner animation="border" role="status">
                 <span className="sr-only">Loading...</span>
             </Spinner>
         )
-        setTimeout(function(){setAlert('')}, 4000);
-    } else {
+    }else {
         renderAlert = null
         renderSpinner = (
-            <Button style={{marginTop: '20px'}} type="submit" value="Submit">Submit</Button>
+            <div>
+                <input placeholder='Legally Binding Signature' onChange={(e) => {setSignature(e.target.value)}} type="text" value={signature}  name="signature" />
+                <input type="hidden"  name="date" value={moment().format('MMMM Do YYYY, h:mm:ss a')} />
+                <Button  type="submit" value="Submit">Submit</Button>
+            </div>
         )
     }
+    
 
 
 
     return (
         <div className='waiver' >
             <Container className='waiver-container' >
+                <Container>
                 <h3 className='waiver-title' >Waiver</h3>
                 <p>The risk of injury from the activities involved in this program is significant, including the potential for permanent paralysis and death. <span style={{fontWeight: 600}} > I KNOWINGLY AND FREELY ASSUME ALL SUCH RISKS,</span> both known and unknown, <span style={{fontWeight: 600}}>EVEN IF ARISING FROM THE NEGLIGENCE OF THE RELEASEES</span> or others and assume full responsibility for my participation.</p>
                 <p>If I observe any unusual significant hazard during my presence or participation, I will remove myself from participation and bring such to the attention of the nearest official immediately.</p>
                 <p>I, for myself and on behalf of my heirs, assigns, personal representatives and next of kin, HEREBY RELEASE, INDEMNIFY, AND HOLD HARMLESS Kingfisher Kayaking Inc., its officers, officals, agents and/ or employees, other participants, sponsors, advertisers, and if applicable, owners and lessors of premises used to conduct the event, from any and all claims, demands, losses, and liability arising out of related to any INJURY, DISABILITY OR DEATH I may suffer, or loss or damage to person or property, WEATHER ARISING FROM THE NEGLIGENCE OF THE RELEASEES OR OTHERWISE, to the fullest extent permitted by law.</p>
                 <p>I HAVE READ THIS RELEASE OF LIABILITY AND ASSUMPTION OF RISK AGREEMENT, FULLY UNDERSTAND ITS TERMS, UNDERSTAND THAT I HAVE GIVEN UP SUBSTANTIAL RIGHTS BY SIGNING IT, AND SIGN IT FREELY AND VOLUNTARILLY WITHOUT ANY INDUCEMENT.</p>
                 <p><span style={{fontWeight: 600}}>FOR PARENTS/GUARDIANS OF PARTICIPANT OF MINOR AGE (UNDER AGE 18 AT TIME OF REGISTRATION)</span> This is to certify that I, as parent/guardian with legal responsibility for this participant, do consent and agree to his/her release as provided above of all the Releasees, and, for myself, my heirs, assigns and next of kin, I release and agree to indemnify and hold harmless the Releasees from any and all liabiliy incidents to my minor child's involvement or participation in these programs as provided above, EVEN IF ARISING FROM THE NEGLIGENCE OF THE RELEASEES, to the fullest extent permitted by law.</p>
-                <div className='waiver-form' >
+                {/* <div className='waiver-form' >
                 <label>
                     <h4>Participant's Signature / Parent/Guardian Signature</h4>
                     Full Name
                     {' '}<input placeholder='Legally Binding Signature' onChange={(e) => {setwaiver1(e.target.value)}} type="text" value={waiver1} name="name" />
                 </label>
-                </div>
+                </div> */}
                 <br></br>
                 <br></br>
                 <br></br>
@@ -147,7 +156,7 @@ function WaiverPage() {
                 <p>Whenever used herein, the term “equipment” shall include any equipment rented from Kingfisher Kayaking Inc., The customer understands and agrees that the equipment described in this contract remains the property of Kingfisher Kayaking Inc., and that the failure by the customer to return said equipment to Kingfisher Kayaking Inc. within the time provided in this contract may constitute a crime and subject the customer to criminal prosecution</p>
 
                 <h6 style={{fontWeight: 600}}>EQUIPMENT AND RENTAL RATES</h6>
-                <p>www.kingfisherkayaking.org</p>
+                <p>www.kingfisherkayaking.com</p>
 
                 <h6 style={{fontWeight: 600}}>RESPONSIBILITY FOR DAMAGE OR LOSS:</h6>
                 <p>Customer agrees that he/she will return the equipment in the same good condition as when received, ordinary wear and tear accepted, and to repair and replace any and all lost, stolen, damaged, or broken parts or to reimburse Kingfisher Kayaking Inc. for said equipment. Therefore, regardless of the party at fault, Customer understands and agrees to be responsible for the damage to said equipment. Customer accepts use of the equipment AS IS, in good condition, and accepts full responsibility for care of the equipment while under his/her possession.</p>
@@ -167,13 +176,13 @@ function WaiverPage() {
                 <p>I ACKNOWLEDGE FULL RESPONSIBILITY FOR THE SAFETY OF MY GROUP AND AGREE THAT ALL MEMEBERS WILL PARTICIPATE SAFELY AND RESPONSIBLY.</p>
                 <p>I UNDERSTAND THAT I AM RESPONSIBLE FOR RETURNING ALL EQUIPMENT LISTED BELOW AND THE COST OF ANY LOST OR REPAIRED EQUIPMENT WILL BE CHARGED TO MY CARD.</p>
                 <p>FINALLY, I AGREE TO COMPLY WITH ALL OF THE TERMS AND CONITIONS OUTLINED IN THIS AGREEMENT.</p>
-                <div className='waiver-form' >
+                {/* <div className='waiver-form' >
                 <label>
                     <h4>Participant's Signature / Parent/Guardian Signature</h4>
                     Full Name
                     {' '}<input placeholder='Legally Binding Signature' onChange={(e) => {setwaiver2(e.target.value)}} type="text" value={waiver2} name="name" />
                 </label>
-                </div>
+                </div> */}
                 <br></br>
                 <br></br>
                 <br></br>
@@ -222,13 +231,17 @@ I ALSO UNDERSTAND THAT I SHOULD NOT, AND MAY NOT PARTICIPATE IN THIS ACTIVITY IF
                 <label>
                     <h4>Participant's Signature / Parent/Guardian Signature</h4>
                     <div style={{display: 'flex', flexDirection: 'column'}}>
-                        <input placeholder='First Name' onChange={(e) => {setWaiverFirstName(e.target.value)}} type="text" value={waiverFirstName}  name="first-name" />
+                        {/* <input placeholder='First Name' onChange={(e) => {setWaiverFirstName(e.target.value)}} type="text" value={waiverFirstName}  name="first-name" />
                         <input placeholder='Last Name' onChange={(e) => {setWaiverLastName(e.target.value)}} type="text" value={waiverLastName} name="last-name" />
-                        <input placeholder="Participant's Date of Birth" onChange={(e) => {setWaiverAge(e.target.value)}} type="number" value={waiverAge} name="age" />
-                        <input placeholder='Legally Binding Signature' onChange={(e) => {setSignature(e.target.value)}} type="text" value={signature}  name="signature" />
-                        <input type="hidden"  name="date" value={moment().format('MMMM Do YYYY, h:mm:ss a')} />
-                        <input type="hidden"  name="parent/part1" value={waiver1} />
-                        <input type="hidden"  name="parent/part2" value={waiver2} />
+                        <input placeholder="Participant's Date of Birth" onChange={(e) => {setWaiverAge(e.target.value)}} type="number" value={waiverAge} name="age" /> */}
+                        <Form.Group id="formGridCheckbox" >
+                            <Form.Check onChange={(e) => setChecked(e.target.checked)}  type="checkbox" label="I have read the waiver and agree to the Kingfisher Kayaking Terms of Service" />
+                        </Form.Group>
+
+                        {/* <input placeholder='Legally Binding Signature' onChange={(e) => {setSignature(e.target.value)}} type="text" value={signature}  name="signature" />
+                        <input type="hidden"  name="date" value={moment().format('MMMM Do YYYY, h:mm:ss a')} /> */}
+                        <input type="hidden"  name="agreeing" value={checked} />
+                        {/* <input type="hidden"  name="parent/part2" value={waiver2} /> */}
                         <div>
                             {renderSpinner}
                         </div>
@@ -236,6 +249,7 @@ I ALSO UNDERSTAND THAT I SHOULD NOT, AND MAY NOT PARTICIPATE IN THIS ACTIVITY IF
                 </label>
                 </form>
                 </div>
+                </Container>
 
 
             </Container>

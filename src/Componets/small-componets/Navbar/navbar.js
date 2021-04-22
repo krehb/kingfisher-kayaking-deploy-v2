@@ -35,7 +35,7 @@ function MyNavbar(props) {
                         height="30"
                         className="d-inline-block align-top"
                     />{' '}
-                    <span className='brand' >KingFisher Kayaking</span></Navbar.Brand>
+                    <span className='brand' >Kingfisher Kayaking</span></Navbar.Brand>
                 </Link>   
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">

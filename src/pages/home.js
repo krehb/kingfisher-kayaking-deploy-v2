@@ -21,6 +21,7 @@ export default function HomePage({ setRouteSelected , waterLevelSetting, myRef, 
 
 
 
+
   //whats rendered to the DOM
   return (
       <div >
@@ -34,6 +35,16 @@ export default function HomePage({ setRouteSelected , waterLevelSetting, myRef, 
               routesList={routesList}
               setCanoeCost={setCanoeCost}
               setRouteCost={setRouteCost} />
+            <div style={{textAlign: 'center', color: 'white',  display: 'flex', justifyContent: 'center'}} >
+              <div></div>
+              <div style={{backgroundColor: 'gray', borderRadius: '10px', padding: '5px', opacity: .8}} >
+                <h6><span style={{fontWeight: 700}} >Beginner</span>: slow waters and no log jams and few obstacles</h6>
+                <h6><span style={{fontWeight: 700}}>Intermediate</span>: faster waters, log jams and more obstacles</h6>
+              </div>
+              <div>
+
+              </div>
+            </div>
           </div>
       </div>
   )

@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 
 
-function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFormView, setFormData, bookingId, routesList  }) {
+function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFormView, setFormData, bookingId, routesList, FromCalendarKayaksLeft  }) {
 
     const [tripName, SetTripName] = useState('no trip name');
     const [kayaksTaking, setKayaksTaking] = useState();
@@ -15,33 +15,27 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
     const [location, setLocation] = useState('MarketPlace Mall (North East Corner)');
     const [otherLoaction, SetOtherLocation] = useState('not selected');
     const [email, setEmail] = useState('not selected');
-    const [ifChecked, setChecked] = useState();
+    const [ifChecked, setChecked] = useState(false);
     const [alertCheck, setAlertCheck] = useState(false);
     const [canoe, setCanoe] = useState(true)
     const [sendingCanoeData, setSendingCanoeData] = useState(0);
     const [formStartTime, setFormStartTime] = useState('9:30 AM')
 
-  let random = Math.floor(Math.random() * Math.floor(10000000))
 
-  useEffect(() => {
-    //rendering dynmaic start time
-    routesList.forEach(routeData => {
-        if(routeData.name === route){
-            setFormStartTime(routeData.time)
+    //for rendering canoe only on weekend and with more than 4 kayaks
+    const[renderCanoeForList, setRenderCanoeForList] = useState(false) 
+
+    useEffect(() => {
+        if(value.format("dddd") === 'Saturday' || value.format("dddd") === 'Sunday'){
+            console.log('it is the weekend')
+            setRenderCanoeForList(true)
+        } else {
+            console.log('no is weekkend')
+            setRenderCanoeForList(false)
         }
-    });
+    },[]);
 
-    //rendering dynamic Canoe if the 1 canoe is availible - part 1
-    kayaks.forEach(booking => {
-        if (value.isSame(booking.date, 'day') && booking.numOfCanoe >= 0 ) {
-            setCanoe(false)
-        }
-    });
-  },[]);
-
-
-  //rendering dynamic Canoe if the 1 canoe is availible - part 2
-
+    //rendering dynamic Canoe if the 1 canoe is availible - part 2
     let renderCanoe = null
     if(canoe){
         renderCanoe = (
@@ -59,6 +53,30 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
     }
 
 
+  let random = Math.floor(Math.random() * Math.floor(10000000))
+
+  useEffect(() => {
+    //rendering dynmaic start time
+    routesList.forEach(routeData => {
+        if(routeData.name === route){
+            setFormStartTime(routeData.time)
+        }
+    });
+
+
+ 
+
+    //rendering dynamic Canoe if the 1 canoe is availible - part 1
+    kayaks.forEach(booking => {
+        if (value.isSame(booking.date, 'day') && booking.numOfCanoe >= 0 ) {
+            setCanoe(false)
+        }
+    });
+  },[]);
+
+
+
+
 
   //routing for the 'continue' button
   let history = useHistory();
@@ -68,7 +86,7 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
 
   //render error if form isn't fully filled
   const continueButtonHandler = () => {
-      if( email === '' || email === 'not selected'  || tripName === 'no trip name'){
+      if( email === '' || email === 'not selected'  || tripName === 'no trip name' || ifChecked === false){
           setAlertCheck(true)
       } else {
           setAlertCheck(false)
@@ -111,7 +129,7 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
   if(alertCheck){
     ifAlert = (
         <Alert  variant='warning'>
-            You need to fill out the whole form
+            You need to fill out the whole form & agree
         </Alert>
       )
   } else {
@@ -200,7 +218,7 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
                     <div className='form-body-top' >
                         <div>
                             <Form.Group as={Col} controlId="formGridname">
-                                <Form.Control type="text" placeholder="Name" onChange={(e)=> {SetTripName(e.target.value)}} />
+                                <Form.Control type="text" placeholder="Full Name" onChange={(e)=> {SetTripName(e.target.value)}} />
                             </Form.Group>
                         </div>
                         <div>
@@ -238,11 +256,14 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
                             </Form.Control>
                         </div>
 
-                        <div>
-                            <Form.Group as={Col} controlId="formGridname">
-                                <Form.Control type="text" placeholder="if selected 'Other'" onChange={(e)=> {SetOtherLocation(e.target.value)}} />
-                            </Form.Group>
-                        </div>
+                        {location === 'Other (only within city limits)' &&
+                            <div>
+                                <Form.Group as={Col} controlId="formGridname">
+                                    <Form.Control type="text" placeholder="if selected 'Other'" onChange={(e)=> {SetOtherLocation(e.target.value)}} />
+                                </Form.Group>
+                            </div>
+                        }
+
                     </div>
 
                     <div>
@@ -265,22 +286,26 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
                             </Form.Group>
                         </div>
                         <div>
-                            <Form.Group as={Col} controlId="formGridPassword">
-                                <Form.Control as="select" defaultValue="Choose..."  onChange={(e)=> {setSendingCanoeData(e.target.value)}}>
-                                    {renderCanoe}
-                                </Form.Control>
-                            </Form.Group>
+
+                            {renderCanoeForList &&
+                                <Form.Group as={Col} controlId="formGridPassword">
+                                    <Form.Control as="select" defaultValue="Choose..."  onChange={(e)=> {setSendingCanoeData(e.target.value)}}>
+                                        {renderCanoe}
+                                    </Form.Control>
+                                </Form.Group>
+                            }
+
                         </div>
                     </div>
 
-                    {/* <div>
+                    <div>
                         <Form.Group id="formGridCheckbox" >
-                            <a target='blank' href='https://kingfisherkayaking.org/waiver' >
-                                <Form.Check onChange={(e) => {setChecked(e.target.checked)}}  type="checkbox" label="I agree to KingFisher Kayaking Terms of Service" />
+                            <a target='blank' href='https://kingfisherkayaking.com/waiver' >
+                                <Form.Check onChange={(e) => {setChecked(e.target.checked)}}  type="checkbox" label="I have read the waiver, I legelly agree to it." />
                             </a>
                         </Form.Group>
 
-                    </div> */}
+                    </div>
 
                     <div className='nav-buttons' >
                         <div className='arrow' onClick={continueButtonHandler}>

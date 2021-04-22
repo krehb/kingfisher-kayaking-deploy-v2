@@ -99,7 +99,7 @@ const Route = ({title, waterLevel, duration, cost, pic, setRoute, waterLevelSett
                     </div>
                     </div>
                     <div onClick={() => history.push('/about')} style={{height: '50px', cursor: 'pointer'}} >
-                    <p onClick={() => history.push('/about')} className="disclaimer">&#42; we have 1 canoe, which is available for ${route.costCanoe} per route</p>
+                    <p onClick={() => history.push('/about')} className="disclaimer">&#42; 1 canoe is available for ${route.costCanoe} only on weekends and must also rent at least 4 kayaks additionally.</p>
                     <p onClick={() => history.push('/about')} className="disclaimer">&#42;&#42; if you are the only one on that day, start time is flexible and you may email/call us and inform us when you want to go</p>
                     </div>
                     </div>
