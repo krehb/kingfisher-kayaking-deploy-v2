@@ -7,12 +7,12 @@ import { useHistory } from "react-router-dom";
 
 
 
-function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFormView, setFormData, bookingId, routesList, FromCalendarKayaksLeft  }) {
+function SelectionFrom({ kayaks, route, value, kayaksInStock, kayaksLeftList, setFormView, setFormData, bookingId, routesList, FromCalendarKayaksLeft, kayaksLeftOther  }) {
 
     const [tripName, SetTripName] = useState('no trip name');
     const [kayaksTaking, setKayaksTaking] = useState();
     const [startTime, setTime] = useState('8am');
-    const [location, setLocation] = useState('MarketPlace Mall (North East Corner)');
+    const [location, setLocation] = useState("I'll drive to the starting spot");
     const [otherLoaction, SetOtherLocation] = useState('not selected');
     const [email, setEmail] = useState('not selected');
     const [ifChecked, setChecked] = useState(false);
@@ -20,6 +20,7 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
     const [canoe, setCanoe] = useState(true)
     const [sendingCanoeData, setSendingCanoeData] = useState(0);
     const [formStartTime, setFormStartTime] = useState('9:30 AM')
+
 
 
     //for rendering canoe only on weekend and with more than 4 kayaks
@@ -96,7 +97,7 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
                 route: route,
                 name: tripName,
                 numOfKayaks: kayaksTaking,
-                time: formStartTime,
+                time: startTime,
                 pickUpLocation: otherLoaction,
                 date: value.format("MM/DD/YY"),
                 email: email,
@@ -110,7 +111,7 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
                 route: route,
                 name: tripName,
                 numOfKayaks: kayaksTaking,
-                time: formStartTime,
+                time: startTime,
                 pickUpLocation: location,
                 date: value.format("MM/DD/YY"),
                 email: email,
@@ -184,6 +185,31 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
     }
 
 
+    // this is real confusing because we have mulitple routes on the same time, so to make it no possible to over book the kayaks on different routes
+    if(startTime === '2:00 PM' || route === 'Sangamon'){
+        console.log('it is 2pm switch the kayak option')
+        console.log(kayaksLeftList, 'from this list')
+        console.log(kayaksLeftOther, 'other list')
+        console.log(kayaksInStock - (kayaksInStock - kayaksLeftOther) - (kayaksInStock- kayaksLeftList), 'how many kayaks are left at this time')
+        kayaksLeftArray = []
+
+        //some weird error that 1 to many kayaks on the sangamon route opposed to the sangamon half route
+        if(route === 'Sangamon'){
+            const newKayaksLeft = kayaksInStock - (kayaksInStock - kayaksLeftOther) - (kayaksInStock- kayaksLeftList) - 1
+
+            for (let i = 0; i < newKayaksLeft + 1; i++){
+                kayaksLeftArray.push(i)
+            }
+            kayaksOptions = kayaksLeftArray.map(x=> (<option value={x} >{x} kayak(s)</option>))
+        } else {
+            const newKayaksLeft = kayaksInStock - (kayaksInStock - kayaksLeftOther) - (kayaksInStock- kayaksLeftList)
+            for (let i = 0; i < newKayaksLeft + 1; i++){
+                kayaksLeftArray.push(i)
+            }
+            kayaksOptions = kayaksLeftArray.map(x=> (<option value={x} >{x} kayak(s)</option>))
+    
+        }
+    }
 
     return (
         <div>
@@ -248,10 +274,10 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
                     <div className='form-body-middle' >
                         <div>
                             <Form.Control as="select" defaultValue="Choose..."  onChange={(e) => {setLocation(e.target.value)}}>
-                                <option style={{backgroundColor: '#C9EE8C'}} >MarketPlace Mall (North East Corner)</option>
+                                <option style={{backgroundColor: '#CAE6C3'}} >I'll drive to the starting spot</option>
+                                <option style={{backgroundColor: '#C9EE8C'}} >MarketPlace Mall (Field & Streams Lot)</option>
                                 <option style={{backgroundColor: '#C9EE8C'}} >LincolnSquare Mall (South Side)</option>
                                 <option style={{backgroundColor: '#C9EE8C'}} >Savoy Walmart (North East Corner)</option>
-                                <option style={{backgroundColor: '#CAE6C3'}} >I'll drive to the starting spot</option>
                                 <option style={{backgroundColor: '#8CE7EE'}} >Other (only within city limits)</option>
                             </Form.Control>
                         </div>
@@ -274,8 +300,11 @@ function SelectionFrom({ kayaks, route, value, kayaksInStock, setViewing, setFor
 
                     <div  className='form-body-bottom'>
                         <div >
-                            <Form.Control as="select" defaultValue="Choose..."  onChange={(e)=> {setTime(e.target.value)}}>
+                            <Form.Control as="select" defaultValue="Choose..."  onChange={(e)=> {setTime(`${e.target.value}`); console.log(e.target.value)}}>
                                 <option>{formStartTime}</option>
+                                {route === 'Sangamon (Half Route)' &&
+                                    <option>2:00 PM</option>
+                                }
                             </Form.Control>
                         </div>
                         <div>

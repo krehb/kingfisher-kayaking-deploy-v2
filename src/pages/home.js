@@ -39,7 +39,7 @@ export default function HomePage({ setRouteSelected , waterLevelSetting, myRef, 
               <div></div>
               <div style={{backgroundColor: 'gray', borderRadius: '10px', padding: '5px', opacity: .8}} >
                 <h6><span style={{fontWeight: 700}} >Beginner</span>: slow waters and no log jams and few obstacles</h6>
-                <h6><span style={{fontWeight: 700}}>Intermediate</span>: faster waters, log jams and more obstacles</h6>
+                <h6><span style={{fontWeight: 700}}>Advanced</span>: faster waters, log jams and more obstacles</h6>
               </div>
               <div>
 

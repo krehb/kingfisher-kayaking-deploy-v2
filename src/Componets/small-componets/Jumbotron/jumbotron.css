@@ -42,6 +42,11 @@
 .step {
     width: 250px;
     display: flex;
+    background-color: #E6E6E8;
+    color: black;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .step-img {

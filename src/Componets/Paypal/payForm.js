@@ -61,6 +61,8 @@ function PayFrom({  route, value, formData, routeCost,bookingId , canoeCost}) {
         )
     }
 
+    console.log(renderTotalPrice)
+
     return (
         <div className='pay' >
             <div>

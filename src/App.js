@@ -2,7 +2,8 @@ import React, {useState, useEffect, useRef} from 'react';
 import './NewApp.css';
 
 //pages
-import About from './pages/about';
+import About from './pages/about/about';
+import Wildlife from './pages/about/wildlife';
 import HomePage from './pages/home';
 import BookingPage from './pages/booking';
 import SuccessPage from './pages/success';
@@ -62,7 +63,10 @@ export default function App(){
   const booked = useState({bookings: []})
   const booked2 = useState({bookings2: []})
   const [kayaksLeft, setKayaksLeft] = useState();
+  const [kayaksLeftOther, setKayaksLeftOther] = useState();
   
+
+
   //rendering the data from the firebase for the calendar & rendering settings
   useEffect(() => {
     ref.on('value', gotDataHandler, errDataHandler);
@@ -79,7 +83,7 @@ export default function App(){
     for (let i = 0; i < keys.length; i ++){
       let k = keys[i]
       const list = dataBookings[k]
-      const bookingItem = {date: list.date,numOfCanoe: list.numOfCanoe, numOfKayaks: list.numOfKayaks, name: list.name, route: list.route, bookingid: list.bookingid, key: k, timeBooked: list.timeBooked}
+      const bookingItem = {date: list.date,numOfCanoe: list.numOfCanoe, numOfKayaks: list.numOfKayaks, name: list.name, route: list.route, bookingid: list.bookingid, key: k, timeBooked: list.timeBooked, email: list.email, time: list.time, pickUpLocation: list.pickUpLocation}
       array.push(bookingItem)
     }
     booked[1]({bookings: array})
@@ -91,7 +95,7 @@ export default function App(){
     for (let i = 0; i < keys.length; i ++){
       let k = keys[i]
       const list = dataBookings[k]
-      const bookingItem = {date: list.date,numOfCanoe: list.numOfCanoe, numOfKayaks: list.numOfKayaks, name: list.name, route: list.route, bookingid: list.bookingid, key: k, timeBooked: list.timeBooked}
+      const bookingItem = {date: list.date,numOfCanoe: list.numOfCanoe, numOfKayaks: list.numOfKayaks, name: list.name, route: list.route, bookingid: list.bookingid, key: k, timeBooked: list.timeBooked, email: list.email, time: list.time,pickUpLocation: list.pickUpLocation}
       array2.push(bookingItem)
     }
     booked2[1]({bookings2: array2})
@@ -139,6 +143,7 @@ export default function App(){
                     setFormData={setFormData}
                     bookingId={bookingId}
                     kayaksLeft={kayaksLeft}
+                    kayaksLeftOther={kayaksLeftOther}
                     />
     )
   }
@@ -154,6 +159,7 @@ export default function App(){
             bookingId={bookingId}
 
           />} />
+          <Route path='/wildlife' render={()=> <Wildlife />} />
           <Route path='/booking/:id/form/pay' render={() => <PaymentPage  
               routeSelected={routeSelected}
               value={value}
@@ -168,6 +174,7 @@ export default function App(){
               routeSelected={routeSelected}
               kayaksLeft={kayaksLeft}
               setKayaksLeft={setKayaksLeft}
+              setKayaksLeftOther={setKayaksLeftOther}
               value={value}
               setValue={setValue}
               booked={booked[0].bookings}
@@ -182,9 +189,15 @@ export default function App(){
           <Route path='/involved' exact render={() => <Involved />} />
           <Route path='/donate' exact render={() => <Donate />} />
           <Route path='/admin' exact render={() => <Admin
-            booked={booked[0].bookings}
-            booked2={booked2[0].bookings2}
-            bookingId={bookingId}
+              routeSelected={routeSelected}
+              kayaksLeft={kayaksLeft}
+              setKayaksLeft={setKayaksLeft}
+              value={value}
+              setValue={setValue}
+              booked={booked[0].bookings}
+              booked2={booked2[0].bookings2}
+              kayaksInStock={kayakStock}
+              kayaks={booked[0].bookings}
            />} />
           <Route path='/' exact render={() => <HomePage
               myRef={myRef} 

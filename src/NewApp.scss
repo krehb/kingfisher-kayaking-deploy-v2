@@ -8,7 +8,7 @@ $font : 'Sofia', sans-serif;
 }
 .videoText {
     position: absolute;
-    top: 320px;
+    top: 260px;
     text-align: center;
     width: 800px;
     font-weight: 600;
@@ -277,6 +277,28 @@ $font : 'Sofia', sans-serif;
 }
 
 
+.water-shed-table {
+    @media screen and (max-width: $small) {
+        font-size: 10px;
+    }
+}
+.watershed-img {
+    width: 420px;
+    @media screen and (max-width: $small) {
+        width: 300px;
+    }
+}
+.wildlife-table {
+    width: 420px;
+    @media screen and (max-width: $small) {
+        width: 300px;
+    }
+    .wildlife-img {
+        @media screen and (max-width: $small) {
+            width: 50px;
+        } 
+    }
+}
 
 .waiver {
     background-image: url('./background.jpg');

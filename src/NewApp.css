@@ -10,7 +10,7 @@
 
 .videoText {
   position: absolute;
-  top: 320px;
+  top: 260px;
   text-align: center;
   width: 800px;
   font-weight: 600;
@@ -351,6 +351,38 @@
   .success {
     margin-left: 10px;
     margin-right: 10px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .water-shed-table {
+    font-size: 10px;
+  }
+}
+
+.watershed-img {
+  width: 420px;
+}
+
+@media screen and (max-width: 500px) {
+  .watershed-img {
+    width: 300px;
+  }
+}
+
+.wildlife-table {
+  width: 420px;
+}
+
+@media screen and (max-width: 500px) {
+  .wildlife-table {
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .wildlife-table .wildlife-img {
+    width: 50px;
   }
 }
 

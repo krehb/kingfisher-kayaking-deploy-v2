@@ -2,7 +2,7 @@ import React, { useEffect} from 'react';
 import SelectionFrom from '../Componets/SelectionForm/SelectionForm'
 
 
-function FormPage({routeSelected, kayaks, route, value, kayaksInStock,kayaksLeft, setViewing, setFormView, setFormData, bookingId, routesList }) {
+function FormPage({routeSelected, kayaks, route, value, kayaksInStock,kayaksLeft, setViewing, setFormView, setFormData, bookingId, routesList , kayaksLeftOther}) {
 
 
     
@@ -14,8 +14,8 @@ function FormPage({routeSelected, kayaks, route, value, kayaksInStock,kayaksLeft
     return (
         <div className='RoutesList'>
           <SelectionFrom
-            
-              kayaksLeft={kayaksLeft}
+              kayaksLeftOther={kayaksLeftOther}
+              kayaksLeftList={kayaksLeft}
               setFormView={setFormView}
               setViewing={setViewing}
               routeSelected={routeSelected}

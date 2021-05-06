@@ -3,13 +3,16 @@ import {useHistory} from 'react-router-dom';
 import './calendar.css';
 import buildCalendar from './build';
 import renderKayaks from './renderKayaks';
+import renderKayaksOther from './renderKayaksOtherList';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Weather from '../weather/weather';
 import {Link} from 'react-router-dom';
 import moment from 'moment';
 
-export default function Calendar({value, onChange, booked2, booked, kayaksInStock , routeSelected, setViewing, kayaksLeft, setKayaksLeft}) {
+export default function Calendar({value, onChange, otherCalendarDataList, booked, kayaksInStock , routeSelected, setViewing, kayaksLeft, setKayaksLeft, setKayaksLeftOther}) {
     const [calendar , setCalendar] = useState([]);
+
+
 
     const [guidedRoute, setGuideRoute] = useState('no guide');
 
@@ -19,6 +22,7 @@ export default function Calendar({value, onChange, booked2, booked, kayaksInStoc
     useEffect(() => {
         setCalendar(buildCalendar(value));
         setKayaksLeft(renderKayaks(value, kayaksInStock, booked));
+        setKayaksLeftOther(renderKayaksOther(value, kayaksInStock, booked, otherCalendarDataList));
 
         // rendering 'Guide on: {guideRoute}'
         setGuideRoute('no guided trip')

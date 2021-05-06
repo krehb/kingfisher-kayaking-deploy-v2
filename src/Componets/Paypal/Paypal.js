@@ -30,7 +30,7 @@ export default function Paypal( {formData, routeCost, bookingId, renderTotalPric
 
     useEffect(() => {
         setBookingId(formData.bookingid);
-
+        console.log(renderTotalPrice)
     });
 
 

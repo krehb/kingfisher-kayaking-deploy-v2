@@ -4,7 +4,6 @@ export default function renderKayaks(value, stock, booked) {
   //rendering nonBooked days
     let stockOfKayaks = stock
 
-
   //rendering booked days
   let datesBookArray = []
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
@@ -14,6 +13,8 @@ export default function renderKayaks(value, stock, booked) {
         if (value.isSame(booking.date, 'day') ) {
             let parsedKayaks = JSON.parse(booking.numOfKayaks)
             datesBookArray.push(parsedKayaks)
+
+
 
             if(datesBookArray.length > 1){
                 // muliple bookings on single date
@@ -28,6 +29,9 @@ export default function renderKayaks(value, stock, booked) {
             }
         }
     });
+
+
+
 
 
     return stockOfKayaks

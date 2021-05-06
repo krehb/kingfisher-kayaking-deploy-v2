@@ -85,16 +85,20 @@ const Route = ({title, waterLevel, duration, cost, pic, setRoute, waterLevelSett
                         </div>
                         <div style={{display: 'flex'}}>
                             <div style={{width: '100px', marginTop: '15px'}}>
-                                <h5>{' '}<FontAwesomeIcon icon="dollar-sign"  size="1x" /> {cost} = </h5>
+                                <h5><FontAwesomeIcon icon="dollar-sign"  size="1x" /> {cost}:  </h5>
                             </div>
-                            <div >
-                                <h5 style={{ borderRadius: '10px'}} >1 kayak&#42; for route + transportation</h5>
+                            <div style={{border: 'solid 2px #ec992c', marginBottom: '5px', borderRadius: '10px'}} >
+                                <h5 style={{ borderRadius: '10px'}} >  1 kayak&#42; per person for route + transportation</h5>
                             </div>
                         </div>
                         <div style={{display: 'flex', justifyContent: 'center'}}>
                             <div style={{width: '225px', height: '2px', backgroundColor: '#ec992c', marginBottom: '8px'}} ></div>
                         </div>
-                        <h5>Start Time: &#42;&#42;{route.time}</h5>
+                        <h5>Start Time: &#42;&#42;{route.time}
+                        {title === 'Sangamon (Half Route)' &&
+                                    <>{' and '}2:00 PM</>
+                        }
+                        </h5>
                         {/* <h5><FontAwesomeIcon icon="water"  size="1x" /> {waterLevelAPI} ft </h5> */}
                     </div>
                     </div>
